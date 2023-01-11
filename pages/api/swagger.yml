@@ -1,0 +1,64 @@
+---
+openapi: 3.0.0
+info:
+  title: Blogverse API Documentation
+  version: "1.0"
+paths:
+  "/api/blog_space/generate":
+    post:
+      description: Create a new blog space
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the blog space
+                  example: Mountain Biking
+      responses:
+        "200":
+          description: The blog space was created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: The id of the blog space
+                      created_at:
+                        type: string
+                        description: The date the blog space was created
+                      name:
+                        type: string
+                        description: The name of the blog space
+                      slug:
+                        type: string
+                        description: The slug of the blog space
+        "400":
+          description: The blog space already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: The error message
+        "500":
+          description: An error occurred
+  "/api/blog_space":
+    get:
+      description: Returns a list of blog spaces with their posts
+      responses:
+        "200":
+          description: Blog spaces with their posts
+        "500":
+          description: Error
+components: {}
+tags: []
