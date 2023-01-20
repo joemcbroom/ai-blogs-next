@@ -28,5 +28,12 @@ async function getAllPosts (req, res) {
 }
 
 async function createPosts (req, res) {
-  console.log('create posts called');
+  // Max is 10
+  // TODO: create posts with openai after integration
+  const { qty } = req.query
+
+  if (qty > 10) {
+    return res.status(400).json({ error: 'Max is 10' });
+  }
+  return res.status(200).json({ message: `create ${qty} posts` });
 }
