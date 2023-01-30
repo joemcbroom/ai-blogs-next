@@ -1,11 +1,10 @@
 import Link from 'next/link';
-import styles from './blog.module.css';
 
 const BLogLayout = ({ params, children }) => {
-	const { blogName } = params;
+	// const { blogName } = params;
 	return (
 		<>
-			<nav className={styles.nav}>
+			<nav>
 				<h1>Some links to blog posts:</h1>
 				<Link href="/blog/blog1/post1">Blog1 Post1</Link>
 				<Link href="/blog/blog1/post2">Blog1 Post2</Link>

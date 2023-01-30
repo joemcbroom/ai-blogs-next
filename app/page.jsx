@@ -1,9 +1,7 @@
-import Image from 'next/image';
-
-export default function Home() {
+export default function Page() {
 	return (
-		<main>
-			<h1> Hi</h1>
-		</main>
+		<h1 className="text-2xl text-blue-900 font-bold underline">
+			Hello, Next.js!
+		</h1>
 	);
 }
