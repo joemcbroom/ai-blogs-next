@@ -18,7 +18,7 @@ export default function TypeWriter() {
 				}}
 				getBeforeInit={(instance) => {
 					PHRASES.forEach((phrase, index) => {
-						instance.type(phrase).pause(100).delete().pause(100);
+						instance.type(phrase).pause(375).delete().pause(100);
 					});
 					return instance;
 				}}
