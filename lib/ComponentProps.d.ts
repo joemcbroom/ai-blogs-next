@@ -1,3 +1,4 @@
+import { ColorPicker } from '#/components/UI/ColorPicker';
 // Define the prop types for components
 
 // BlogverseLogo
@@ -25,4 +26,17 @@ export interface AdminLinkProps {
 export interface AdminHeadingProps {
 	title: string;
 	subtitle: string;
+}
+
+// AdminButton
+export interface AdminButtonProps {
+	children: React.ReactNode;
+	disabled?: boolean;
+	hoverText?: string; // text to show on hover
+	onClick: () => void;
+}
+
+export interface ColorPickerProps {
+	color?: string;
+	handleColorChangeComplete: (color: string) => void;
 }

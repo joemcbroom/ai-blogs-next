@@ -1,7 +1,7 @@
 'use client';
 
 // components
-import AdminLink from './AdminLink';
+import AdminLink from '#/components/admin/AdminLink';
 
 // library
 import {
@@ -49,7 +49,7 @@ export default function AdminNav() {
 
 	return (
 		<nav
-			className={`flex flex-col justify-center items-center gap-3 h-screen w-1/5 relative px-10 ${bgClass} transition-colors`}
+			className={`flex flex-col justify-center items-center gap-3 h-screen sticky top-0 min-w-max px-10 transition-colors ${bgClass} `}
 		>
 			<BlogverseLogo
 				type="whiteVertical"
