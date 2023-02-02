@@ -19,14 +19,23 @@ type Inputs = {
 	tertiaryColor: string;
 };
 
+const defaultValues: Inputs = {
+	spaceName: '',
+	spaceDescription: '',
+	primaryColor: '#7418EA',
+	secondaryColor: '#21FA90',
+	tertiaryColor: '#F3F4F6',
+};
+
 export default function NewSpacePage() {
 	const {
 		register,
 		handleSubmit,
 		watch,
 		setValue,
+		reset,
 		formState: { errors },
-	} = useForm<Inputs>();
+	} = useForm({ defaultValues });
 
 	const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
@@ -53,6 +62,7 @@ export default function NewSpacePage() {
 				title="Create a New Space"
 				subtitle="What are you naming this baby?"
 			/>
+
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<input
 					defaultValue=""
@@ -86,13 +96,49 @@ export default function NewSpacePage() {
 					Generate
 				</AdminButton>
 
+				<h2 className="text-lg mt-6">Color Theme</h2>
+				<p>
+					Want some color ideas?{' '}
+					<a href="#" className="text-pink-400">
+						Color palette generator
+					</a>{' '}
+				</p>
+
 				<ColorPicker
-					handleColorChangeComplete={(hex) => setValue('primaryColor', hex)}
+					handleChange={(hex) => setValue('primaryColor', hex)}
+					color={watch('primaryColor')}
+					label="Main"
+					subLabel="Logo, icons, links, primary buttons"
 				/>
 
-				<input className="block" type="submit" />
+				<ColorPicker
+					handleChange={(hex) => setValue('secondaryColor', hex)}
+					color={watch('secondaryColor')}
+					label="Secondary"
+					subLabel="Secondary buttons, tags, borders"
+				/>
 
-				<span>Primary color: {watch('primaryColor')}</span>
+				<ColorPicker
+					handleChange={(hex) => setValue('tertiaryColor', hex)}
+					color={watch('tertiaryColor')}
+					label="Tertiary"
+					subLabel="Backgrounds"
+				/>
+
+				<div className="border-t w-full mt-6">
+					<p>
+						Are you satisfied with your creation?{' '}
+						<span
+							className="text-pink-400 cursor-pointer"
+							onClick={() => reset()}
+						>
+							No, Thanos snap that shit
+						</span>
+					</p>
+					<AdminButton type="submit" disabled={!spaceName}>
+						Yes, Create Space
+					</AdminButton>
+				</div>
 			</form>
 		</>
 	);

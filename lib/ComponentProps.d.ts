@@ -1,4 +1,5 @@
-import { ColorPicker } from '#/components/UI/ColorPicker';
+import { ColorPicker } from '#/components/UI/ColorPicker1';
+import { HTMLInputTypeAttribute } from 'react';
 // Define the prop types for components
 
 // BlogverseLogo
@@ -32,11 +33,14 @@ export interface AdminHeadingProps {
 export interface AdminButtonProps {
 	children: React.ReactNode;
 	disabled?: boolean;
-	hoverText?: string; // text to show on hover
-	onClick: () => void;
+	hoverText?: string;
+	type?: any;
+	onClick?: () => void;
 }
 
 export interface ColorPickerProps {
 	color?: string;
-	handleColorChangeComplete: (color: string) => void;
+	handleChange: (color: string) => void;
+	label?: string;
+	subLabel?: string;
 }

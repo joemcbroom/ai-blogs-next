@@ -26,6 +26,6 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api-docs/ReactSwagger.jsx", "lib/supabase.js", "lib/swagger.js", "lib/swagger.js", "app/api-docs/page.tsx", "app/api-docs/page.tsx", "app/api-docs/head.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api-docs/ReactSwagger.jsx", "lib/supabase.js", "lib/swagger.js", "lib/swagger.js", "app/api-docs/page.tsx", "app/api-docs/page.tsx", "app/api-docs/head.tsx", "lib/utils/useClickOutside.js"],
   "exclude": ["node_modules"]
 }
