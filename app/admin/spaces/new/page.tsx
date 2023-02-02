@@ -127,7 +127,7 @@ export default function NewSpacePage() {
 
 				<div className="border-t w-full mt-6">
 					<p>
-						Are you satisfied with your creation?{' '}
+						Are you satisfied with your creation?
 						<span
 							className="text-pink-400 cursor-pointer"
 							onClick={() => reset()}

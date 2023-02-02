@@ -1,8 +1,15 @@
 'use client';
 
+// types
 import { ColorPickerProps } from '#/lib/ComponentProps';
+
+// framework
 import { useState, useRef, useCallback } from 'react';
+
+// library
 import { HexColorInput, HexColorPicker } from 'react-colorful';
+
+// hooks
 import useClickOutside from 'lib/hooks/useClickOutside';
 
 export default function ColorPicker({
