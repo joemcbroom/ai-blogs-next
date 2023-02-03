@@ -10,6 +10,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import AdminHeading from '#/components/admin/AdminHeading';
 import AdminButton from '#/components/admin/AdminButton';
 import ColorPicker from '#/components/UI/ColorPicker';
+import Link from 'next/link';
 
 type Inputs = {
 	spaceName: string;
@@ -68,7 +69,7 @@ export default function NewSpacePage() {
 					defaultValue=""
 					{...register('spaceName', { required: true })}
 					placeholder="What's My Name?"
-					className=" border border-gray-300 rounded-md p-2 mt-2 w-[400px] text-xs "
+					className="border border-gray-300 rounded-md p-2 mt-2 w-[400px] text-xs"
 				/>
 
 				<div className="flex items-center gap-2 text-sm mt-1">
@@ -99,9 +100,13 @@ export default function NewSpacePage() {
 				<h2 className="text-lg mt-6">Color Theme</h2>
 				<p>
 					Want some color ideas?{' '}
-					<a href="#" className="text-pink-400">
+					<Link
+						target="_blank"
+						href="https://coolors.co/generate"
+						className="text-pink-400"
+					>
 						Color palette generator
-					</a>{' '}
+					</Link>{' '}
 				</p>
 
 				<ColorPicker
@@ -129,7 +134,7 @@ export default function NewSpacePage() {
 					<p>
 						Are you satisfied with your creation?
 						<span
-							className="text-pink-400 cursor-pointer"
+							className="text-pink-400 cursor-pointer ml-2"
 							onClick={() => reset()}
 						>
 							No, Thanos snap that shit

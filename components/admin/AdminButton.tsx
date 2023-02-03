@@ -1,7 +1,14 @@
 // Reusable button component with styles, click handler, and children
 
 // types
-import { AdminButtonProps } from '#/lib/ComponentProps';
+type AdminButtonProps = {
+	children: React.ReactNode;
+	disabled?: boolean;
+	hoverText?: string;
+	type?: any;
+	onClick?: () => void;
+};
+
 import { useId } from 'react';
 
 // library

@@ -30,13 +30,6 @@ export interface AdminHeadingProps {
 }
 
 // AdminButton
-export interface AdminButtonProps {
-	children: React.ReactNode;
-	disabled?: boolean;
-	hoverText?: string;
-	type?: any;
-	onClick?: () => void;
-}
 
 export interface ColorPickerProps {
 	color?: string;
