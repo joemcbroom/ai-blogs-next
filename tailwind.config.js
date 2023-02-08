@@ -7,9 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "var(--color-primary)",
-        secondary: "var(--color-secondary)",
-        tertiary: "var(--color-tertiary)",
+        primary: "var(--primary-color)",
+        secondary: "var(--secondary-color)",
+        tertiary: "var(--tertiary-color)",
       },
     },
     plugins: [],

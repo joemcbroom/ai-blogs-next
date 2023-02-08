@@ -19,7 +19,8 @@ async function getBlogSpace(req: NextApiRequest, res: NextApiResponse) {
 	const { data, error } = await supabase
 		.from('blog_space')
 		.select(`*, posts: post(title, slug, description)`)
-		.eq('id', blogSpaceId);
+		.eq('id', blogSpaceId)
+		.single();
 
 	if (error) {
 		res.status(500).json({ error: error.message });
