@@ -1,7 +1,5 @@
+import Loader from '#/components/UI/Loader';
+
 export default function Loading() {
-	return (
-		<div>
-			<h1>Loading...</h1>
-		</div>
-	);
+	return <Loader />;
 }

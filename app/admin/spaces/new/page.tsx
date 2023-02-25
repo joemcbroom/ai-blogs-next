@@ -2,6 +2,7 @@
 
 // framework
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 // library
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -10,7 +11,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import AdminHeading from '#/components/admin/AdminHeading';
 import AdminButton from '#/components/admin/AdminButton';
 import ColorPicker from '#/components/UI/ColorPicker';
-import Link from 'next/link';
+
+// utils
+import slugify from '#/lib/utils/slugify';
 
 type Inputs = {
 	spaceName: string;
@@ -21,7 +24,7 @@ type Inputs = {
 };
 
 const defaultValues: Inputs = {
-	spaceName: '',
+	spaceName: "What's My Name?",
 	spaceDescription: '',
 	primaryColor: '#7418EA',
 	secondaryColor: '#21FA90',
@@ -42,7 +45,6 @@ export default function NewSpacePage() {
 
 	const [spaceSlug, setSpaceSlug] = useState('');
 
-	const slugify = (text: string) => text.replace(/\s/g, '-').toLowerCase();
 	const spaceName = watch('spaceName');
 
 	useEffect(() => {
@@ -51,6 +53,7 @@ export default function NewSpacePage() {
 	}, [spaceName]);
 
 	const handleGenerate = () => {
+		// TODO: generate description from title with AI (/api/)
 		setValue(
 			'spaceDescription',
 			`This is the "${spaceName}" space (not connected to backend yet)`
@@ -69,15 +72,15 @@ export default function NewSpacePage() {
 					defaultValue=""
 					{...register('spaceName', { required: true })}
 					placeholder="What's My Name?"
-					className="border border-gray-300 rounded-md p-2 mt-2 w-[400px] text-xs"
+					className="mt-2 w-[400px] rounded-md border border-gray-300 p-2 text-xs"
 				/>
 
-				<div className="flex items-center gap-2 text-sm mt-1">
+				<div className="mt-1 flex items-center gap-2 text-sm">
 					<span>URL</span>
 					<span className="text-pink-400">blogverse.ai/{spaceSlug}</span>
 				</div>
 
-				<h2 className="text-lg mt-6">Space description</h2>
+				<h2 className="mt-6 text-lg">Space description</h2>
 				<span className="text-sm">
 					Describe this new entity you are creating
 				</span>
@@ -87,8 +90,9 @@ export default function NewSpacePage() {
 					rows={5}
 					{...register('spaceDescription')}
 					placeholder="What's this space all about?"
-					className="block border border-gray-300 rounded-md p-2 mt-2 w-[500px] text-xs"
+					className="mt-2 block w-[500px] rounded-md border border-gray-300 p-2 text-xs"
 				/>
+
 				<AdminButton
 					disabled={!!watch('spaceDescription')?.length || !spaceName}
 					onClick={handleGenerate}
@@ -97,7 +101,7 @@ export default function NewSpacePage() {
 					Generate
 				</AdminButton>
 
-				<h2 className="text-lg mt-6">Color Theme</h2>
+				<h2 className="mt-6 text-lg">Color Theme</h2>
 				<p>
 					Want some color ideas?{' '}
 					<Link
@@ -130,11 +134,11 @@ export default function NewSpacePage() {
 					subLabel="Backgrounds"
 				/>
 
-				<div className="border-t w-full mt-6">
+				<div className="mt-6 w-full border-t">
 					<p>
 						Are you satisfied with your creation?
 						<span
-							className="text-pink-400 cursor-pointer ml-2"
+							className="ml-2 cursor-pointer text-pink-400"
 							onClick={() => reset()}
 						>
 							No, Thanos snap that shit

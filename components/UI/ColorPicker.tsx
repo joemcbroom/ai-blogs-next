@@ -1,8 +1,5 @@
 'use client';
 
-// types
-import { ColorPickerProps } from '#/lib/ComponentProps';
-
 // framework
 import { useState, useRef, useCallback } from 'react';
 
@@ -11,6 +8,13 @@ import { HexColorInput, HexColorPicker } from 'react-colorful';
 
 // hooks
 import useClickOutside from '#/lib/hooks/useClickOutside';
+
+interface ColorPickerProps {
+	color?: string;
+	handleChange: (color: string) => void;
+	label?: string;
+	subLabel?: string;
+}
 
 export default function ColorPicker({
 	color,
@@ -27,16 +31,16 @@ export default function ColorPicker({
 	return (
 		<div className=" my-6 flex flex-col gap-2">
 			{label && <label className="block text-xs">{label}</label>}
-			<div className="flex items-center gap-2 relative">
+			<div className="relative flex items-center gap-2">
 				<HexColorInput
 					color={color}
 					onChange={handleChange}
 					prefixed
-					className="block border border-gray-300 rounded-md p-2 w-[200px] text-sm"
+					className="block w-[200px] rounded-md border border-gray-300 p-2 text-sm"
 				/>
 
 				<div
-					className="w-14 aspect-video rounded border-2 border-gray-500 cursor-pointer"
+					className="aspect-video w-14 cursor-pointer rounded border-2 border-gray-500"
 					style={{ backgroundColor: color }}
 					onClick={() => {
 						setShowPicker(true);

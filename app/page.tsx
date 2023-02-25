@@ -1,7 +1,9 @@
+import PendulumsViz from '#/components/PendulumsViz';
+
 export default function Page() {
 	return (
-		<h1 className="text-2xl text-blue-900 font-bold underline">
-			Hello, Next.js!
-		</h1>
+		<>
+			<PendulumsViz n={10} width={600} interval={100} />
+		</>
 	);
 }
