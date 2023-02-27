@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/solid';
 
 interface SearchInputProps {
 	searchQuery: string;
@@ -10,17 +10,24 @@ export default function SearchInput({
 	setSearchQuery,
 }: SearchInputProps) {
 	return (
-		<div className="relative max-w-max pt-2 text-gray-600">
+		<div className="relative flex max-w-max items-center overflow-hidden rounded-lg border-2 border-gray-300 text-gray-600">
 			<input
-				className="h-10 min-w-[24rem] rounded-lg border-2 border-gray-300 bg-white px-5 pr-6 text-sm focus:outline-none"
-				type="search"
+				className="h-10 min-w-[20rem] bg-white px-5 text-sm focus:outline-none"
+				type="text"
 				name="search"
 				placeholder="Search"
 				onChange={(e) => setSearchQuery(e.target.value)}
 				value={searchQuery}
 			/>
-			<button className="absolute right-0 top-0 mt-5 mr-2">
-				<MagnifyingGlassIcon className="h-4 w-4 fill-current text-gray-600" />
+			<button className="pr-2">
+				{searchQuery.length === 0 ? (
+					<MagnifyingGlassIcon className="h-5 w-5 fill-current text-pink-600" />
+				) : (
+					<XMarkIcon
+						className="h-4 w-4 fill-current text-gray-600"
+						onClick={() => setSearchQuery('')}
+					/>
+				)}
 			</button>
 		</div>
 	);
