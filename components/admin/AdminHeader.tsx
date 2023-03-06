@@ -6,11 +6,10 @@ import BlogverseLogo from '#/components/UI/BlogverseLogo';
 
 export default function AdminHeader() {
 	return (
-		<div className="bg-slate-300 flex items-center gap-5 p-4">
-			<BlogverseLogo
-				type="star"
-				className="bg-white rounded-full w-12 aspect-square p-1"
-			/>
+		<div className="flex items-center gap-5 bg-slate-100 p-4">
+			<div className="aspect-square w-12 rounded-full bg-white p-1">
+				<BlogverseLogo type="star" className="svg-violet-700 " />
+			</div>
 			<TypeWriter />
 		</div>
 	);
