@@ -1,7 +1,7 @@
 import ImgComponent from '#/components/UI/ImgComponent';
 
 interface BlogverseLogoProps {
-	type: 'star' | 'horizontal' | 'vertical' | 'whiteVertical';
+	type?: 'star' | 'horizontal' | 'vertical' | 'whiteVertical';
 	className?: string;
 }
 
@@ -13,7 +13,7 @@ const logos = {
 };
 
 export default function BlogverseLogo({
-	type,
+	type = 'star',
 	className = '',
 	...rest
 }: BlogverseLogoProps) {
