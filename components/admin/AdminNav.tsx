@@ -1,7 +1,7 @@
 'use client';
 
 // components
-import AdminLink from '#/components/admin/AdminLink';
+import AdminLink from '#/components/admin/NavLink';
 
 // library
 import {

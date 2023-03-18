@@ -93,7 +93,7 @@ const SpaceCard = ({ space }: { space: BlogSpaceWithPosts }) => {
 				<p className="mt-1 text-sm italic text-slate-400">{editedText}</p>
 				<PostsAndSubscribers postCount={postCount} />
 			</div>
-			<div className="flex flex-1 items-center justify-center gap-4">
+			<div className="flex flex-1 items-center justify-end gap-4">
 				<button className="flex items-center justify-center">
 					<TrashIcon className="h-5 w-5 fill-current" />
 					<span>Delete</span>
