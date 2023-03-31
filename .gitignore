@@ -30,3 +30,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# readme1
+README1.md

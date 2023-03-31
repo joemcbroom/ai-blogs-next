@@ -1,23 +1,12 @@
 import SpaceEdit from '#/components/admin/spaces/SpaceEdit';
-import supabase from '#/lib/supabase';
-import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
-
-const getSpace = async (slug: string) => {
-	const { data, error } = await supabase
-		.from('blog_space')
-		.select(`*, posts: post(*)`)
-		.eq('slug', slug)
-		.single();
-	if (error) throw error;
-	return data as BlogSpaceWithPosts;
-};
+import { getSpace } from '#/lib/supabase';
 
 export default async function EditSpace({
-	params,
+	params: { slug },
 }: {
 	params: { slug: string };
 }) {
-	const space = await getSpace(params.slug);
+	const space = await getSpace(slug);
 	return (
 		<>
 			<SpaceEdit space={space} />

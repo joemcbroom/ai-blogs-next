@@ -5,9 +5,10 @@ import ImgComponent from './ImgComponent';
 interface ImageUploaderProps {
 	onChange: (file: File) => void;
 	image?: File;
+	fileUrl?: string;
 }
 
-function ImageUploader({ onChange, image }: ImageUploaderProps) {
+function ImageUploader({ onChange, image, fileUrl }: ImageUploaderProps) {
 	const [previewImage, setPreviewImage] = useState<string | null>(null);
 	// component ref
 	const fileInputRef = useRef<HTMLDivElement>(null);
@@ -19,8 +20,12 @@ function ImageUploader({ onChange, image }: ImageUploaderProps) {
 			reader.onload = () => {
 				setPreviewImage(reader.result as string);
 			};
+			return;
 		}
-	}, [image]);
+		if (fileUrl) {
+			setPreviewImage(fileUrl);
+		}
+	}, [image, fileUrl]);
 
 	function handleFileInputChange(event: React.ChangeEvent<HTMLInputElement>) {
 		const file = event.target.files?.[0];

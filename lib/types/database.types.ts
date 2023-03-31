@@ -57,7 +57,7 @@ export interface Database {
           created_at: string | null
           description: string | null
           id: number
-          is_draft: boolean
+          is_published: boolean
           slug: string
           tag_ids: number[] | null
           title: string
@@ -68,7 +68,7 @@ export interface Database {
           created_at?: string | null
           description?: string | null
           id?: number
-          is_draft?: boolean
+          is_published?: boolean
           slug: string
           tag_ids?: number[] | null
           title: string
@@ -79,7 +79,7 @@ export interface Database {
           created_at?: string | null
           description?: string | null
           id?: number
-          is_draft?: boolean
+          is_published?: boolean
           slug?: string
           tag_ids?: number[] | null
           title?: string
