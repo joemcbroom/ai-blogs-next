@@ -1,61 +1,128 @@
 'use client';
 import Link from 'next/link';
-import { CheckIcon, ChevronLeftIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
-import { PencilIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon, PencilIcon } from '@heroicons/react/24/outline';
 import PostsAndSubscribers from './PostsAndSubscribers';
 import useSpaceEditedText from '#/lib/hooks/useSpaceEditedText';
 import ColorPicker from '#/components/UI/ColorPicker';
 import Tabs from '#/components/UI/TabsComponent';
 import ImageUploader from '#/components/UI/ImageUploader';
-import { useEffect, useRef, useState } from 'react';
-import supabase from '#/lib/supabase';
+import { useEffect, useReducer, useRef, useState } from 'react';
+import supabase, { supabaseStorage, updateSpace } from '#/lib/supabase';
 import { useRouter } from 'next/navigation';
+import SUPABASE_CONSTANTS from '#/lib/constants/supabaseConstants';
+import IconWithText from '#/components/UI/IconWithText';
+
+const defaultValues = {
+	title: '',
+	description: '',
+	primaryColor: '#000000',
+	secondaryColor: '#000000',
+	tertiaryColor: '#000000',
+};
+
+type ActionType =
+	| { type: 'EDIT'; field: keyof typeof defaultValues; value: string }
+	| { type: 'RESET'; initialValues: typeof defaultValues };
+
+const init = (initialValues: typeof defaultValues) => initialValues;
+
+const reducer = (state: typeof defaultValues, action: ActionType) => {
+	switch (action.type) {
+		case 'EDIT':
+			return {
+				...state,
+				[action.field]: action.value || defaultValues[action.field],
+			};
+		case 'RESET':
+			return init(action.initialValues);
+		default:
+			return state;
+	}
+};
 
 const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
+	const router = useRouter();
 	const { editedText } = useSpaceEditedText(space);
-	const [isEditingTitle, setIsEditingTitle] = useState(false);
-	const titleRef = useRef<HTMLHeadingElement>(null);
 	const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+	const [hasChanges, setHasChanges] = useState(false);
+	const titleRef = useRef<HTMLInputElement>(null);
+	const descriptionRef = useRef<HTMLTextAreaElement>(null);
+
+	const initialSpaceValues = {
+		title: space.name,
+		description: space.description || defaultValues.description,
+		primaryColor: space.primary_color || defaultValues.primaryColor,
+		secondaryColor: space.secondary_color || defaultValues.secondaryColor,
+		tertiaryColor: space.tertiary_color || defaultValues.tertiaryColor,
+	};
+
+	const [editedValues, dispatch] = useReducer(
+		reducer,
+		initialSpaceValues,
+		init
+	);
 
 	useEffect(() => {
-		// check if image exists in supabase bucket
-		const fetchImage = async () => {
-			const { data } = supabase.storage
-				.from('space')
-				.getPublicUrl(`space/${space.slug}`);
-			if (data) {
-				setImageUrl(data.publicUrl);
-			}
-		};
-		fetchImage();
+		if (!space.image_path) return;
+		const publicUrl = supabaseStorage.getPublicUrl({
+			bucket: SUPABASE_CONSTANTS.PUBLIC_BUCKET,
+			path: space.image_path!,
+		});
+		setImageUrl(publicUrl);
 	}, [space]);
 
-	const handleEditTitle = () => {
-		console.log('edit title');
+	const handleEdit = (value: string, field: keyof typeof defaultValues) => {
+		dispatch({ type: 'EDIT', field, value });
+		setHasChanges(true);
 	};
-	const handleEditDescription = () => {
-		console.log('edit description');
-	};
-	const handleUpdateColor = (
-		color: string,
-		type: 'primary' | 'secondary' | 'tertiary'
-	) => {
-		console.log(color, type);
-	};
-	const handleUpdateImage = async (file: File) => {
-		// Upload to supabase bucket 'space' path: space.id
-		const { error } = await supabase.storage
-			.from('space')
-			.upload(`${space.slug}`, file, {
-				cacheControl: '3600',
-				upsert: false,
-			});
 
-		if (error) {
-			console.error(error);
-			return;
+	const handleClearChanges = () => {
+		dispatch({ type: 'RESET', initialValues: initialSpaceValues });
+		// reset title and description
+		titleRef.current!.value = space.name;
+		descriptionRef.current!.value = space.description || '';
+		setHasChanges(false);
+	};
+
+	const handleUpdateImage = async (file: File) => {
+		const hasImage = space.image_path ? true : false;
+		const bucket = SUPABASE_CONSTANTS.PUBLIC_BUCKET;
+
+		if (!hasImage) {
+			await supabaseStorage.delete({ bucket, paths: [space.image_path!] });
 		}
+
+		const fileType = file.type.split('/')[1];
+		const newPath = `${SUPABASE_CONSTANTS.SPACE_IMAGES_PATH}/${space.slug}.${fileType}`;
+		await supabaseStorage.upload({
+			file,
+			path: newPath,
+			bucket,
+			upsert: hasImage,
+		});
+		updateSpace(space.slug, { image_path: newPath });
+		router.refresh();
+	};
+
+	const handleClearImage = async () => {
+		if (!space.image_path) return;
+		const bucket = SUPABASE_CONSTANTS.PUBLIC_BUCKET;
+		const paths = [space.image_path];
+		await supabaseStorage.delete({ bucket, paths });
+		updateSpace(space.slug, { image_path: null });
+		router.refresh();
+	};
+
+	const handleSaveChanges = () => {
+		console.log('save changes');
+	};
+
+	const colorChangeHandlers = {
+		primary: (color: string) => handleEdit(color, 'primaryColor'),
+		secondary: (color: string) => handleEdit(color, 'secondaryColor'),
+		tertiary: (color: string) => handleEdit(color, 'tertiaryColor'),
 	};
 
 	return (
@@ -66,33 +133,33 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 			</Link>
 			<div className="mt-3">
 				<div className="flex items-center gap-2">
-					<h1
-						contentEditable={isEditingTitle}
+					<input
 						className="text-2xl font-bold text-gray-800"
+						defaultValue={editedValues.title}
 						ref={titleRef}
-					>
-						{space.name}
-					</h1>
+						onChange={(e) => handleEdit(e.target.value, 'title')}
+					/>
 					{/* edit title with pencil icon */}
-					<span
-						className="flex cursor-pointer items-center gap-1"
-						onClick={() => {
-							setIsEditingTitle(!isEditingTitle);
-							titleRef.current?.focus();
-						}}
-					>
-						{isEditingTitle ? (
-							<>
-								<CheckIcon className="h-5 w-5" />
-								<span>Save</span>
-							</>
-						) : (
-							<>
-								<PencilIcon className="h-5 w-5" />
-								<span className="text-pink-500">Edit title</span>
-							</>
-						)}
-					</span>
+					{hasChanges ? (
+						<>
+							<IconWithText
+								icon={CheckCircleIcon}
+								text="Save"
+								onClick={handleSaveChanges}
+							/>
+							<IconWithText
+								icon={XCircleIcon}
+								text="Clear"
+								onClick={handleClearChanges}
+							/>
+						</>
+					) : (
+						<IconWithText
+							icon={PencilIcon}
+							text="Edit Title"
+							onClick={() => titleRef.current?.focus()}
+						/>
+					)}
 				</div>
 
 				<span className="flex items-center gap-2">
@@ -104,17 +171,18 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 
 				{/* space description with edit pencil icon below */}
 				<div className="mt-3">
-					<p className="my-1 text-sm">
-						{space.description || 'No description yet'}
-					</p>
+					<textarea
+						className="w-full text-sm"
+						defaultValue={editedValues.description}
+						onChange={(e) => handleEdit(e.target.value, 'description')}
+						ref={descriptionRef}
+					/>
 					{/* edit description with pencil icon */}
-					<span
-						className="flex items-center gap-1"
-						onClick={handleEditDescription}
-					>
-						<PencilIcon className="h-5 w-5" />
-						<span className="text-pink-500">Edit description</span>
-					</span>
+					<IconWithText
+						icon={PencilIcon}
+						text="Edit description"
+						onClick={() => descriptionRef.current?.focus()}
+					/>
 				</div>
 
 				{/* space colors with color pickers */}
@@ -128,22 +196,22 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 					</p>
 					{/* color pickers */}
 					<ColorPicker
-						color={space.primary_color || '#000000'}
+						color={editedValues.primaryColor}
 						label="Main"
 						subLabel="Logo, icons, links, primary buttons"
-						handleChange={(color) => handleUpdateColor(color, 'primary')}
+						handleChange={(color) => colorChangeHandlers.primary(color)}
 					/>
 					<ColorPicker
-						color={space.secondary_color || '#000000'}
+						color={editedValues.secondaryColor}
 						label="Secondary"
 						subLabel="Secondary buttons, tags"
-						handleChange={(color) => handleUpdateColor(color, 'secondary')}
+						handleChange={(color) => colorChangeHandlers.secondary(color)}
 					/>
 					<ColorPicker
-						color={space.tertiary_color || '#000000'}
+						color={editedValues.tertiaryColor}
 						label="Tertiary"
 						subLabel="Backgrounds, borders"
-						handleChange={(color) => handleUpdateColor(color, 'tertiary')}
+						handleChange={(color) => colorChangeHandlers.tertiary(color)}
 					/>
 				</div>
 
@@ -158,6 +226,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 										<ImageUploader
 											onChange={handleUpdateImage}
 											fileUrl={imageUrl}
+											onClear={handleClearImage}
 										/>
 									</FrontPageTab>
 								),

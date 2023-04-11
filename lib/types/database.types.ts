@@ -15,6 +15,7 @@ export interface Database {
           created_at: string
           description: string | null
           id: number
+          image_path: string | null
           is_published: boolean
           name: string
           primary_color: string | null
@@ -28,6 +29,7 @@ export interface Database {
           created_at?: string
           description?: string | null
           id?: number
+          image_path?: string | null
           is_published?: boolean
           name: string
           primary_color?: string | null
@@ -41,6 +43,7 @@ export interface Database {
           created_at?: string
           description?: string | null
           id?: number
+          image_path?: string | null
           is_published?: boolean
           name?: string
           primary_color?: string | null
