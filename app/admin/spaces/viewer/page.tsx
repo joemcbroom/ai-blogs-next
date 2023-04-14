@@ -3,6 +3,8 @@ import AdminHeading from '#/components/admin/AdminHeading';
 import SpacesViewer from '#/components/admin/spaces/SpacesViewer';
 import { getAllSpaces } from '#/lib/supabase';
 
+export const revalidate = 0;
+
 export default async function SpacesPage() {
 	const spaces = await getAllSpaces();
 

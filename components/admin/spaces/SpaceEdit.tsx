@@ -1,25 +1,34 @@
 'use client';
+// library
+import { useEffect, useReducer, useRef, useState, useTransition } from 'react';
+
+// framework
+import { useRouter } from 'next/navigation';
+
+// custom module
+import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
+import { supabaseStorage, updateSpace } from '#/lib/supabase';
+import SUPABASE_CONSTANTS from '#/lib/constants/supabaseConstants';
+import useSpaceEditedText from '#/lib/hooks/useSpaceEditedText';
+import { useAlert } from '#/lib/hooks/useAlert';
+
+// UI components
 import Link from 'next/link';
 import { ChevronLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
-import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
 import { CheckCircleIcon, PencilIcon } from '@heroicons/react/24/outline';
 import PostsAndSubscribers from './PostsAndSubscribers';
-import useSpaceEditedText from '#/lib/hooks/useSpaceEditedText';
 import ColorPicker from '#/components/UI/ColorPicker';
 import Tabs from '#/components/UI/TabsComponent';
 import ImageUploader from '#/components/UI/ImageUploader';
-import { useEffect, useReducer, useRef, useState } from 'react';
-import supabase, { supabaseStorage, updateSpace } from '#/lib/supabase';
-import { useRouter } from 'next/navigation';
-import SUPABASE_CONSTANTS from '#/lib/constants/supabaseConstants';
 import IconWithText from '#/components/UI/IconWithText';
+import FrontPageTab from '#/components/admin/spaces/SpaceEdit/FrontPageTab';
 
 const defaultValues = {
-	title: '',
+	name: '',
 	description: '',
-	primaryColor: '#000000',
-	secondaryColor: '#000000',
-	tertiaryColor: '#000000',
+	primary_color: '#000000',
+	secondary_color: '#000000',
+	tertiary_color: '#000000',
 };
 
 type ActionType =
@@ -47,15 +56,16 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 	const { editedText } = useSpaceEditedText(space);
 	const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
 	const [hasChanges, setHasChanges] = useState(false);
-	const titleRef = useRef<HTMLInputElement>(null);
+	const nameRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
+	const { showAlert } = useAlert();
 
 	const initialSpaceValues = {
-		title: space.name,
+		name: space.name,
 		description: space.description || defaultValues.description,
-		primaryColor: space.primary_color || defaultValues.primaryColor,
-		secondaryColor: space.secondary_color || defaultValues.secondaryColor,
-		tertiaryColor: space.tertiary_color || defaultValues.tertiaryColor,
+		primary_color: space.primary_color || defaultValues.primary_color,
+		secondary_color: space.secondary_color || defaultValues.secondary_color,
+		tertiary_color: space.tertiary_color || defaultValues.tertiary_color,
 	};
 
 	const [editedValues, dispatch] = useReducer(
@@ -65,7 +75,9 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 	);
 
 	useEffect(() => {
-		if (!space.image_path) return;
+		if (!space.image_path) {
+			return setImageUrl(undefined);
+		}
 		const publicUrl = supabaseStorage.getPublicUrl({
 			bucket: SUPABASE_CONSTANTS.PUBLIC_BUCKET,
 			path: space.image_path!,
@@ -80,49 +92,88 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 
 	const handleClearChanges = () => {
 		dispatch({ type: 'RESET', initialValues: initialSpaceValues });
-		// reset title and description
-		titleRef.current!.value = space.name;
+		// reset name and description
+		nameRef.current!.value = space.name;
 		descriptionRef.current!.value = space.description || '';
 		setHasChanges(false);
+		showAlert({
+			message: 'Changes cleared',
+			type: 'success',
+		});
 	};
 
+	const [isPending, startTransition] = useTransition();
+	const [isSaving, setIsSaving] = useState(false);
+	const isMutating = isSaving || isPending;
+
 	const handleUpdateImage = async (file: File) => {
+		setIsSaving(true);
 		const hasImage = space.image_path ? true : false;
 		const bucket = SUPABASE_CONSTANTS.PUBLIC_BUCKET;
 
-		if (!hasImage) {
-			await supabaseStorage.delete({ bucket, paths: [space.image_path!] });
+		if (hasImage) {
+			// Delete old image
+			const paths = [space.image_path!];
+			await supabaseStorage.delete({ bucket, paths });
 		}
 
-		const fileType = file.type.split('/')[1];
-		const newPath = `${SUPABASE_CONSTANTS.SPACE_IMAGES_PATH}/${space.slug}.${fileType}`;
-		await supabaseStorage.upload({
+		const newPath = `${SUPABASE_CONSTANTS.SPACE_IMAGES_PATH}/${
+			file.name
+		}${Date.now()}`;
+
+		const path = await supabaseStorage.upload({
 			file,
 			path: newPath,
 			bucket,
-			upsert: hasImage,
 		});
-		updateSpace(space.slug, { image_path: newPath });
-		router.refresh();
+		await updateSpace(space.slug, { image_path: path });
+		setIsSaving(false);
+
+		startTransition(() => {
+			showAlert({
+				message: 'Image saved',
+				type: 'success',
+			});
+			router.refresh();
+		});
 	};
 
 	const handleClearImage = async () => {
 		if (!space.image_path) return;
+		setIsSaving(true);
 		const bucket = SUPABASE_CONSTANTS.PUBLIC_BUCKET;
 		const paths = [space.image_path];
 		await supabaseStorage.delete({ bucket, paths });
-		updateSpace(space.slug, { image_path: null });
-		router.refresh();
+		await updateSpace(space.slug, { image_path: null });
+		setIsSaving(false);
+
+		startTransition(() => {
+			showAlert({
+				message: 'Image cleared',
+				type: 'success',
+			});
+			router.refresh();
+		});
 	};
 
-	const handleSaveChanges = () => {
-		console.log('save changes');
+	const handleSaveChanges = async () => {
+		setIsSaving(true);
+		await updateSpace(space.slug, editedValues);
+		setIsSaving(false);
+		startTransition(() => {
+			showAlert({
+				message: 'Changes saved',
+				type: 'success',
+			});
+			setHasChanges(false);
+			router.refresh();
+		});
 	};
 
 	const colorChangeHandlers = {
-		primary: (color: string) => handleEdit(color, 'primaryColor'),
-		secondary: (color: string) => handleEdit(color, 'secondaryColor'),
-		tertiary: (color: string) => handleEdit(color, 'tertiaryColor'),
+		primary: (color: string) => handleEdit(color, 'primary_color'),
+		secondary: (color: string) => handleEdit(color, 'secondary_color'),
+		tertiary: (color: string) => handleEdit(color, 'tertiary_color'),
 	};
 
 	return (
@@ -131,15 +182,15 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 				<ChevronLeftIcon className="h-4 w-4" />
 				<span className="text-sm text-pink-500">Back to Space Viewer</span>
 			</Link>
-			<div className="mt-3">
+			<div className={`mt-3 ${isMutating ? 'animate-pulse' : ''}`}>
 				<div className="flex items-center gap-2">
 					<input
 						className="text-2xl font-bold text-gray-800"
-						defaultValue={editedValues.title}
-						ref={titleRef}
-						onChange={(e) => handleEdit(e.target.value, 'title')}
+						defaultValue={editedValues.name}
+						ref={nameRef}
+						onChange={(e) => handleEdit(e.target.value, 'name')}
 					/>
-					{/* edit title with pencil icon */}
+					{/* edit name with pencil icon */}
 					{hasChanges ? (
 						<>
 							<IconWithText
@@ -156,8 +207,8 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 					) : (
 						<IconWithText
 							icon={PencilIcon}
-							text="Edit Title"
-							onClick={() => titleRef.current?.focus()}
+							text="Edit name"
+							onClick={() => nameRef.current?.focus()}
 						/>
 					)}
 				</div>
@@ -196,19 +247,19 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 					</p>
 					{/* color pickers */}
 					<ColorPicker
-						color={editedValues.primaryColor}
+						color={editedValues.primary_color}
 						label="Main"
 						subLabel="Logo, icons, links, primary buttons"
 						handleChange={(color) => colorChangeHandlers.primary(color)}
 					/>
 					<ColorPicker
-						color={editedValues.secondaryColor}
+						color={editedValues.secondary_color}
 						label="Secondary"
 						subLabel="Secondary buttons, tags"
 						handleChange={(color) => colorChangeHandlers.secondary(color)}
 					/>
 					<ColorPicker
-						color={editedValues.tertiaryColor}
+						color={editedValues.tertiary_color}
 						label="Tertiary"
 						subLabel="Backgrounds, borders"
 						handleChange={(color) => colorChangeHandlers.tertiary(color)}
@@ -237,28 +288,6 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 					/>
 				</div>
 			</div>
-		</>
-	);
-};
-
-const FrontPageTab = ({ children }: { children: JSX.Element }): JSX.Element => {
-	return (
-		<>
-			<h2 className="text-lg font-semibold">Main Image</h2>
-			<p>
-				Looking for cool creative common images?
-				{/* link to unsplash, pexels, pixabay */}
-				<Link className="pl-1 text-pink-500" href="https://unsplash.com/">
-					Unsplash /
-				</Link>
-				<Link className="pl-1 text-pink-500" href="https://www.pexels.com/">
-					Pexels /
-				</Link>
-				<Link className="pl-1 text-pink-500" href="https://pixabay.com/">
-					Pixabay
-				</Link>
-			</p>
-			{children}
 		</>
 	);
 };
