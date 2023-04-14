@@ -1,15 +1,11 @@
 // components
+import Loader from '#/components/UI/loaders/Loader';
+import LoadingCard from '#/components/UI/loaders/LoadingCard';
 import AdminHeading from '#/components/admin/AdminHeading';
 import SpacesViewer from '#/components/admin/spaces/SpacesViewer';
-import supabase from '#/lib/supabase';
+import { getAllSpaces } from '#/lib/supabase';
 
-const getAllSpaces = async () => {
-	const { data, error } = await supabase
-		.from('blog_space')
-		.select(`*, posts: post(title, slug, description)`);
-	if (error) throw error;
-	return data;
-};
+export const revalidate = 0;
 
 export default async function SpacesPage() {
 	const spaces = await getAllSpaces();

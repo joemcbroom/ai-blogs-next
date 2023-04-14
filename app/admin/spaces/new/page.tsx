@@ -60,6 +60,10 @@ export default function NewSpacePage() {
 		);
 	};
 
+	const handleCreate = () => {
+		console.log('create space');
+	};
+
 	return (
 		<>
 			<AdminHeading
@@ -113,26 +117,28 @@ export default function NewSpacePage() {
 					</Link>{' '}
 				</p>
 
-				<ColorPicker
-					handleChange={(hex) => setValue('primaryColor', hex)}
-					color={watch('primaryColor')}
-					label="Main"
-					subLabel="Logo, icons, links, primary buttons"
-				/>
+				<div className="my-4">
+					<ColorPicker
+						handleChange={(hex) => setValue('primaryColor', hex)}
+						color={watch('primaryColor')}
+						label="Main"
+						subLabel="Logo, icons, links, primary buttons"
+					/>
 
-				<ColorPicker
-					handleChange={(hex) => setValue('secondaryColor', hex)}
-					color={watch('secondaryColor')}
-					label="Secondary"
-					subLabel="Secondary buttons, tags, borders"
-				/>
+					<ColorPicker
+						handleChange={(hex) => setValue('secondaryColor', hex)}
+						color={watch('secondaryColor')}
+						label="Secondary"
+						subLabel="Secondary buttons, tags, borders"
+					/>
 
-				<ColorPicker
-					handleChange={(hex) => setValue('tertiaryColor', hex)}
-					color={watch('tertiaryColor')}
-					label="Tertiary"
-					subLabel="Backgrounds"
-				/>
+					<ColorPicker
+						handleChange={(hex) => setValue('tertiaryColor', hex)}
+						color={watch('tertiaryColor')}
+						label="Tertiary"
+						subLabel="Backgrounds"
+					/>
+				</div>
 
 				<div className="mt-6 w-full border-t">
 					<p>
@@ -144,7 +150,11 @@ export default function NewSpacePage() {
 							No, Thanos snap that shit
 						</span>
 					</p>
-					<AdminButton type="submit" disabled={!spaceName}>
+					<AdminButton
+						type="submit"
+						onClick={handleCreate}
+						disabled={!spaceName}
+					>
 						Yes, Create Space
 					</AdminButton>
 				</div>
