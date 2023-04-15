@@ -1,9 +1,8 @@
 // components
-import Loader from '#/components/UI/loaders/Loader';
-import LoadingCard from '#/components/UI/loaders/LoadingCard';
 import AdminHeading from '#/components/admin/AdminHeading';
 import SpacesViewer from '#/components/admin/spaces/SpacesViewer';
-import { getAllSpaces } from '#/lib/supabase';
+// lib
+import { getAllSpaces } from '#/lib/requestHelpers/supabase-server';
 
 export const revalidate = 0;
 

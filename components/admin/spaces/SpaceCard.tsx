@@ -1,7 +1,7 @@
 'use client';
-import Modal from '#/components/UI/Modal';
+// lib
 import useSpaceEditedText from '#/lib/hooks/useSpaceEditedText';
-import supabase from '#/lib/supabase';
+import supabase from '#/lib/requestHelpers/supabase-client';
 // types
 import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
 
@@ -13,8 +13,9 @@ import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 
 // components
-import AdminButton from '../AdminButton';
-import PostsAndSubscribers from './PostsAndSubscribers';
+import AdminButton from '#/components/admin/AdminButton';
+import PostsAndSubscribers from '#/components/admin/spaces/PostsAndSubscribers';
+import Modal from '#/components/UI/Modal';
 
 const PauseOrResumeButton = ({
 	isPublished,
