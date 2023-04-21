@@ -4,7 +4,7 @@ import 'react-tooltip/dist/react-tooltip.css';
 import type { Metadata } from 'next';
 
 import { AlertProvider } from '#/lib/hooks/useAlert';
-import SupabaseProvider from '#/lib/supabase-provider';
+import { SupabaseProvider } from '#/lib/hooks/useSupabase';
 
 export const metadata: Metadata = {
 	title: 'Blogverse!',
@@ -20,10 +20,10 @@ export default function RootLayout({
 		<html>
 			<head></head>
 
-			<body>
+			<body className="h-full">
 				<SupabaseProvider>
 					<AlertProvider>
-						<main>{children}</main>
+						<main className="h-full">{children}</main>
 					</AlertProvider>
 				</SupabaseProvider>
 			</body>

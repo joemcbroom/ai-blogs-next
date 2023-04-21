@@ -7,10 +7,7 @@ import { useRouter } from 'next/navigation';
 
 // custom module
 import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
-import {
-	supabaseStorage,
-	updateSpace,
-} from '#/lib/requestHelpers/supabase-client';
+import { supabaseStorage, updateSpace } from '#/lib/supabase/client';
 import SUPABASE_CONSTANTS from '#/lib/constants/supabaseConstants';
 import useSpaceEditedText from '#/lib/hooks/useSpaceEditedText';
 import { useAlert } from '#/lib/hooks/useAlert';

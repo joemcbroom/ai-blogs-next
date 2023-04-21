@@ -5,8 +5,27 @@ type BlogSpace = Database['public']['Tables']['blog_space']['Row'];
 type PostPreviousVersion =
 	Database['public']['Tables']['post_previous_version']['Row'];
 
-type BlogSpaceWithPosts = BlogSpace & {
-	posts: Post[];
+type AbbreviatedPost = {
+	title: string;
+	slug: string;
+	description: string | null;
 };
 
-export type { Post, BlogSpace, PostPreviousVersion, BlogSpaceWithPosts };
+type BlogSpaceWithAbbreviatedPosts = BlogSpace & {
+	posts: AbbreviatedPost | AbbreviatedPost[] | null;
+};
+
+type BlogSpaceWithPosts = BlogSpace & {
+	posts: Post | Post[] | null;
+};
+
+type User = Database['public']['Tables']['profiles']['Row'];
+
+export type {
+	Post,
+	BlogSpace,
+	PostPreviousVersion,
+	BlogSpaceWithPosts,
+	User,
+	BlogSpaceWithAbbreviatedPosts,
+};

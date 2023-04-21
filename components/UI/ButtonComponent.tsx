@@ -3,7 +3,6 @@ import Link from 'next/link';
 // Reusable button component with styles, click handler, and children
 
 // framework
-import { useRouter } from 'next/navigation';
 import { useId } from 'react';
 
 // library
@@ -17,17 +16,17 @@ interface BaseProps {
 	type?: any;
 	backgroundClass?: string;
 }
-interface AdminButtonPropsWithOnClick extends BaseProps {
-	onClick: () => void;
+interface ButtonComponentPropsWithOnClick extends BaseProps {
+	onClick?: () => void;
 	href?: string;
 }
 
-interface AdminButtonPropsWithHref extends BaseProps {
+interface ButtonComponentPropsWithHref extends BaseProps {
 	href: string;
 	onClick?: () => void;
 }
 
-export default function AdminButton({
+export default function ButtonComponent({
 	children,
 	disabled,
 	onClick,
@@ -36,7 +35,7 @@ export default function AdminButton({
 	href,
 	backgroundClass = 'bg-purple-400',
 	...rest
-}: AdminButtonPropsWithOnClick | AdminButtonPropsWithHref) {
+}: ButtonComponentPropsWithOnClick | ButtonComponentPropsWithHref) {
 	const disabledClass = disabled ? 'opacity-50 cursor-not-allowed' : '';
 	const id = useId();
 	const isLink = href && href.length > 0;
@@ -54,7 +53,7 @@ export default function AdminButton({
 		<LinkOrButton href={href}>
 			<button
 				onClick={() => (isLink ? null : !disabled && onClick && onClick())}
-				className={` rounded-full py-2 px-4 text-xs font-bold text-white ${disabledClass} ${backgroundClass}`}
+				className={` rounded-full px-4 py-2 text-xs font-bold text-white ${disabledClass} ${backgroundClass}`}
 				id={id}
 				data-tooltip-content={hoverText}
 				data-tooltip-place="top"
