@@ -11,7 +11,7 @@ const DEFAULT_PHRASES = [
 export default function TypeWriter({
 	phrases = DEFAULT_PHRASES,
 }: {
-	phrases: string[];
+	phrases?: string[];
 }) {
 	return (
 		<div className="bubble relative min-h-fit min-w-[3.55rem] rounded-xl bg-white px-4 py-2 drop-shadow ">

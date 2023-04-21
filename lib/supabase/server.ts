@@ -69,7 +69,7 @@ export const getAllSpaces = async (): Promise<
 		throw error.message;
 	}
 
-	return data;
+	return data as BlogSpaceWithAbbreviatedPosts[];
 };
 
 export const getSpace = async (slug: string): Promise<BlogSpaceWithPosts> => {
@@ -83,5 +83,5 @@ export const getSpace = async (slug: string): Promise<BlogSpaceWithPosts> => {
 		console.error(error);
 		throw error.message;
 	}
-	return data;
+	return data as BlogSpaceWithPosts;
 };
