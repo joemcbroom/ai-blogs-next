@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import IconLoader from '../UI/loaders/IconLoader';
 import ButtonComponent from '../UI/ButtonComponent';
+import { usePathname } from 'next/navigation';
 
 type Inputs = {
 	email: string;
@@ -14,6 +15,7 @@ const Login = () => {
 	const { supabase } = useSupabase();
 	const [submitted, setSubmitted] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const pathname = usePathname();
 
 	const {
 		register,
@@ -29,10 +31,11 @@ const Login = () => {
 	};
 
 	const handleLogin = async (email: string) => {
+		const basePath = location.origin;
 		await supabase.auth.signInWithOtp({
 			email,
 			options: {
-				emailRedirectTo: 'http://localhost:3000/auth',
+				emailRedirectTo: `${basePath}/auth`,
 			},
 		});
 	};
