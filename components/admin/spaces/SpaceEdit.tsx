@@ -1,28 +1,32 @@
 'use client';
-// library
+/// frameworks
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useEffect, useReducer, useRef, useState, useTransition } from 'react';
 
-// framework
-import { useRouter } from 'next/navigation';
-
-// custom module
+// types
 import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
+
+// lib
 import { supabaseStorage, updateSpace } from '#/lib/supabase/client';
 import SUPABASE_CONSTANTS from '#/lib/constants/supabaseConstants';
-import { useAlert } from '#/lib/hooks/useAlert';
 
-// UI components
-import Link from 'next/link';
+// hooks
+import { useAlert } from '#/lib/hooks/useAlert';
+import useAutosizeTextArea from '#/lib/hooks/useAutosizeTextarea';
+
+// library
 import { ChevronLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { CheckCircleIcon, PencilIcon } from '@heroicons/react/24/outline';
+
+// components
 import PostsAndSubscribers from './PostsAndSubscribers';
 import ColorPicker from '#/components/UI/ColorPicker';
 import Tabs from '#/components/UI/TabsComponent';
 import ImageUploader from '#/components/UI/ImageUploader';
 import IconWithText from '#/components/UI/IconWithText';
 import FrontPageTab from '#/components/admin/spaces/SpaceEdit/FrontPageTab';
-import useAutosizeTextArea from '#/lib/hooks/useAutosizeTextarea';
-import EditedText from './EditedText';
+import EditedText from '#/components/admin/spaces/EditedText';
 
 const defaultValues = {
 	name: '',
@@ -246,7 +250,11 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 					<h2 className="text-lg font-semibold">Space Colors</h2>
 					<p>
 						Want some color ideas?
-						<Link className="pl-2 text-pink-500" href="https://coolors.co/">
+						<Link
+							className="pl-2 text-pink-500"
+							href="https://coolors.co/"
+							target="_blank"
+						>
 							Color Palette Generator
 						</Link>
 					</p>
