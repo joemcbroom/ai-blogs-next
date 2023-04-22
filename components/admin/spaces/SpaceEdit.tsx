@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
 import { supabaseStorage, updateSpace } from '#/lib/supabase/client';
 import SUPABASE_CONSTANTS from '#/lib/constants/supabaseConstants';
-import useSpaceEditedText from '#/lib/hooks/useSpaceEditedText';
 import { useAlert } from '#/lib/hooks/useAlert';
 
 // UI components
@@ -22,6 +21,8 @@ import Tabs from '#/components/UI/TabsComponent';
 import ImageUploader from '#/components/UI/ImageUploader';
 import IconWithText from '#/components/UI/IconWithText';
 import FrontPageTab from '#/components/admin/spaces/SpaceEdit/FrontPageTab';
+import useAutosizeTextArea from '#/lib/hooks/useAutosizeTextarea';
+import EditedText from './EditedText';
 
 const defaultValues = {
 	name: '',
@@ -53,7 +54,6 @@ const reducer = (state: typeof defaultValues, action: ActionType) => {
 
 const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 	const router = useRouter();
-	const { editedText } = useSpaceEditedText(space);
 	const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
 	const [hasChanges, setHasChanges] = useState(false);
 	const nameRef = useRef<HTMLInputElement>(null);
@@ -73,6 +73,8 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 		initialSpaceValues,
 		init
 	);
+
+	useAutosizeTextArea(descriptionRef.current, editedValues.description);
 
 	useEffect(() => {
 		if (!space.image_path) {
@@ -215,7 +217,9 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 
 				<span className="flex items-center gap-2">
 					<PostsAndSubscribers postCount={space?.posts?.length ?? 0} />
-					<span className="text-sm italic text-slate-400">{editedText}</span>
+					<span className="text-sm italic text-slate-400">
+						<EditedText space={space} />
+					</span>
 				</span>
 				{/* horizontal line */}
 				<div className="mt-3 border-t border-slate-400" />
@@ -223,10 +227,11 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 				{/* space description with edit pencil icon below */}
 				<div className="mt-3">
 					<textarea
-						className="w-full text-sm"
+						className="w-1/2 rounded border-2 p-3 text-sm"
 						defaultValue={editedValues.description}
 						onChange={(e) => handleEdit(e.target.value, 'description')}
 						ref={descriptionRef}
+						rows={1}
 					/>
 					{/* edit description with pencil icon */}
 					<IconWithText

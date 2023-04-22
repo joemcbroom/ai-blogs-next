@@ -1,12 +1,8 @@
 'use client';
 // lib
-import useSpaceEditedText from '#/lib/hooks/useSpaceEditedText';
 import supabase from '#/lib/supabase/client';
 // types
-import {
-	BlogSpaceWithAbbreviatedPosts,
-	BlogSpaceWithPosts,
-} from '#/lib/types/inferred.types';
+import { BlogSpaceWithAbbreviatedPosts } from '#/lib/types/inferred.types';
 
 // library
 import { PauseIcon, PlayIcon, TrashIcon } from '@heroicons/react/24/solid';
@@ -19,6 +15,7 @@ import { useState, useTransition } from 'react';
 import ButtonComponent from '#/components/UI/ButtonComponent';
 import PostsAndSubscribers from '#/components/admin/spaces/PostsAndSubscribers';
 import Modal from '#/components/UI/Modal';
+import EditedText from './EditedText';
 
 const PauseOrResumeButton = ({
 	isPublished,
@@ -101,7 +98,6 @@ const DeleteButton = ({
 };
 
 const SpaceCard = ({ space }: { space: BlogSpaceWithAbbreviatedPosts }) => {
-	const { editedText } = useSpaceEditedText(space);
 	const [isPending, startTransition] = useTransition();
 	const [isFetching, setIsFetching] = useState(false);
 	const router = useRouter();
@@ -162,7 +158,9 @@ const SpaceCard = ({ space }: { space: BlogSpaceWithAbbreviatedPosts }) => {
 						<span className="text-sm text-pink-600">PAUSED</span>
 					)}
 				</div>
-				<p className="mt-1 text-sm italic text-slate-400">{editedText}</p>
+				<p className="mr-auto mt-1 flex text-sm italic text-slate-400">
+					<EditedText space={space} />
+				</p>
 				<PostsAndSubscribers postCount={postCount} />
 			</div>
 			<div className="flex flex-1 items-center justify-end gap-4">
