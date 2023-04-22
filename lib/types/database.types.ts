@@ -111,24 +111,33 @@ export interface Database {
       profiles: {
         Row: {
           avatar_url: string | null
+          created_at: string
+          email: string | null
           full_name: string | null
           id: string
+          is_admin: boolean
           updated_at: string | null
           username: string | null
           website: string | null
         }
         Insert: {
           avatar_url?: string | null
+          created_at?: string
+          email?: string | null
           full_name?: string | null
           id: string
+          is_admin?: boolean
           updated_at?: string | null
           username?: string | null
           website?: string | null
         }
         Update: {
           avatar_url?: string | null
+          created_at?: string
+          email?: string | null
           full_name?: string | null
           id?: string
+          is_admin?: boolean
           updated_at?: string | null
           username?: string | null
           website?: string | null
@@ -159,7 +168,12 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_admin: {
+        Args: {
+          user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never

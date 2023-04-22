@@ -1,9 +1,12 @@
 'use client';
-import Modal from '#/components/UI/Modal';
+// lib
 import useSpaceEditedText from '#/lib/hooks/useSpaceEditedText';
-import supabase from '#/lib/supabase';
+import supabase from '#/lib/supabase/client';
 // types
-import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
+import {
+	BlogSpaceWithAbbreviatedPosts,
+	BlogSpaceWithPosts,
+} from '#/lib/types/inferred.types';
 
 // library
 import { PauseIcon, PlayIcon, TrashIcon } from '@heroicons/react/24/solid';
@@ -13,8 +16,9 @@ import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 
 // components
-import AdminButton from '../AdminButton';
-import PostsAndSubscribers from './PostsAndSubscribers';
+import ButtonComponent from '#/components/UI/ButtonComponent';
+import PostsAndSubscribers from '#/components/admin/spaces/PostsAndSubscribers';
+import Modal from '#/components/UI/Modal';
 
 const PauseOrResumeButton = ({
 	isPublished,
@@ -67,7 +71,7 @@ const PauseOrResumeButton = ({
 const DeleteButton = ({
 	handleDelete,
 }: {
-	space: BlogSpaceWithPosts;
+	space: BlogSpaceWithAbbreviatedPosts;
 	handleDelete: () => void;
 }) => {
 	const [showModal, setShowModal] = useState(false);
@@ -96,7 +100,7 @@ const DeleteButton = ({
 	);
 };
 
-const SpaceCard = ({ space }: { space: BlogSpaceWithPosts }) => {
+const SpaceCard = ({ space }: { space: BlogSpaceWithAbbreviatedPosts }) => {
 	const { editedText } = useSpaceEditedText(space);
 	const [isPending, startTransition] = useTransition();
 	const [isFetching, setIsFetching] = useState(false);
@@ -105,7 +109,7 @@ const SpaceCard = ({ space }: { space: BlogSpaceWithPosts }) => {
 	const isMutating = isFetching || isPending;
 
 	const { name, slug } = space;
-	const postCount = space.posts.length;
+	const postCount = space?.posts?.length ?? 0;
 
 	const handleDelete = async () => {
 		setIsFetching(true);
@@ -168,12 +172,12 @@ const SpaceCard = ({ space }: { space: BlogSpaceWithPosts }) => {
 					isPublished={space.is_published}
 					handlePauseOrResume={handlePauseOrResume}
 				/>
-				<AdminButton
+				<ButtonComponent
 					backgroundClass="bg-pink-600"
 					href={`/admin/spaces/viewer/${slug}/edit`}
 				>
 					Edit Space
-				</AdminButton>
+				</ButtonComponent>
 			</div>
 		</div>
 	);
