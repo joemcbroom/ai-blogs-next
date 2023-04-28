@@ -1,11 +1,11 @@
 'use client';
 
 // framework
-import { MouseEvent, useEffect, useState, useTransition } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 // library
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 // components
 import AdminHeading from '#/components/admin/AdminHeading';
