@@ -12,7 +12,6 @@ export type PostPreviousVersion =
 	Database['public']['Tables']['post_previous_version']['Row'];
 
 export type AbbreviatedPost = {
-	[x: string]: Key | null | undefined;
 	title: string;
 	slug: string;
 	description: string | null;
