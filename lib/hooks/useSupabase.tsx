@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 
 import type { SupabaseClient } from '@supabase/auth-helpers-nextjs';
 import type { Database } from '#/lib/types/database.types';
+import { cookies } from 'next/headers';
 
 type SupabaseContext = {
 	supabase: SupabaseClient<Database>;
@@ -31,11 +32,6 @@ export const SupabaseProvider = ({
 			data: { subscription },
 		} = supabase.auth.onAuthStateChange((event, session) => {
 			setSession(session);
-			if (event === 'SIGNED_OUT') {
-				router.push('/sign-in');
-				return;
-			} else if (event === 'SIGNED_IN') {
-			}
 			router.refresh();
 		});
 

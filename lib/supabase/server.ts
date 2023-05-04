@@ -1,8 +1,8 @@
 import { createServerComponentSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { headers, cookies } from 'next/headers';
 
-import type { Database } from '#/lib/types/database.types';
 import {
+	DB,
 	BlogSpaceWithAbbreviatedPosts,
 	BlogSpaceWithPosts,
 	User,
@@ -10,7 +10,7 @@ import {
 import { AuthenticatedUser } from '../types/authenticatedUser.types';
 
 const supabaseSingleton = async () => {
-	return createServerComponentSupabaseClient<Database>({
+	return createServerComponentSupabaseClient<DB>({
 		headers,
 		cookies,
 	});
@@ -55,6 +55,16 @@ export const userIsAdmin = async (
 		user_id: user.id,
 	});
 	return isAdmin ?? false;
+};
+
+export const getAllTags = async () => {
+	const supabase = await supabaseSingleton();
+	const { data, error } = await supabase.from('tag').select('*');
+	if (error) {
+		console.error(error);
+		throw error.message;
+	}
+	return data;
 };
 
 export const getAllSpaces = async (): Promise<
