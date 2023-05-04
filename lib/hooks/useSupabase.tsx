@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 
 import type { SupabaseClient } from '@supabase/auth-helpers-nextjs';
 import type { Database } from '#/lib/types/database.types';
-import { cookies } from 'next/headers';
 
 type SupabaseContext = {
 	supabase: SupabaseClient<Database>;
