@@ -27,7 +27,7 @@ export default function ColorPicker({
 	useClickOutside(popover, close);
 
 	return (
-		<div className=" flex flex-col gap-2">
+		<div className="my-4 flex flex-col gap-1">
 			{label && <label className="block text-xs">{label}</label>}
 			<div className="relative flex items-center gap-2">
 				<HexColorInput
