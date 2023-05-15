@@ -191,7 +191,7 @@ export default function CreateBlogPosts({
 			{selectedSpace && (
 				<div>
 					<h3 className="text-lg font-bold">{selectedSpace.name} Posts:</h3>
-					<ul className="list-inside list-none">
+					<ul className="list-inside list-disc">
 						{selectedSpace?.posts?.map((post) => (
 							<li key={post.slug}>{post.title}</li>
 						))}
