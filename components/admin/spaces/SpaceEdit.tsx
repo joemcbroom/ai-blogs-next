@@ -1,6 +1,6 @@
 'use client';
 /// frameworks
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect, useReducer, useRef, useState, useTransition } from 'react';
 
@@ -27,9 +27,10 @@ import ImageUploader from '#/components/UI/ImageUploader';
 import IconWithText from '#/components/UI/IconWithText';
 import FrontPageTab from '#/components/admin/spaces/SpaceEdit/FrontPageTab';
 import EditedText from '#/components/admin/spaces/EditedText';
+import BlogPostsTab from './SpaceEdit/BlogPostsTab';
 
 const defaultValues = {
-	name: '',
+	title: '',
 	description: '',
 	primary_color: '#000000',
 	secondary_color: '#000000',
@@ -58,14 +59,16 @@ const reducer = (state: typeof defaultValues, action: ActionType) => {
 
 const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 	const router = useRouter();
+	const searchParams = useSearchParams();
+	const activeTab = searchParams.get('tab') || 'frontpage';
 	const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
 	const [hasChanges, setHasChanges] = useState(false);
-	const nameRef = useRef<HTMLInputElement>(null);
+	const titleRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
 	const { showAlert } = useAlert();
 
 	const initialSpaceValues = {
-		name: space.name,
+		title: space.title,
 		description: space.description || defaultValues.description,
 		primary_color: space.primary_color || defaultValues.primary_color,
 		secondary_color: space.secondary_color || defaultValues.secondary_color,
@@ -97,7 +100,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 	const handleClearChanges = () => {
 		dispatch({ type: 'RESET', initialValues: initialSpaceValues });
 		// reset name and description
-		nameRef.current!.value = space.name;
+		titleRef.current!.value = space.title;
 		descriptionRef.current!.value = space.description || '';
 		setHasChanges(false);
 		showAlert({
@@ -182,6 +185,28 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 
 	useAutosizeTextArea(descriptionRef, editedValues.description);
 
+	const tabs = [
+		{
+			title: 'Front Page',
+			slug: 'frontpage',
+			content: (
+				<FrontPageTab>
+					<ImageUploader
+						onChange={handleUpdateImage}
+						fileUrl={imageUrl}
+						onClear={handleClearImage}
+					/>
+				</FrontPageTab>
+			),
+		},
+		{
+			title: 'Blog Posts',
+			slug: 'posts',
+			content: <BlogPostsTab posts={space.posts} />,
+		},
+		{ title: 'Subscribers', slug: 'subscribers', content: <SubscribersTab /> },
+	];
+
 	return (
 		<>
 			<Link href={`/admin/spaces/viewer/`} className="flex items-center">
@@ -192,10 +217,10 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 				<div className="flex items-center gap-2">
 					<input
 						className="min-w-[270px] text-2xl font-bold text-gray-800"
-						size={editedValues.name.length}
-						defaultValue={editedValues.name}
-						ref={nameRef}
-						onChange={(e) => handleEdit(e.target.value, 'name')}
+						size={editedValues.title.length}
+						defaultValue={editedValues.title}
+						ref={titleRef}
+						onChange={(e) => handleEdit(e.target.value, 'title')}
 					/>
 					{/* edit name with pencil icon */}
 					{hasChanges ? (
@@ -215,7 +240,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 						<IconWithText
 							icon={PencilIcon}
 							text="Edit name"
-							onClick={() => nameRef.current?.focus()}
+							onClick={() => titleRef.current?.focus()}
 						/>
 					)}
 				</div>
@@ -223,7 +248,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 				<span className="flex items-center gap-2">
 					<PostsAndSubscribers postCount={space?.posts?.length ?? 0} />
 					<span className="text-sm italic text-slate-400">
-						<EditedText space={space} />
+						<EditedText spaceOrPost={space} />
 					</span>
 				</span>
 				{/* horizontal line */}
@@ -283,31 +308,13 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 				{/* Tabs for front page, blog posts, and subscribers */}
 				<div className="mt-3">
 					<Tabs
-						tabs={[
-							{
-								title: 'Front Page',
-								content: (
-									<FrontPageTab>
-										<ImageUploader
-											onChange={handleUpdateImage}
-											fileUrl={imageUrl}
-											onClear={handleClearImage}
-										/>
-									</FrontPageTab>
-								),
-							},
-							{ title: 'Blog Posts', content: <BlogPostsTab /> },
-							{ title: 'Subscribers', content: <SubscribersTab /> },
-						]}
+						tabs={tabs}
+						defaultTab={tabs.findIndex((tab) => tab.slug === activeTab)}
 					/>
 				</div>
 			</div>
 		</>
 	);
-};
-
-const BlogPostsTab = () => {
-	return <div>Blog Posts</div>;
 };
 
 const SubscribersTab = () => {

@@ -14,7 +14,7 @@ export const supabase = createClient<DB>(
 
 export const getSpace = async (slug: string) => {
 	const { data, error } = await supabase
-		.from('blog_space')
+		.from('space')
 		.select(`*, posts: post(*)`)
 		.eq('slug', slug)
 		.single();
@@ -30,15 +30,12 @@ export const getAllTags = async () => {
 };
 
 export const updateSpace = async (slug: string, data: BlogSpaceUpdate) => {
-	const { error } = await supabase
-		.from('blog_space')
-		.update(data)
-		.eq('slug', slug);
+	const { error } = await supabase.from('space').update(data).eq('slug', slug);
 	if (error) throw error;
 };
 
 export const createSpace = async (data: BlogSpaceInsert) => {
-	const { error } = await supabase.from('blog_space').insert([data]);
+	const { error } = await supabase.from('space').insert([data]);
 	if (error) throw error;
 	return;
 };

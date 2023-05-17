@@ -2,15 +2,16 @@ import React, { useMemo } from 'react';
 import {
 	BlogSpaceWithAbbreviatedPosts,
 	BlogSpaceWithPosts,
+	PartialPost,
 } from '#/lib/types/inferred.types';
 import formatDistanceToNow from '#/lib/utils/formatDistanceToNow';
 
 const EditedText = ({
-	space,
+	spaceOrPost,
 }: {
-	space: BlogSpaceWithAbbreviatedPosts | BlogSpaceWithPosts;
+	spaceOrPost: BlogSpaceWithAbbreviatedPosts | BlogSpaceWithPosts | PartialPost;
 }) => {
-	const { created_at, updated_at } = space;
+	const { created_at, updated_at } = spaceOrPost;
 
 	const editedText = useMemo(() => {
 		const time = updated_at ? updated_at : created_at;

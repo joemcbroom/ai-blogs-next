@@ -19,7 +19,7 @@ import { createSpace } from '#/lib/supabase/client';
 import { useAlert } from '#/lib/hooks/useAlert';
 
 type Inputs = {
-	name: string;
+	title: string;
 	description: string;
 	primary_color: string;
 	secondary_color: string;
@@ -27,7 +27,7 @@ type Inputs = {
 };
 
 const defaultValues: Inputs = {
-	name: "What's My Name?",
+	title: "What's My Name?",
 	description: '',
 	primary_color: '#7418EA',
 	secondary_color: '#21FA90',
@@ -50,17 +50,17 @@ export default function NewSpacePage() {
 
 	const [spaceSlug, setSpaceSlug] = useState('');
 
-	const name = watch('name');
-	const [hasSpaceName, setHasSpaceName] = useState(false);
+	const title = watch('title');
+	const [hasSpaceTitle, setHasSpaceTitle] = useState(false);
 
 	useEffect(() => {
-		if (!name || name === defaultValues.name) {
-			setHasSpaceName(false);
+		if (!title || title === defaultValues.title) {
+			setHasSpaceTitle(false);
 			return;
 		}
-		setSpaceSlug(slugify(name));
-		setHasSpaceName(true);
-	}, [name]);
+		setSpaceSlug(slugify(title));
+		setHasSpaceTitle(true);
+	}, [title]);
 
 	const handleGenerate = async () => {
 		setIsBusy(true);
@@ -105,7 +105,7 @@ export default function NewSpacePage() {
 			<form className={`mt-8 ${isSaving ? 'animate-pulse' : ''}`}>
 				<input
 					defaultValue=""
-					{...register('name', { required: true })}
+					{...register('title', { required: true })}
 					placeholder="What's My Name?"
 					className="mt-2 w-[400px] rounded-md border border-gray-300 p-2 text-xs"
 				/>
@@ -129,10 +129,10 @@ export default function NewSpacePage() {
 				/>
 
 				<ButtonComponent
-					disabled={isBusy || !hasSpaceName}
+					disabled={isBusy || !hasSpaceTitle}
 					onClick={handleGenerate}
 					hoverText={`Generate a description for this space ${
-						hasSpaceName ? '' : '\n after you give it a new name'
+						hasSpaceTitle ? '' : '\n after you give it a new name'
 					}`}
 					additionalClasses="mt-2 min-w-[100px]"
 				>
@@ -187,7 +187,7 @@ export default function NewSpacePage() {
 					<ButtonComponent
 						type="submit"
 						onClick={handleCreate}
-						disabled={!name}
+						disabled={!title}
 					>
 						Yes, Create Space
 					</ButtonComponent>
