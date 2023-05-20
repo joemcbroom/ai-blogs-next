@@ -1,6 +1,6 @@
 'use client';
 // lib
-import supabase from '#/lib/supabase/client';
+import { supabase } from '#/lib/supabase/client';
 // types
 import { BlogSpaceWithAbbreviatedPosts } from '#/lib/types/inferred.types';
 

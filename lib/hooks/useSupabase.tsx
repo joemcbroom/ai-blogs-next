@@ -31,11 +31,6 @@ export const SupabaseProvider = ({
 			data: { subscription },
 		} = supabase.auth.onAuthStateChange((event, session) => {
 			setSession(session);
-			if (event === 'SIGNED_OUT') {
-				router.push('/sign-in');
-				return;
-			} else if (event === 'SIGNED_IN') {
-			}
 			router.refresh();
 		});
 
