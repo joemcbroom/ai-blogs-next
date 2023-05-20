@@ -8,7 +8,7 @@ const LANGUAGE_MODEL = process.env.OPENAI_LANGUAGE_MODEL || 'gpt-3.5-turbo';
 
 export const openai = new OpenAIApi(config);
 
-export const generateSpaceDescription = async (name: string) => {
+export const generateSpaceDescription = async (title: string) => {
 	const { data } = await openai.createChatCompletion({
 		model: LANGUAGE_MODEL,
 		messages: [
@@ -19,7 +19,7 @@ export const generateSpaceDescription = async (name: string) => {
 			},
 			{
 				role: 'user',
-				content: `Write a description for a blog called ${name}.  It should be short and succint, like the type used for meta description and SEO.`,
+				content: `Write a description for a blog called ${title}.  It should be short and succint, like the type used for meta description and SEO.`,
 			},
 		],
 	});
@@ -27,11 +27,11 @@ export const generateSpaceDescription = async (name: string) => {
 };
 
 export const generatePostTitles = async ({
-	spaceName,
+	spaceTitle,
 	spaceDescription = '',
 	numberToGenerate = 1,
 }: {
-	spaceName: string;
+	spaceTitle: string;
 	spaceDescription?: string;
 	numberToGenerate?: number;
 }) => {
@@ -45,7 +45,7 @@ export const generatePostTitles = async ({
 			},
 			{
 				role: 'user',
-				content: `Write ${numberToGenerate} titles of posts for a blog called ${spaceName}. ${
+				content: `Write ${numberToGenerate} titles of posts for a blog called ${spaceTitle}. ${
 					spaceDescription ? `The blog description is: ${spaceDescription}` : ''
 				}`,
 			},

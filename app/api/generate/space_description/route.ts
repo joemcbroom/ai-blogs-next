@@ -2,12 +2,12 @@ import { NextResponse } from 'next/server';
 import { generateSpaceDescription } from '#/lib/openai/server';
 
 export async function POST(req: Request) {
-	const { name } = await req.json();
-	if (!name) {
-		return NextResponse.json({ error: 'No name provided' }, { status: 400 });
+	const { title } = await req.json();
+	if (!title) {
+		return NextResponse.json({ error: 'No title provided' }, { status: 400 });
 	}
 
-	const description = await generateSpaceDescription(name);
+	const description = await generateSpaceDescription(title);
 
 	if (!description) {
 		return NextResponse.json(

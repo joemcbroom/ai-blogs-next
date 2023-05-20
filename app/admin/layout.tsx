@@ -1,13 +1,13 @@
 // components
-import AdminHeader from '#/components/admin/AdminHeader';
-import AdminNav from '#/components/admin/AdminNav';
+import AdminHeader from '#/components/UI/admin/AdminHeader';
+import AdminNav from '#/components/UI/admin/AdminNav';
 
-// framework
+// types
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
 	title: 'Admin',
-	description: 'Admin page for Spaces',
+	description: 'Admin route for Spaces',
 };
 
 export default function AdminLayout({

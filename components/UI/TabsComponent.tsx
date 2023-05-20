@@ -7,10 +7,11 @@ type Tab = {
 
 type TabsProps = {
 	tabs: Tab[];
+	defaultTab?: number;
 };
 
-const Tabs = ({ tabs }: TabsProps) => {
-	const [activeTab, setActiveTab] = useState(0);
+const Tabs = ({ tabs, defaultTab = 0 }: TabsProps) => {
+	const [activeTab, setActiveTab] = useState(defaultTab);
 
 	return (
 		<div className="w-full">

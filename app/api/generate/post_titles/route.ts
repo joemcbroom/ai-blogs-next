@@ -3,19 +3,19 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
 	const {
-		spaceName,
+		spaceTitle,
 		spaceDescription = '',
 		numberToGenerate = 1,
 	} = await req.json();
-	if (!spaceName) {
+	if (!spaceTitle) {
 		return NextResponse.json(
-			{ error: 'No spaceName provided' },
+			{ error: 'No spaceTitle provided' },
 			{ status: 400 }
 		);
 	}
 
 	const titles = await generatePostTitles({
-		spaceName,
+		spaceTitle,
 		spaceDescription,
 		numberToGenerate,
 	});

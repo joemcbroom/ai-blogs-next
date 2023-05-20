@@ -1,5 +1,5 @@
 // components
-import AdminHeading from '#/components/admin/AdminHeading';
+import AdminHeading from '#/components/UI/admin/AdminHeading';
 import CreateBlogPosts from './CreateBlogPosts';
 
 // lib

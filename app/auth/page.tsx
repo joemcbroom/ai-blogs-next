@@ -1,3 +1,4 @@
+// components
 import BlogverseLogo from '#/components/UI/BlogverseLogo';
 import IconLoader from '#/components/UI/loaders/IconLoader';
 import Authenticating from './Authenticating';

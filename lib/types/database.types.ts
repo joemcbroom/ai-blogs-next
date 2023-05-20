@@ -9,83 +9,42 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      blog_space: {
+      post: {
         Row: {
-          about_us: string | null
+          content: string | null
           created_at: string
           description: string | null
           id: number
-          image_path: string | null
           is_published: boolean
-          name: string
-          primary_color: string | null
-          secondary_color: string | null
           slug: string
-          tertiary_color: string | null
+          space_id: number
+          tag_ids: number[] | null
+          title: string
           updated_at: string | null
         }
         Insert: {
-          about_us?: string | null
-          created_at?: string
-          description?: string | null
-          id?: number
-          image_path?: string | null
-          is_published?: boolean
-          name: string
-          primary_color?: string | null
-          secondary_color?: string | null
-          slug: string
-          tertiary_color?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          about_us?: string | null
-          created_at?: string
-          description?: string | null
-          id?: number
-          image_path?: string | null
-          is_published?: boolean
-          name?: string
-          primary_color?: string | null
-          secondary_color?: string | null
-          slug?: string
-          tertiary_color?: string | null
-          updated_at?: string | null
-        }
-      }
-      post: {
-        Row: {
-          blog_space_id: number
-          content: string | null
-          created_at: string | null
-          description: string | null
-          id: number
-          is_published: boolean
-          slug: string
-          tag_ids: number[] | null
-          title: string
-        }
-        Insert: {
-          blog_space_id: number
           content?: string | null
-          created_at?: string | null
+          created_at?: string
           description?: string | null
           id?: number
           is_published?: boolean
           slug: string
+          space_id: number
           tag_ids?: number[] | null
           title: string
+          updated_at?: string | null
         }
         Update: {
-          blog_space_id?: number
           content?: string | null
-          created_at?: string | null
+          created_at?: string
           description?: string | null
           id?: number
           is_published?: boolean
           slug?: string
+          space_id?: number
           tag_ids?: number[] | null
           title?: string
+          updated_at?: string | null
         }
       }
       post_previous_version: {
@@ -143,6 +102,50 @@ export interface Database {
           website?: string | null
         }
       }
+      space: {
+        Row: {
+          about_us: string | null
+          created_at: string
+          description: string | null
+          id: number
+          image_path: string | null
+          is_published: boolean
+          primary_color: string | null
+          secondary_color: string | null
+          slug: string
+          tertiary_color: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          about_us?: string | null
+          created_at?: string
+          description?: string | null
+          id?: number
+          image_path?: string | null
+          is_published?: boolean
+          primary_color?: string | null
+          secondary_color?: string | null
+          slug: string
+          tertiary_color?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          about_us?: string | null
+          created_at?: string
+          description?: string | null
+          id?: number
+          image_path?: string | null
+          is_published?: boolean
+          primary_color?: string | null
+          secondary_color?: string | null
+          slug?: string
+          tertiary_color?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+      }
       tag: {
         Row: {
           blog_space_id: number
@@ -168,14 +171,14 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      auth_user_is_admin: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
       is_admin: {
         Args: {
           user_id: string
         }
+        Returns: boolean
+      }
+      is_user_admin: {
+        Args: Record<PropertyKey, never>
         Returns: boolean
       }
     }

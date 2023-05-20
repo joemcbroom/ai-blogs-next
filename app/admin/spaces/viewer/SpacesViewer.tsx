@@ -1,9 +1,15 @@
 'use client';
 
-import SearchInput from '#/components/UI/SearchInput';
-import { BlogSpaceWithAbbreviatedPosts } from '#/lib/types/inferred.types';
+// framework
 import { useEffect, useState } from 'react';
-import SpaceCard from './SpaceCard';
+
+// components
+import EditCard from '#/components/UI/admin/EditCard';
+import CardsContainer from '#/components/UI/admin/EditCard/CardsContainer';
+import SearchInput from '#/components/UI/SearchInput';
+
+// types
+import type { BlogSpaceWithAbbreviatedPosts } from '#/lib/types/inferred.types';
 
 export default function SpacesViewer({
 	spaces,
@@ -17,7 +23,7 @@ export default function SpacesViewer({
 		if (!spaces) return;
 		setFilteredSpaces(
 			spaces.filter((space) =>
-				space.name.toLowerCase().includes(searchQuery.toLowerCase())
+				space.title.toLowerCase().includes(searchQuery.toLowerCase())
 			)
 		);
 	}, [searchQuery, spaces]);
@@ -26,11 +32,11 @@ export default function SpacesViewer({
 		<>
 			<SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-			<div className="mt-8 flex max-w-5xl flex-col gap-4">
+			<CardsContainer>
 				{filteredSpaces?.map((space) => (
-					<SpaceCard space={space} key={space.slug} />
+					<EditCard item={space} key={space.slug} />
 				))}
-			</div>
+			</CardsContainer>
 		</>
 	);
 }
