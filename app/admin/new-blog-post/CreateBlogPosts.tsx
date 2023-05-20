@@ -3,7 +3,7 @@
 // framework
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useTransition } from 'react';
 
 // library
 import { Transition } from '@headlessui/react';
@@ -40,9 +40,10 @@ export default function CreateBlogPosts({
 		useState<BlogSpaceWithAbbreviatedPosts>();
 	const [numberToGenerate, setNumberToGenerate] = useState<string>('1');
 	const [generatedTitles, setGeneratedTitles] = useState<Title[]>([]);
+	const [isPending, startTransition] = useTransition();
 	const [isGenerating, setIsGenerating] = useState(false);
 	const [isCreating, setIsCreating] = useState(false);
-	const isBusy = isGenerating || isCreating;
+	const isBusy = isGenerating || isCreating || isPending;
 	const { showAlert } = useAlert();
 	const router = useRouter();
 

@@ -1,7 +1,7 @@
 'use client';
 
 // components
-import TypeWriter from '#/components/admin/TypeWriter';
+import TypeWriter from '#/components/UI/admin/TypeWriter';
 import BlogverseLogo from '#/components/UI/BlogverseLogo';
 
 export default function AdminHeader() {

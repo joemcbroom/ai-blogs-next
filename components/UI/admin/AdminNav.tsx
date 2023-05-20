@@ -1,7 +1,7 @@
 'use client';
 
 // components
-import AdminLink from '#/components/admin/NavLink';
+import AdminLink from './NavLink';
 import BlogverseLogo from '#/components/UI/BlogverseLogo';
 
 // library
