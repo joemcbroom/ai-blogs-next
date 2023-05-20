@@ -1,34 +1,50 @@
 'use client';
 
+// components
 import ButtonComponent from '#/components/UI/ButtonComponent';
-import { PauseIcon } from '@heroicons/react/24/solid';
 import EditedText from '../EditedText';
-import PostsAndSubscribers from '../PostsAndSubscribers';
+import { PauseIcon } from '@heroicons/react/24/solid';
+import PostsAndSubscribers from './PostsAndSubscribers';
 import ActionButton from './ActionButton';
+
+// lib
 import { supabase } from '#/lib/supabase/client';
+
+// framework
 import { useRouter } from 'next/navigation';
-import { useState, useTransition } from 'react';
+import React, { useState, useTransition } from 'react';
+
+// types
 import {
 	BlogSpaceWithAbbreviatedPosts,
-	PartialPost,
+	BlogSpaceWithPosts,
+	AbbreviatedPost,
+	Post,
 } from '#/lib/types/inferred.types';
 
 const itemIsBlogSpace = (
-	item: BlogSpaceWithAbbreviatedPosts | PartialPost
-): item is BlogSpaceWithAbbreviatedPosts => {
-	return (item as BlogSpaceWithAbbreviatedPosts).posts !== undefined;
-};
+	item:
+		| BlogSpaceWithAbbreviatedPosts
+		| BlogSpaceWithPosts
+		| AbbreviatedPost
+		| Post
+): item is BlogSpaceWithAbbreviatedPosts | BlogSpaceWithPosts =>
+	(item as BlogSpaceWithAbbreviatedPosts | BlogSpaceWithPosts).posts !==
+	undefined;
 
-const EditCard = ({
-	item,
-	type,
-}: {
-	item: BlogSpaceWithAbbreviatedPosts | PartialPost;
-	type: 'post' | 'space';
-}) => {
+interface Props {
+	item:
+		| BlogSpaceWithAbbreviatedPosts
+		| BlogSpaceWithPosts
+		| AbbreviatedPost
+		| Post;
+}
+
+const EditCard: React.FC<Props> = ({ item }) => {
 	const [isPending, startTransition] = useTransition();
 	const [isFetching, setIsFetching] = useState(false);
 	const router = useRouter();
+	const type = itemIsBlogSpace(item) ? 'space' : 'post';
 
 	const isMutating = isFetching || isPending;
 

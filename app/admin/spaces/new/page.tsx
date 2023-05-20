@@ -11,10 +11,10 @@ import { useForm } from 'react-hook-form';
 import AdminHeading from '#/components/admin/AdminHeading';
 import ButtonComponent from '#/components/UI/ButtonComponent';
 import ColorPicker from '#/components/UI/ColorPicker';
-
-// utils
-import slugify from '#/lib/utils/slugify';
 import IconLoader from '#/components/UI/loaders/IconLoader';
+
+// lib
+import slugify from '#/lib/utils/slugify';
 import { createSpace } from '#/lib/supabase/client';
 import { useAlert } from '#/lib/hooks/useAlert';
 

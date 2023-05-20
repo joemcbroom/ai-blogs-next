@@ -1,7 +1,11 @@
 'use client';
+
+// components
 import ImgComponent from '#/components/UI/ImgComponent';
-import Logout from '#/components/auth/Logout';
-import { User } from '#/lib/types/inferred.types';
+import Logout from '#/app/auth/Logout';
+
+// types
+import type { User } from '#/lib/types/inferred.types';
 
 const UserInfo = ({ userProfile }: { userProfile: User }) => {
 	const { full_name, email, avatar_url, is_admin } = userProfile;

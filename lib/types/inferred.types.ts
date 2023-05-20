@@ -9,28 +9,30 @@ export type BlogSpaceUpdate = Database['public']['Tables']['space']['Update'];
 export type PostPreviousVersion =
 	Database['public']['Tables']['post_previous_version']['Row'];
 
-// export type AbbreviatedPost = {
-// 	title: string;
-// 	slug: string;
-// 	description: string | null;
-// 	created_at: string;
-// 	updated_at: string | null;
-// };
+export type AbbreviatedPost = {
+	title: string;
+	slug: string;
+	description: string | null;
+	created_at: string;
+	updated_at: string | null;
+	is_published: boolean;
+	id: number;
+	space: {
+		title: string;
+		id: number;
+	};
+};
 
 export type PostDelete = {
 	id: number;
 };
 
-type AtLeast<T, K extends keyof T> = Partial<T> & Pick<T, K>;
-
-export type PartialPost = AtLeast<Post, 'created_at' | 'updated_at'>;
-
 export type BlogSpaceWithAbbreviatedPosts = BlogSpace & {
-	posts: Partial<Post>[] | null;
+	posts: AbbreviatedPost[] | null;
 };
 
 export type BlogSpaceWithPosts = BlogSpace & {
-	posts: (Post[] & { sort: () => void }) | null;
+	posts: Post[] | null;
 };
 
 export type User = Database['public']['Tables']['profiles']['Row'];

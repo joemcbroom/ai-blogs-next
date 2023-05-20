@@ -20,14 +20,14 @@ import { ChevronLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { CheckCircleIcon, PencilIcon } from '@heroicons/react/24/outline';
 
 // components
-import PostsAndSubscribers from './PostsAndSubscribers';
+import PostsAndSubscribers from '#/components/UI/admin/EditCard/PostsAndSubscribers';
 import ColorPicker from '#/components/UI/ColorPicker';
 import Tabs from '#/components/UI/TabsComponent';
 import ImageUploader from '#/components/UI/ImageUploader';
 import IconWithText from '#/components/UI/IconWithText';
-import FrontPageTab from '#/components/admin/spaces/SpaceEdit/FrontPageTab';
-import EditedText from '#/components/admin/spaces/EditedText';
-import BlogPostsTab from './SpaceEdit/BlogPostsTab';
+import EditedText from '#/components/UI/admin/EditedText';
+import FrontPageTab from './FrontPageTab';
+import BlogPostsTab from './BlogPostsTab';
 
 const defaultValues = {
 	title: '',

@@ -1,3 +1,4 @@
+// framework
 import Link from 'next/link';
 
 const FrontPageTab = ({ children }: { children: JSX.Element }): JSX.Element => {

@@ -1,5 +1,5 @@
 // components
-import Login from '#/components/auth/Login';
+import Login from '#/app/auth/Login';
 
 // lib
 import { userIsAdmin } from '#/lib/supabase/server';

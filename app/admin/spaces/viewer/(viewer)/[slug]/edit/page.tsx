@@ -1,4 +1,7 @@
-import SpaceEdit from '#/components/admin/spaces/SpaceEdit';
+// components
+import SpaceEdit from '#/app/admin/spaces/viewer/(viewer)/[slug]/edit/SpaceEdit';
+
+// lib
 import { getSpace } from '#/lib/supabase/server';
 
 export const revalidate = 0;

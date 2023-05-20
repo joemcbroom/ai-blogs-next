@@ -2,15 +2,20 @@ import React, { useMemo } from 'react';
 import {
 	BlogSpaceWithAbbreviatedPosts,
 	BlogSpaceWithPosts,
-	PartialPost,
+	AbbreviatedPost,
+	Post,
 } from '#/lib/types/inferred.types';
 import formatDistanceToNow from '#/lib/utils/formatDistanceToNow';
 
-const EditedText = ({
-	spaceOrPost,
-}: {
-	spaceOrPost: BlogSpaceWithAbbreviatedPosts | BlogSpaceWithPosts | PartialPost;
-}) => {
+interface Props {
+	spaceOrPost:
+		| BlogSpaceWithAbbreviatedPosts
+		| BlogSpaceWithPosts
+		| AbbreviatedPost
+		| Post;
+}
+
+const EditedText: React.FC<Props> = ({ spaceOrPost }) => {
 	const { created_at, updated_at } = spaceOrPost;
 
 	const editedText = useMemo(() => {
