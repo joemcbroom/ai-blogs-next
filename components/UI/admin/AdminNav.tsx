@@ -24,7 +24,7 @@ const adminPages = [
 		icon: <PlusCircleIcon className="w-6" />,
 	},
 	{
-		name: 'New Blog Post',
+		name: 'New Blog Post(s)',
 		href: '/admin/posts/new',
 		bgClass: 'bg-violet-700',
 		icon: <DocumentPlusIcon className="w-6" />,
