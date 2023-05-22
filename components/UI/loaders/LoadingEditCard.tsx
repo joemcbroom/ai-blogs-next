@@ -1,4 +1,4 @@
-export default function LoadingSpaceCard() {
+export default function LoadingEditCard() {
 	return (
 		<div className="mx-auto w-full rounded-md border border-blue-300 p-4 shadow">
 			<div className="flex animate-pulse space-x-4">
