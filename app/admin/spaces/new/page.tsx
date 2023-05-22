@@ -77,7 +77,7 @@ export default function NewSpacePage() {
 	const LinkToNewSpace = ({ slug }: { slug: string }) => (
 		<>
 			<span>Space Created Successfully</span>
-			<Link href={`/admin/spaces/viewer/${slug}/edit`}>
+			<Link href={`/admin/spaces/${slug}/edit`}>
 				<span className="text-blue-500 hover:underline">View</span>
 			</Link>
 		</>

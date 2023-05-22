@@ -1,4 +1,4 @@
-import LoadingSpaceCard from '#/components/UI/loaders/LoadingSpaceCard';
+import LoadingEditCard from '#/components/UI/loaders/LoadingEditCard';
 import SearchInputLoader from '#/components/UI/loaders/SearchInputLoader';
 import AdminHeading from '#/components/UI/admin/AdminHeading';
 import CardsContainer from '#/components/UI/admin/EditCard/CardsContainer';
@@ -10,7 +10,7 @@ export default function SpacesViewerLoading() {
 			<SearchInputLoader />
 			<CardsContainer>
 				{[...Array(10)].map((_, i) => (
-					<LoadingSpaceCard key={i} />
+					<LoadingEditCard key={i} />
 				))}
 			</CardsContainer>
 		</div>
