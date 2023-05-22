@@ -1,6 +1,6 @@
 // components
 import AdminHeading from '#/components/UI/admin/AdminHeading';
-import PostsViewer from '#/app/admin/posts/viewer/PostsViewer';
+import PostsViewer from './PostsViewer';
 
 // lib
 import { getAllPosts } from '#/lib/supabase/server';
