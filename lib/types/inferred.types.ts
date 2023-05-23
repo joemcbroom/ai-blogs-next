@@ -17,6 +17,7 @@ export type AbbreviatedPost = {
 	updated_at: string | null;
 	is_published: boolean;
 	id: number;
+	space_id: number;
 	space: {
 		title: string;
 		id: number;

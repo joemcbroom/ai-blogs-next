@@ -13,6 +13,7 @@ import SelectBox from '#/components/UI/SelectBox';
 
 // types
 import type { AbbreviatedPost } from '#/lib/types/inferred.types';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 // Reduce posts to an array of spaces like this: [{ title: string, id: number }, ...]
 // a space looks like { title: string, id: number }
@@ -34,7 +35,12 @@ export default function PostsViewer({ posts }: { posts: AbbreviatedPost[] }) {
 		return getSpaces(posts);
 	}, [posts]);
 
-	const [selectedSpaceId, setSelectedSpaceId] = useState<string | null>(null);
+	const searchParams = useSearchParams();
+	const selectedSpaceIdParam = searchParams.get('selected') || null;
+
+	const [selectedSpaceId, setSelectedSpaceId] = useState<string | null>(
+		selectedSpaceIdParam
+	);
 
 	useEffect(() => {
 		if (!posts || !selectedSpaceId) return;
@@ -45,9 +51,15 @@ export default function PostsViewer({ posts }: { posts: AbbreviatedPost[] }) {
 		setShowCards(true);
 	}, [selectedSpaceId, posts]);
 
+	const router = useRouter();
+	const currentPathname = usePathname();
+
+	const removeQueryParams = () => {
+		router.replace(currentPathname);
+	};
+
 	return (
 		<>
-			{/* <SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} /> */}
 			<SelectBox
 				options={spaces.map((space) => ({
 					id: space.id.toString(),
@@ -55,8 +67,10 @@ export default function PostsViewer({ posts }: { posts: AbbreviatedPost[] }) {
 				}))}
 				changeHandler={(id) => {
 					setSelectedSpaceId(id);
+					removeQueryParams();
 				}}
 				widthClass="w-1/6"
+				defaultSelectedId={selectedSpaceId || undefined}
 			/>
 			<Transition
 				show={showCards}
