@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+const path = require('path')
+const CopyPlugin = require('copy-webpack-plugin')
+
 const nextConfig = {
   experimental: {
     appDir: true,
@@ -11,7 +14,7 @@ const nextConfig = {
         permanent: true
       },
     ]
-  }
+  },
 }
 
 module.exports = nextConfig

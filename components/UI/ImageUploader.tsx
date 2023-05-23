@@ -1,5 +1,5 @@
 import { PhotoIcon } from '@heroicons/react/24/outline';
-import { XCircleIcon } from '@heroicons/react/24/solid';
+import { FolderIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { useEffect, useRef, useState } from 'react';
 import IconWithText from './IconWithText';
 import ImgComponent from './ImgComponent';
@@ -74,6 +74,12 @@ function ImageUploader({
 					className="hidden"
 				/>
 			</div>
+			{fileUrl && (
+				<span className="my-1 block text-xs text-slate-500">
+					<FolderIcon className="mr-1 inline-block h-4 w-4" />
+					{fileUrl.split('/').pop()}
+				</span>
+			)}
 			<span>Click Image To Upload/Change</span>
 			{previewImage && (
 				<IconWithText

@@ -15,6 +15,7 @@ export interface Database {
           created_at: string
           description: string | null
           id: number
+          image_path: string | null
           is_published: boolean
           slug: string
           space_id: number
@@ -27,6 +28,7 @@ export interface Database {
           created_at?: string
           description?: string | null
           id?: number
+          image_path?: string | null
           is_published?: boolean
           slug: string
           space_id: number
@@ -39,6 +41,7 @@ export interface Database {
           created_at?: string
           description?: string | null
           id?: number
+          image_path?: string | null
           is_published?: boolean
           slug?: string
           space_id?: number
