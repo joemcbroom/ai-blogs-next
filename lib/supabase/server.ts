@@ -128,11 +128,13 @@ export const getSpace = async (slug: string): Promise<BlogSpaceWithPosts> => {
 	return space as BlogSpaceWithPosts;
 };
 
-export const getPost = async (slug: string): Promise<Post> => {
+export const getPost = async (
+	slug: string
+): Promise<Post & { space: { title: string; description: string } }> => {
 	const supabase = await supabaseSingleton();
 	const { data, error } = await supabase
 		.from('post')
-		.select('*')
+		.select('*, space: space(title, description)')
 		.eq('slug', slug)
 		.single();
 
@@ -140,7 +142,7 @@ export const getPost = async (slug: string): Promise<Post> => {
 		console.error(error);
 		throw error.message;
 	}
-	return data as Post;
+	return data as Post & { space: { title: string; description: string } };
 };
 
 type ItemSortProps = { created_at: string; updated_at: string | null };

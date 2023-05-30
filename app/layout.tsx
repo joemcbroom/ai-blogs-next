@@ -1,4 +1,5 @@
 import './tailwind.css';
+import '#/components/UI/admin/ContentEditor/styles.css';
 import 'react-tooltip/dist/react-tooltip.css';
 
 import type { Metadata } from 'next';

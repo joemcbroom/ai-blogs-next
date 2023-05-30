@@ -26,6 +26,46 @@ export const generateSpaceDescription = async (title: string) => {
 	return data.choices[0]?.message?.content;
 };
 
+interface PostContentParams {
+	title: string;
+	description?: string;
+	space_title?: string;
+	space_description?: string;
+	content_length?: string;
+}
+export const generatePostContent = async ({
+	title,
+	description = '',
+	space_title = '',
+	space_description = '',
+	content_length = '500',
+}: PostContentParams) => {
+	let contentString = `Write a blog post titled ${title}`;
+	if (space_title) contentString += ` for a blog called ${space_title}`;
+	if (space_description)
+		contentString += `. The blog description is: ${space_description}`;
+	if (description) contentString += `. The post description is: ${description}`;
+	contentString += `.  Format the blog post as html.  It should be ${content_length} words long.`;
+
+	const { data } = await openai.createChatCompletion({
+		model: LANGUAGE_MODEL,
+		messages: [
+			{
+				role: 'system',
+				content:
+					'You are an expert content writer for a blog. Omit extra details or superfulous explanations. Format blog posts as HTML. Do NOT include HTML, head, body, or style tags',
+			},
+			{
+				role: 'user',
+				content: contentString,
+			},
+		],
+	});
+	const content = data.choices[0]?.message?.content;
+	if (!content) throw new Error('No content generated');
+	return content;
+};
+
 export const generatePostTitles = async ({
 	spaceTitle,
 	spaceDescription = '',

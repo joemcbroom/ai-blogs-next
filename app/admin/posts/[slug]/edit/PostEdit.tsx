@@ -21,9 +21,10 @@ import {
 	useState,
 } from 'react';
 import ContentEditor from '#/components/UI/admin/ContentEditor';
+import ButtonComponent from '#/components/UI/ButtonComponent';
 
 interface Props {
-	post: Post;
+	post: Post & { space: { title: string; description: string } };
 }
 
 const defaultValues = {
@@ -58,6 +59,7 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 	const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
 	const isMutating = isSaving;
 	const titleRef = useRef<HTMLInputElement>(null);
+	const [hasChanges, setHasChanges] = useState(false);
 
 	const initialPostValues = {
 		title: post.title,
@@ -65,6 +67,11 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 	};
 
 	const [editedValues, dispatch] = useReducer(reducer, initialPostValues, init);
+
+	const handleEdit = (value: string, field: keyof typeof defaultValues) => {
+		dispatch({ type: 'EDIT', field, value });
+		setHasChanges(true);
+	};
 
 	useEffect(() => {
 		if (!post.image_path) {
@@ -90,11 +97,21 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 
 		const newPath = `${SUPABASE_CONSTANTS.POST_IMAGES_PATH}/${file.name}`;
 
-		const path = await supabaseStorage.upload({
-			file,
-			path: newPath,
-			bucket,
-		});
+		let path = '';
+		try {
+			path = await supabaseStorage.upload({
+				file,
+				path: newPath,
+				bucket,
+			});
+		} catch (err: any) {
+			setIsSaving(false);
+			console.error(err);
+			return showAlert({
+				message: err.message,
+				type: 'error',
+			});
+		}
 		await updatePost(post.slug, { image_path: path });
 		setIsSaving(false);
 
@@ -108,7 +125,7 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 	};
 
 	const handleClearImage = async () => {
-		if (!post.image_path) return;
+		if (!post.image_path) return setImageUrl(undefined);
 		setIsSaving(true);
 		const bucket = SUPABASE_CONSTANTS.PUBLIC_BUCKET;
 		const paths = [post.image_path];
@@ -123,6 +140,41 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 			});
 			router.refresh();
 		});
+	};
+
+	const handleSaveChanges = async () => {
+		console.log('editedValues: ', editedValues);
+		// TODO: save 'previous version'
+		setIsSaving(true);
+		await updatePost(post.slug, editedValues);
+		setIsSaving(false);
+		startTransition(() => {
+			showAlert({
+				message: 'Changes saved',
+				type: 'success',
+			});
+			router.refresh();
+		});
+	};
+
+	const handleGenerateContent = async () => {
+		setIsSaving(true);
+		const body = {
+			title: editedValues.title,
+			content: editedValues.content,
+			space_title: post.space?.title,
+			space_description: post.space?.description,
+			// content_length: 500,
+		};
+
+		const res = await fetch('/api/generate/post_content', {
+			method: 'POST',
+			body: JSON.stringify(body),
+		});
+
+		const { content } = await res.json();
+		handleEdit(content, 'content');
+		setIsSaving(false);
 	};
 
 	return (
@@ -144,7 +196,7 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 					size={editedValues.title.length}
 					defaultValue={editedValues.title}
 					ref={titleRef}
-					// onChange={(e) => handleEdit(e.target.value, 'title')}
+					onChange={(e) => handleEdit(e.target.value, 'title')}
 				/>
 				<IconWithText
 					icon={PencilIcon}
@@ -156,7 +208,36 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 					onClear={handleClearImage}
 					fileUrl={imageUrl}
 				/>
-				<ContentEditor />
+				<ContentEditor
+					content={editedValues.content}
+					onUpdate={(contentHtml) => handleEdit(contentHtml, 'content')}
+				/>
+				<div className="flex gap-4">
+					<ButtonComponent
+						type="button"
+						buttonStyle="primary"
+						onClick={() => handleGenerateContent()}
+					>
+						Generate Content
+					</ButtonComponent>
+					<ButtonComponent
+						type="button"
+						buttonStyle="default"
+						onClick={() =>
+							dispatch({ type: 'RESET', initialValues: initialPostValues })
+						}
+					>
+						Cancel
+					</ButtonComponent>
+					<ButtonComponent
+						type="button"
+						buttonStyle="primary"
+						onClick={() => handleSaveChanges()}
+						disabled={!hasChanges}
+					>
+						Save Changes
+					</ButtonComponent>
+				</div>
 			</div>
 		</>
 	);

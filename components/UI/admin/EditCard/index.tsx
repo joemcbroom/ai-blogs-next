@@ -84,11 +84,11 @@ const EditCard: React.FC<Props> = ({ item }) => {
 
 	return (
 		<div
-			className={`grid grid-cols-1 gap-4 rounded-lg border border-slate-400 p-6 md:grid-cols-3 ${
+			className={`grid grid-cols-1 gap-4 rounded-lg border border-slate-400 p-6 md:grid-cols-12 ${
 				isMutating ? 'animate-pulse' : ''
 			}`}
 		>
-			<div className="col-span-2 flex flex-col gap-1">
+			<div className="col-span-7 flex flex-col gap-1">
 				<div className="flex items-center gap-2 transition-all">
 					{!is_published && (
 						<PauseIcon className="h-8 w-8 self-start fill-current text-pink-600" />
@@ -100,7 +100,7 @@ const EditCard: React.FC<Props> = ({ item }) => {
 				</p>
 				{postCount && <PostsAndSubscribers postCount={postCount} />}
 			</div>
-			<div className="flex flex-1 items-center justify-between gap-4">
+			<div className="col-span-5 flex items-center justify-between gap-4">
 				<ActionButton type="delete" handleAction={handleDelete} />
 				<ActionButton
 					type={is_published ? 'unpublish' : 'publish'}
