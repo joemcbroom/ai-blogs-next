@@ -1,8 +1,6 @@
 import { getPost } from '#/lib/supabase/server';
 import PostEdit from './PostEdit';
 
-export const revalidate = 0;
-
 export default async function EditPost({
 	params: { slug },
 }: {
