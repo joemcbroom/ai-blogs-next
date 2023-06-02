@@ -3,7 +3,7 @@
 import IconWithText from '#/components/UI/IconWithText';
 import ImageUploader from '#/components/UI/ImageUploader';
 import SUPABASE_CONSTANTS from '#/lib/constants/supabaseConstants';
-import { supabaseStorage, updatePost } from '#/lib/supabase/client';
+import { supabase, supabaseStorage, updatePost } from '#/lib/supabase/client';
 // types
 import { Post } from '#/lib/types/inferred.types';
 
@@ -34,6 +34,7 @@ interface Props {
 const defaultValues = {
 	title: '',
 	content: '',
+	is_published: false,
 };
 
 type ActionType =
@@ -68,6 +69,7 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 	const initialPostValues = {
 		title: post.title,
 		content: post.content || '',
+		is_published: post.is_published,
 	};
 
 	const [editedValues, dispatch] = useReducer(reducer, initialPostValues, init);
@@ -181,6 +183,23 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 		setIsSaving(false);
 	};
 
+	const handlePublishOrUnpublish = async () => {
+		setIsSaving(true);
+
+		const { error } = await supabase
+			.from('post')
+			.update({ is_published: !post.is_published })
+			.eq('id', post.id);
+
+		if (error) throw error;
+
+		setIsSaving(false);
+
+		startTransition(() => {
+			router.refresh();
+		});
+	};
+
 	return (
 		<>
 			<Link
@@ -195,17 +214,29 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 					isMutating ? 'animate-pulse' : ''
 				}`}
 			>
-				<Link href={`/${post.space.slug}/${post.slug}`}>
-					<IconWithText
-						icon={MagnifyingGlassIcon}
-						text="Preview"
-						onClick={() => {}}
-					/>
-				</Link>
+				<div className="relative flex w-full items-center justify-center gap-4">
+					<Link href={`/${post.space.slug}/${post.slug}?isPreview=true`}>
+						<IconWithText
+							icon={MagnifyingGlassIcon}
+							text="Preview"
+							onClick={() => {}}
+						/>
+					</Link>
+					<span
+						className={`absolute right-2 top-0 rounded border px-2 py-1 text-sm ${
+							post.is_published
+								? 'border-green-500 text-green-500'
+								: 'border-red-500 text-red-500'
+						}`}
+					>
+						{post.is_published ? 'Published' : 'Unpublished'}
+					</span>
+				</div>
 				<input
 					className="min-w-[270px] text-2xl font-bold text-gray-800"
 					size={editedValues.title.length}
 					defaultValue={editedValues.title}
+					value={editedValues.title}
 					ref={titleRef}
 					onChange={(e) => handleEdit(e.target.value, 'title')}
 				/>
@@ -234,9 +265,13 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 					<ButtonComponent
 						type="button"
 						buttonStyle="default"
-						onClick={() =>
-							dispatch({ type: 'RESET', initialValues: initialPostValues })
-						}
+						onClick={() => {
+							dispatch({ type: 'RESET', initialValues: initialPostValues });
+							showAlert({
+								message: 'Changes reverted',
+								type: 'success',
+							});
+						}}
 					>
 						Cancel
 					</ButtonComponent>
@@ -247,6 +282,13 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 						disabled={!hasChanges}
 					>
 						Save Changes
+					</ButtonComponent>
+					<ButtonComponent
+						type="button"
+						buttonStyle={post.is_published ? 'danger' : 'primary'}
+						onClick={() => handlePublishOrUnpublish()}
+					>
+						{post.is_published ? 'Unpublish' : 'Publish'}
 					</ButtonComponent>
 				</div>
 			</div>

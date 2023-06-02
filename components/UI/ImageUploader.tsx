@@ -84,7 +84,7 @@ function ImageUploader({
 			{previewImage && (
 				<IconWithText
 					icon={XCircleIcon}
-					text="Clear"
+					text="Clear Image"
 					onClick={() => {
 						onClear();
 					}}

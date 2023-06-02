@@ -1,7 +1,7 @@
 'use client';
 
 // framework
-import { useEffect, useMemo, useState } from 'react';
+import { startTransition, useEffect, useMemo, useState } from 'react';
 
 // library
 import { Transition } from '@headlessui/react';
@@ -14,6 +14,8 @@ import SelectBox from '#/components/UI/SelectBox';
 // types
 import type { AbbreviatedPost } from '#/lib/types/inferred.types';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import ButtonComponent from '#/components/UI/ButtonComponent';
+import { supabase } from '#/lib/supabase/client';
 
 // Reduce posts to an array of spaces like this: [{ title: string, id: number }, ...]
 // a space looks like { title: string, id: number }
@@ -30,6 +32,7 @@ const getSpaces = (posts: AbbreviatedPost[]) => {
 export default function PostsViewer({ posts }: { posts: AbbreviatedPost[] }) {
 	const [filteredPosts, setFilteredPosts] = useState(posts);
 	const [showCards, setShowCards] = useState(false);
+	const [isBusy, setIsBusy] = useState(false);
 
 	const spaces = useMemo(() => {
 		return getSpaces(posts);
@@ -58,20 +61,60 @@ export default function PostsViewer({ posts }: { posts: AbbreviatedPost[] }) {
 		router.replace(currentPathname);
 	};
 
+	const publishOrUnpublishAll = async ({
+		type,
+	}: {
+		type: 'publish' | 'unpublish';
+	}) => {
+		setIsBusy(true);
+		const { error } = await supabase
+			.from('post')
+			.update({ is_published: type === 'publish' ? true : false })
+			.eq('is_published', type === 'publish' ? false : true);
+
+		if (error) throw error;
+
+		setIsBusy(false);
+
+		startTransition(() => {
+			router.refresh();
+		});
+	};
+
 	return (
 		<>
-			<SelectBox
-				options={spaces.map((space) => ({
-					id: space.id.toString(),
-					value: space.title,
-				}))}
-				changeHandler={(id) => {
-					setSelectedSpaceId(id);
-					removeQueryParams();
-				}}
-				widthClass="w-1/6"
-				defaultSelectedId={selectedSpaceId || undefined}
-			/>
+			<div
+				className={`flex items-center justify-between gap-2 ${
+					isBusy ? 'animate-pulse' : ''
+				}`}
+			>
+				<SelectBox
+					options={spaces.map((space) => ({
+						id: space.id.toString(),
+						value: space.title,
+					}))}
+					changeHandler={(id) => {
+						setSelectedSpaceId(id);
+						removeQueryParams();
+					}}
+					widthClass="w-1/6 mr-auto"
+					defaultSelectedId={selectedSpaceId || undefined}
+				/>
+				<ButtonComponent
+					type="button"
+					onClick={() => publishOrUnpublishAll({ type: 'publish' })}
+					buttonStyle="primary"
+				>
+					Publish All
+				</ButtonComponent>
+				<ButtonComponent
+					type="button"
+					onClick={() => publishOrUnpublishAll({ type: 'unpublish' })}
+					buttonStyle="danger"
+				>
+					Unpublish All
+				</ButtonComponent>
+			</div>
 			<Transition
 				show={showCards}
 				enter="transition-opacity duration-150"

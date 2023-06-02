@@ -3,7 +3,7 @@ import ListItem from '@tiptap/extension-list-item';
 import TextStyle from '@tiptap/extension-text-style';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MenuBar } from './MenuBar';
 
 interface EditorProps {
@@ -34,10 +34,16 @@ const Editor: React.FC<EditorProps> = ({ content, onUpdate }) => {
 		},
 	});
 
+	useEffect(() => {
+		if (!editor) return;
+		editor.commands.setContent(content);
+		//
+	}, [content, editor]);
+
 	return (
-		<div className="ProseMirror mx-auto min-h-[32rem] w-[56rem] rounded border border-slate-800">
+		<div className="ProseMirror mx-auto min-h-[32rem] rounded border border-slate-800">
 			<MenuBar editor={editor} />
-			<EditorContent className="px-4 pb-4" editor={editor} />
+			<EditorContent className="w-full px-4 pb-4" editor={editor} />
 		</div>
 	);
 };
