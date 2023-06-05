@@ -1,4 +1,6 @@
 import { supabase } from '#/lib/supabase/static';
+import { Post } from '#/lib/types/inferred.types';
+import PostContent from './PostContent';
 
 const getPost = async (post_slug: string) => {
 	const { data: post, error } = await supabase
@@ -12,7 +14,7 @@ const getPost = async (post_slug: string) => {
 		throw error.message;
 	}
 
-	return post;
+	return post as Post;
 };
 
 interface PostPageProps {
@@ -20,9 +22,12 @@ interface PostPageProps {
 		post_slug: string;
 	};
 }
-const PostPage = async ({ params: { post_slug } }: PostPageProps) => {
+
+// @ts-expect-error https://github.com/microsoft/TypeScript/pull/51328
+const PostPage: React.FC<PostPageProps> = async ({ params: { post_slug } }) => {
 	const post = await getPost(post_slug);
-	return <pre>{JSON.stringify(post, null, 2)}</pre>;
+	// @ts-expect-error
+	return <PostContent post={post} />;
 };
 
 export default PostPage;

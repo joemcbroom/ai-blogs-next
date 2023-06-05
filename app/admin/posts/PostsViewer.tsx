@@ -70,7 +70,8 @@ export default function PostsViewer({ posts }: { posts: AbbreviatedPost[] }) {
 		const { error } = await supabase
 			.from('post')
 			.update({ is_published: type === 'publish' ? true : false })
-			.eq('is_published', type === 'publish' ? false : true);
+			.eq('is_published', type === 'publish' ? false : true)
+			.eq('space_id', selectedSpaceId);
 
 		if (error) throw error;
 
