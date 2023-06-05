@@ -12,6 +12,7 @@ type ListBoxProps = {
 	bgClass?: string;
 	disabled?: boolean;
 	widthClass?: string;
+	defaultSelectedId?: string;
 };
 export default function SelectBox({
 	options,
@@ -19,9 +20,14 @@ export default function SelectBox({
 	bgClass = 'bg-pink-600',
 	disabled = false,
 	widthClass = 'w-full',
+	defaultSelectedId,
 }: ListBoxProps) {
-	const [selectedId, setSelectedId] = useState<string>(options[0].id);
-	const [selected, setSelected] = useState<Option>(options[0]);
+	const [selectedId, setSelectedId] = useState<string>(
+		defaultSelectedId || options[0].id
+	);
+	const selectedOption =
+		options.find((option) => option.id === selectedId) || options[0];
+	const [selected, setSelected] = useState<Option>(selectedOption);
 
 	useEffect(() => {
 		const selectedOption = options.find((option) => option.id === selectedId);

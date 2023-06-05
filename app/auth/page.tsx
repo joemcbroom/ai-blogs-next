@@ -3,6 +3,8 @@ import BlogverseLogo from '#/components/UI/BlogverseLogo';
 import IconLoader from '#/components/UI/loaders/IconLoader';
 import Authenticating from './Authenticating';
 
+export const dynamic = 'force-dynamic';
+
 export default function AuthPage() {
 	return (
 		<div className="grid h-screen w-screen place-items-center">

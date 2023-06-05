@@ -5,6 +5,8 @@ import CreateBlogPosts from './CreateBlogPosts';
 // lib
 import { getAllSpaces } from '#/lib/supabase/server';
 
+export const dynamic = 'force-dynamic';
+
 export default async function NewBlogPostPage() {
 	const spaces = await getAllSpaces();
 

@@ -3,6 +3,7 @@ import { Database } from '#/lib/types/database.types';
 export type DB = Database;
 export type Post = Database['public']['Tables']['post']['Row'];
 export type PostInsert = Database['public']['Tables']['post']['Insert'];
+export type PostUpdate = Database['public']['Tables']['post']['Update'];
 export type BlogSpace = Database['public']['Tables']['space']['Row'];
 export type BlogSpaceInsert = Database['public']['Tables']['space']['Insert'];
 export type BlogSpaceUpdate = Database['public']['Tables']['space']['Update'];
@@ -17,6 +18,7 @@ export type AbbreviatedPost = {
 	updated_at: string | null;
 	is_published: boolean;
 	id: number;
+	space_id: number;
 	space: {
 		title: string;
 		id: number;
