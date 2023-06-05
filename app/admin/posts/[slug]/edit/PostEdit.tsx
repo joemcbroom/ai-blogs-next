@@ -233,9 +233,9 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 					</span>
 				</div>
 				<input
+					type="text"
 					className="min-w-[270px] text-2xl font-bold text-gray-800"
 					size={editedValues.title.length}
-					defaultValue={editedValues.title}
 					value={editedValues.title}
 					ref={titleRef}
 					onChange={(e) => handleEdit(e.target.value, 'title')}
