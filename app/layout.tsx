@@ -21,11 +21,9 @@ export default function RootLayout({
 		<html>
 			<head></head>
 
-			<body className="h-full">
+			<body className="relative h-full">
 				<SupabaseProvider>
-					<AlertProvider>
-						<main className="h-full">{children}</main>
-					</AlertProvider>
+					<AlertProvider>{children}</AlertProvider>
 				</SupabaseProvider>
 			</body>
 		</html>
