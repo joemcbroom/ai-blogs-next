@@ -1,4 +1,4 @@
-import ImgComponent from '#/components/UI/ImgComponent';
+'use client';
 import Image from 'next/image';
 
 interface BlogverseLogoProps {
@@ -23,8 +23,12 @@ export default function BlogverseLogo({
 	...rest
 }: BlogverseLogoProps) {
 	const logo = logos[type];
+	const loader = ({ src }: { src: string }) => {
+		return `${src}`;
+	};
 	return (
 		<Image
+			loader={loader}
 			src={logo}
 			alt="Blogverse Logo"
 			className={className}

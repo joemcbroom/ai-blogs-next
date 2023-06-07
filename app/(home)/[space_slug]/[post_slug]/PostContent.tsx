@@ -41,7 +41,7 @@ const HeaderImage: React.FC<HeaderImageProps> = ({
 	return (
 		<header className="relative flex flex-col items-center justify-end bg-black bg-opacity-50">
 			<ResponsiveImage
-				src={src}
+				src={image_path || ''}
 				width={width}
 				height={height}
 				alt={title}
