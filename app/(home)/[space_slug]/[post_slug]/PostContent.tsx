@@ -47,17 +47,19 @@ const HeaderImage: React.FC<HeaderImageProps> = ({
 				alt={title}
 				className="absolute left-0 top-0 z-0 h-96 w-screen bg-black bg-opacity-50 object-cover"
 			/>
-			<div className="z-10 flex h-96 w-full flex-col justify-end p-6 sm:p-0 sm:pb-6">
-				<div className="flex max-w-3xl flex-col justify-center gap-2 ">
-					<div className="flex gap-2 text-sm font-semibold text-white">
-						<span>{formattedDate}</span>
-						<span>・</span>
-						<span>{readTime} min read</span>
+			<div className="z-10 flex h-96 w-full flex-col justify-end">
+				<div className="w-full bg-black bg-opacity-30">
+					<div className="relative mx-auto flex w-full flex-col justify-center gap-2 overflow-hidden p-6 md:max-w-4xl md:px-0">
+						<div className="flex gap-2 text-sm font-semibold text-white">
+							<span>{formattedDate}</span>
+							<span>・</span>
+							<span>{readTime} min read</span>
+						</div>
+						<h1 className="text-3xl font-bold text-white">{title}</h1>
+						{description && (
+							<p className="text-xl font-semibold text-white">{description}</p>
+						)}
 					</div>
-					<h1 className="text-3xl font-bold text-white">{title}</h1>
-					{description && (
-						<p className="text-xl font-semibold text-white">{description}</p>
-					)}
 				</div>
 			</div>
 		</header>
@@ -79,7 +81,7 @@ const PostContent: React.FC<Post> = ({ post }) => {
 		return content;
 	};
 	return (
-		<article className="mx-auto sm:max-w-4xl">
+		<article className="">
 			<HeaderImage
 				created_at={created_at}
 				title={title}
@@ -89,7 +91,7 @@ const PostContent: React.FC<Post> = ({ post }) => {
 			/>
 			{/* <LikesAndComments */}
 			<section
-				className="ProseMirror p-6 sm:p-0 sm:pt-6"
+				className="ProseMirror mx-auto max-w-4xl p-6 md:p-0 md:pt-6"
 				dangerouslySetInnerHTML={{
 					__html: removeDuplicateTitle(post.content || '<p>no content yet</p>'),
 				}}
