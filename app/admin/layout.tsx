@@ -16,7 +16,7 @@ export default function AdminLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="flex h-full">
+		<div className="flex h-full dark:bg-white dark:text-slate-900">
 			<AdminNav />
 			<div className="flex w-full flex-col">
 				<AdminHeader />

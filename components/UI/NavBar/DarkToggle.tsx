@@ -29,6 +29,7 @@ const DarkToggle = () => {
 	const loader = ({ src }: { src: string }) => {
 		return `${src}`;
 	};
+
 	return (
 		<Switch
 			checked={isDark}
@@ -40,7 +41,7 @@ const DarkToggle = () => {
 			<span
 				className={`${
 					isDark ? 'translate-x-0' : 'translate-x-full'
-				} inline-block h-6 w-6 transform rounded-full bg-white transition`}
+				} inline-block h-6 w-6 transform overflow-hidden rounded-full bg-white transition`}
 			>
 				<Image loader={loader} src={isDark ? sunUrl : moonUrl} alt="sun/moon" />
 			</span>
