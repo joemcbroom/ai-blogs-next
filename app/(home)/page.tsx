@@ -4,6 +4,8 @@ import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
+export const revalidate = 30;
+
 const getSpaces = async () => {
 	const { data: spaces, error } = await supabase
 		.from('space')

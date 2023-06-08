@@ -2,6 +2,8 @@ import { createClient } from '@supabase/supabase-js';
 
 export const dynamic = 'force-static';
 
+export const revalidate = 30;
+
 export const generateStaticParams = async () => {
 	const supabase = createClient(
 		process.env.NEXT_PUBLIC_SUPABASE_URL!,

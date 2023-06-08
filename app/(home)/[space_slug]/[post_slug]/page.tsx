@@ -2,6 +2,8 @@ import { supabase } from '#/lib/supabase/static';
 import { Post } from '#/lib/types/inferred.types';
 import PostContent from './PostContent';
 
+export const revalidate = 30;
+
 const getPost = async (post_slug: string) => {
 	const { data: post, error } = await supabase
 		.from('post')
