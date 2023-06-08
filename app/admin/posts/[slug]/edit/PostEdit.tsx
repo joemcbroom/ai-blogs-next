@@ -91,12 +91,13 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 	}, [post]);
 
 	const updatePost = async (slug: string, data: PostUpdate) => {
+		debugger;
 		await fetch('/api/supabase/post', {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ slug, data }),
+			body: JSON.stringify({ slug, data, spaceSlug: post.space.slug }),
 		});
 	};
 

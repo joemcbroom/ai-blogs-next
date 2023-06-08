@@ -1,4 +1,5 @@
 import { supabaseSingleton } from '#/lib/supabase/server';
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
@@ -19,6 +20,8 @@ export async function PUT(req: Request) {
 	const supabase = await supabaseSingleton();
 	const { error } = await supabase.from('space').update(data).eq('slug', slug);
 	if (error) throw error;
+
+	revalidatePath(`/${slug}`);
 
 	return NextResponse.json({ success: true });
 }
