@@ -3,9 +3,9 @@
 import IconWithText from '#/components/UI/IconWithText';
 import ImageUploader from '#/components/UI/ImageUploader';
 import SUPABASE_CONSTANTS from '#/lib/constants/supabaseConstants';
-import { supabase, supabaseStorage, updatePost } from '#/lib/supabase/client';
+import { supabase, supabaseStorage } from '#/lib/supabase/client';
 // types
-import { Post } from '#/lib/types/inferred.types';
+import { Post, PostUpdate } from '#/lib/types/inferred.types';
 
 // hooks
 import { useAlert } from '#/lib/hooks/useAlert';
@@ -89,6 +89,16 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 		});
 		setImageUrl(publicUrl);
 	}, [post]);
+
+	const updatePost = async (slug: string, data: PostUpdate) => {
+		await fetch('/api/supabase/post', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ slug, data }),
+		});
+	};
 
 	const handleUpdateImage = async (file: File) => {
 		setIsSaving(true);

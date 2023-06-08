@@ -16,7 +16,6 @@ import IconLoader from '#/components/UI/loaders/IconLoader';
 
 // lib
 import slugify from '#/lib/utils/slugify';
-import { createPosts } from '#/lib/supabase/client';
 import { useAlert } from '#/lib/hooks/useAlert';
 
 // types
@@ -88,6 +87,16 @@ export default function CreateBlogPosts({
 			setGeneratedTitles([...generatedTitles, ...newTitles]);
 			setIsGenerating(false);
 		}
+	};
+
+	const createPosts = async (posts: PostInsert[]) => {
+		await fetch('/api/supabase/post', {
+			method: 'POST',
+			body: JSON.stringify(posts),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
 	};
 
 	const handleCreatePosts = async () => {

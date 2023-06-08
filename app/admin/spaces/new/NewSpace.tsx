@@ -15,8 +15,9 @@ import IconLoader from '#/components/UI/loaders/IconLoader';
 
 // lib
 import slugify from '#/lib/utils/slugify';
-import { createSpace } from '#/lib/supabase/client';
+// import { createSpace } from '#/lib/supabase/client';
 import { useAlert } from '#/lib/hooks/useAlert';
+import { BlogSpaceInsert } from '#/lib/types/inferred.types';
 
 export const dynamic = 'force-dynamic';
 
@@ -84,6 +85,15 @@ export default function NewSpace() {
 			</Link>
 		</>
 	);
+
+	const createSpace = async (space: BlogSpaceInsert) => {
+		const res = await fetch('/api/supabase/space', {
+			method: 'POST',
+			body: JSON.stringify(space),
+		});
+		const data = await res.json();
+		return data;
+	};
 
 	const handleCreate = async () => {
 		setIsSaving(true);

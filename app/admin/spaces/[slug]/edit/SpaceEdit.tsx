@@ -5,10 +5,13 @@ import Link from 'next/link';
 import { useEffect, useReducer, useRef, useState, useTransition } from 'react';
 
 // types
-import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
+import {
+	BlogSpaceUpdate,
+	BlogSpaceWithPosts,
+} from '#/lib/types/inferred.types';
 
 // lib
-import { supabaseStorage, updateSpace } from '#/lib/supabase/client';
+import { supabaseStorage } from '#/lib/supabase/client';
 import SUPABASE_CONSTANTS from '#/lib/constants/supabaseConstants';
 
 // hooks
@@ -113,6 +116,16 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 	const [isSaving, setIsSaving] = useState(false);
 	const isMutating = isSaving || isPending;
 
+	const updateSpace = async (slug: string, data: BlogSpaceUpdate) => {
+		await fetch('/api/supabase/space', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ slug, data }),
+		});
+	};
+
 	const handleUpdateImage = async (file: File) => {
 		setIsSaving(true);
 		const hasImage = space.image_path !== null;
@@ -133,6 +146,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 		});
 
 		await updateSpace(space.slug, { image_path: path });
+
 		setIsSaving(false);
 
 		startTransition(() => {
@@ -151,6 +165,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 		const paths = [space.image_path];
 		await supabaseStorage.delete({ bucket, paths });
 		await updateSpace(space.slug, { image_path: null });
+
 		setIsSaving(false);
 
 		startTransition(() => {
