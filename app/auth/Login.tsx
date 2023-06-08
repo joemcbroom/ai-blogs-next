@@ -37,7 +37,6 @@ const Login = () => {
 
 	const handleLogin = async (email: string) => {
 		const vercelUrl = process.env.VERCEL_URL;
-
 		const basePath = vercelUrl
 			? `https://${vercelUrl}`
 			: 'http://localhost:3000';
