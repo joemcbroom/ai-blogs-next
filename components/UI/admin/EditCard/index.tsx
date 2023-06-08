@@ -77,7 +77,7 @@ const EditCard: React.FC<Props> = ({ item }) => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ slug, is_published: !is_published }),
+			body: JSON.stringify({ slug, data: { is_published: !is_published } }),
 		});
 
 		setIsFetching(false);
