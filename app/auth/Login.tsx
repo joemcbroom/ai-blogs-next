@@ -36,10 +36,7 @@ const Login = () => {
 	};
 
 	const handleLogin = async (email: string) => {
-		const vercelUrl = process.env.VERCEL_URL;
-		const basePath = vercelUrl
-			? `https://${vercelUrl}`
-			: 'http://localhost:3000';
+		const basePath = location.origin;
 		await supabase.auth.signInWithOtp({
 			email,
 			options: {
