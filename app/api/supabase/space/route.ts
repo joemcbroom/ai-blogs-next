@@ -28,10 +28,10 @@ export async function PUT(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-	const { id } = await req.json();
+	const { slug } = await req.json();
 
 	const supabase = await supabaseSingleton();
-	const { error } = await supabase.from('space').delete().eq('id', id);
+	const { error } = await supabase.from('space').delete().eq('slug', slug);
 	if (error) throw error;
 
 	return NextResponse.json({ success: true });
