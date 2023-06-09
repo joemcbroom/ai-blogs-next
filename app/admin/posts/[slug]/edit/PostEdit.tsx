@@ -197,12 +197,24 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 	const handlePublishOrUnpublish = async () => {
 		setIsSaving(true);
 
-		const { error } = await supabase
-			.from('post')
-			.update({ is_published: !post.is_published })
-			.eq('id', post.id);
+		// const { error } = await supabase
+		// 	.from('post')
+		// 	.update({ is_published: !post.is_published })
+		// 	.eq('id', post.id);
 
-		if (error) throw error;
+		// if (error) throw error;
+
+		await fetch('/api/supabase/post', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				slug: post.slug,
+				data: { is_published: !post.is_published },
+				spaceSlug: post.space.slug,
+			}),
+		});
 
 		setIsSaving(false);
 
