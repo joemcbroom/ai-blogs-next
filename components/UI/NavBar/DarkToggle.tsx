@@ -31,13 +31,13 @@ const DarkToggle = () => {
 			checked={isDark}
 			onChange={toggleTheme}
 			className={`${
-				isDark ? 'bg-blue-600' : 'bg-gray-200'
+				isDark ? 'bg-sky-600' : 'bg-gray-200'
 			} relative inline-flex h-6 w-11 items-center rounded-full`}
 		>
 			<span
 				className={`${
 					isDark ? 'translate-x-0' : 'translate-x-full'
-				} inline-block h-4 w-4 transform rounded-full bg-white transition md:h-6 md:w-6`}
+				} inline-block h-6 w-6 transform rounded-full bg-white transition`}
 			>
 				<Image src={isDark ? sunUrl : moonUrl} alt="sun/moon" />
 			</span>
