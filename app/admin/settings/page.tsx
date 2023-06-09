@@ -2,5 +2,9 @@
 import AdminHeading from '#/components/admin/AdminHeading';
 
 export default function SettingsPage() {
-	return <AdminHeading title="Settings" subtitle="Change your settings" />;
+	return (
+		<>
+			<AdminHeading title="Settings" subtitle="Change your settings" />
+		</>
+	);
 }

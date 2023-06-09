@@ -10,7 +10,7 @@ import { useState, useRef, useCallback } from 'react';
 import { HexColorInput, HexColorPicker } from 'react-colorful';
 
 // hooks
-import useClickOutside from 'lib/hooks/useClickOutside';
+import useClickOutside from '#/lib/hooks/useClickOutside';
 
 export default function ColorPicker({
 	color,
@@ -25,12 +25,8 @@ export default function ColorPicker({
 	useClickOutside(popover, close);
 
 	return (
-		<div className="my-4 flex flex-col gap-2">
-			{label && (
-				<label className="block text-sm font-medium text-gray-700">
-					{label}
-				</label>
-			)}
+		<div className=" my-6 flex flex-col gap-2">
+			{label && <label className="block text-xs">{label}</label>}
 			<div className="flex items-center gap-2 relative">
 				<HexColorInput
 					color={color}
@@ -40,7 +36,7 @@ export default function ColorPicker({
 				/>
 
 				<div
-					className="w-14 aspect-video rounded border-gray-500 cursor-pointer"
+					className="w-14 aspect-video rounded border-2 border-gray-500 cursor-pointer"
 					style={{ backgroundColor: color }}
 					onClick={() => {
 						setShowPicker(true);
