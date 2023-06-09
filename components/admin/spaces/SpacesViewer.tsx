@@ -21,6 +21,7 @@ export default function SpacesViewer({
 			)
 		);
 	}, [searchQuery, spaces]);
+
 	return (
 		<>
 			<SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />

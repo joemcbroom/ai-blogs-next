@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { ChevronLeftIcon } from '@heroicons/react/24/solid';
+import { CheckIcon, ChevronLeftIcon } from '@heroicons/react/24/solid';
 import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import PostsAndSubscribers from './PostsAndSubscribers';
@@ -8,9 +8,29 @@ import useSpaceEditedText from '#/lib/hooks/useSpaceEditedText';
 import ColorPicker from '#/components/UI/ColorPicker';
 import Tabs from '#/components/UI/TabsComponent';
 import ImageUploader from '#/components/UI/ImageUploader';
+import { useEffect, useRef, useState } from 'react';
+import supabase from '#/lib/supabase';
+import { useRouter } from 'next/navigation';
 
 const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 	const { editedText } = useSpaceEditedText(space);
+	const [isEditingTitle, setIsEditingTitle] = useState(false);
+	const titleRef = useRef<HTMLHeadingElement>(null);
+	const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+
+	useEffect(() => {
+		// check if image exists in supabase bucket
+		const fetchImage = async () => {
+			const { data } = supabase.storage
+				.from('space')
+				.getPublicUrl(`space/${space.slug}`);
+			if (data) {
+				setImageUrl(data.publicUrl);
+			}
+		};
+		fetchImage();
+	}, [space]);
+
 	const handleEditTitle = () => {
 		console.log('edit title');
 	};
@@ -23,9 +43,19 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 	) => {
 		console.log(color, type);
 	};
-	const handleUpdateImage = (file: File) => {
-		// upload the image to supabase filestorage
-		console.log(file);
+	const handleUpdateImage = async (file: File) => {
+		// Upload to supabase bucket 'space' path: space.id
+		const { error } = await supabase.storage
+			.from('space')
+			.upload(`${space.slug}`, file, {
+				cacheControl: '3600',
+				upsert: false,
+			});
+
+		if (error) {
+			console.error(error);
+			return;
+		}
 	};
 
 	return (
@@ -36,13 +66,35 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 			</Link>
 			<div className="mt-3">
 				<div className="flex items-center gap-2">
-					<h1 className="text-2xl font-bold text-gray-800">{space.name}</h1>
+					<h1
+						contentEditable={isEditingTitle}
+						className="text-2xl font-bold text-gray-800"
+						ref={titleRef}
+					>
+						{space.name}
+					</h1>
 					{/* edit title with pencil icon */}
-					<span className="flex items-center gap-1" onClick={handleEditTitle}>
-						<PencilIcon className="h-5 w-5" />
-						<span className="text-pink-500">Edit title</span>
+					<span
+						className="flex cursor-pointer items-center gap-1"
+						onClick={() => {
+							setIsEditingTitle(!isEditingTitle);
+							titleRef.current?.focus();
+						}}
+					>
+						{isEditingTitle ? (
+							<>
+								<CheckIcon className="h-5 w-5" />
+								<span>Save</span>
+							</>
+						) : (
+							<>
+								<PencilIcon className="h-5 w-5" />
+								<span className="text-pink-500">Edit title</span>
+							</>
+						)}
 					</span>
 				</div>
+
 				<span className="flex items-center gap-2">
 					<PostsAndSubscribers postCount={space.posts.length} />
 					<span className="text-sm italic text-slate-400">{editedText}</span>
@@ -103,7 +155,10 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 								title: 'Front Page',
 								content: (
 									<FrontPageTab>
-										<ImageUploader onChange={handleUpdateImage} />
+										<ImageUploader
+											onChange={handleUpdateImage}
+											fileUrl={imageUrl}
+										/>
 									</FrontPageTab>
 								),
 							},

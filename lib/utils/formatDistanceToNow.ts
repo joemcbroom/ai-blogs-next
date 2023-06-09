@@ -1,41 +1,39 @@
-const formatDistanceToNow = (() => {
-	const ONE_SECOND = 1000;
-	const ONE_MINUTE = ONE_SECOND * 60;
-	const ONE_HOUR = ONE_MINUTE * 60;
-	const ONE_DAY = ONE_HOUR * 24;
-	const ONE_MONTH = ONE_DAY * 30;
-	const ONE_YEAR = ONE_MONTH * 12;
+enum TimeUnits {
+	SECOND = 1000,
+	MINUTE = 60 * 1000,
+	HOUR = 60 * 60 * 1000,
+	DAY = 24 * 60 * 60 * 1000,
+	MONTH = 30 * 24 * 60 * 60 * 1000,
+	YEAR = 12 * 30 * 24 * 60 * 60 * 1000,
+}
 
+function pluralize(unit: string, value: number): string {
+	return `${value} ${unit}${value === 1 ? '' : 's'} ago`;
+}
+
+function formatDistanceToNow(date: Date): string {
 	const now = new Date();
+	const diff = Math.abs(now.getTime() - date.getTime());
 
-	return (date: Date) => {
-		const diff = Math.abs(now.getTime() - date.getTime());
-		if (diff >= ONE_YEAR) {
-			const years = Math.floor(diff / ONE_YEAR);
-			return `${years} year${years === 1 ? '' : 's'} ago`;
-		}
-		if (diff >= ONE_MONTH) {
-			const months = Math.floor(diff / ONE_MONTH);
-			return `${months} month${months === 1 ? '' : 's'} ago`;
-		}
-		if (diff >= ONE_DAY) {
-			const days = Math.floor(diff / ONE_DAY);
-			return `${days} day${days === 1 ? '' : 's'} ago`;
-		}
-		if (diff >= ONE_HOUR) {
-			const hours = Math.floor(diff / ONE_HOUR);
-			return `${hours} hour${hours === 1 ? '' : 's'} ago`;
-		}
-		if (diff >= ONE_MINUTE) {
-			const minutes = Math.floor(diff / ONE_MINUTE);
-			return `${minutes} minute${minutes === 1 ? '' : 's'} ago`;
-		}
-		if (diff >= ONE_SECOND) {
-			const seconds = Math.floor(diff / ONE_SECOND);
-			return `${seconds} second${seconds === 1 ? '' : 's'} ago`;
-		}
-		return 'just now';
-	};
-})();
+	if (diff >= TimeUnits.YEAR) {
+		return pluralize('year', Math.floor(diff / TimeUnits.YEAR));
+	}
+	if (diff >= TimeUnits.MONTH) {
+		return pluralize('month', Math.floor(diff / TimeUnits.MONTH));
+	}
+	if (diff >= TimeUnits.DAY) {
+		return pluralize('day', Math.floor(diff / TimeUnits.DAY));
+	}
+	if (diff >= TimeUnits.HOUR) {
+		return pluralize('hour', Math.floor(diff / TimeUnits.HOUR));
+	}
+	if (diff >= TimeUnits.MINUTE) {
+		return pluralize('minute', Math.floor(diff / TimeUnits.MINUTE));
+	}
+	if (diff >= TimeUnits.SECOND) {
+		return pluralize('second', Math.floor(diff / TimeUnits.SECOND));
+	}
+	return 'just now';
+}
 
 export default formatDistanceToNow;

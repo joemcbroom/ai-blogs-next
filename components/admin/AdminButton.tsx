@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 // Reusable button component with styles, click handler, and children
 
 // framework
@@ -39,19 +40,20 @@ export default function AdminButton({
 	const disabledClass = disabled ? 'opacity-50 cursor-not-allowed' : '';
 	const id = useId();
 	const isLink = href && href.length > 0;
-	const router = useRouter();
-	const handleClick = () => {
-		if (isLink) {
-			router.push(href);
-		} else {
-			!disabled && onClick && onClick();
-		}
+
+	interface LinkOrButtonProps {
+		children: React.ReactNode;
+		href?: string;
+	}
+
+	const LinkOrButton: React.FC<LinkOrButtonProps> = ({ children, href }) => {
+		return href ? <Link href={href}>{children}</Link> : <>{children}</>;
 	};
 
 	return (
-		<>
+		<LinkOrButton href={href}>
 			<button
-				onClick={() => handleClick()}
+				onClick={() => (isLink ? null : !disabled && onClick && onClick())}
 				className={` rounded-full py-2 px-4 text-xs font-bold text-white ${disabledClass} ${backgroundClass}`}
 				id={id}
 				data-tooltip-content={hoverText}
@@ -72,6 +74,6 @@ export default function AdminButton({
 					}}
 				/>
 			)}
-		</>
+		</LinkOrButton>
 	);
 }

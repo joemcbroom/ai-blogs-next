@@ -1,10 +1,11 @@
-import React, { useEffect, useId } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import AdminButton from '../admin/AdminButton';
 import BlogverseLogo from './BlogverseLogo';
 
 interface ModalProps {
 	title: string;
 	message: string;
+	showModal: boolean;
 	onConfirm: () => void;
 	onCancel: () => void;
 }
@@ -12,9 +13,11 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({
 	title,
 	message,
+	showModal,
 	onConfirm,
 	onCancel,
 }) => {
+	const [isVisible, setIsVisible] = useState(false);
 	const id = useId();
 	useEffect(() => {
 		const handleOutsideClick = (e: any) => {
@@ -27,7 +30,13 @@ const Modal: React.FC<ModalProps> = ({
 		return () => {
 			document.removeEventListener('click', handleOutsideClick);
 		};
-	}, []);
+	}, [id, onCancel]);
+
+	useEffect(() => {
+		setIsVisible(showModal);
+	}, [showModal]);
+
+	if (!isVisible) return null;
 
 	return (
 		<div className="fixed inset-0 z-10 overflow-y-auto">
