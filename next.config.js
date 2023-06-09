@@ -10,11 +10,6 @@ const nextConfig = {
         destination: '/admin/spaces/new',
         permanent: true
       },
-      {
-        source: '/admin/spaces',
-        destination: '/admin/spaces/new',
-        permanent: true
-      }
     ]
   }
 }

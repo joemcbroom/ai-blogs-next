@@ -14,13 +14,13 @@ export default function NavLink({
 	currentPathname,
 	children,
 }: NavLinkProps) {
-	const isActive = currentPathname?.includes(href);
+	const isActive = currentPathname?.endsWith(href);
 	const activeClass = isActive ? 'bg-yellow-400 text-black' : 'text-white';
 
 	return (
 		<Link
 			href={href}
-			className={`admin-link flex w-full items-center gap-1 rounded-full py-3 px-6 transition-all ${activeClass}`}
+			className={`admin-link flex w-full items-center gap-1 rounded-full px-6 py-3 transition-all ${activeClass}`}
 		>
 			{children} {text}
 		</Link>

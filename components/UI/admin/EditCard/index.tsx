@@ -111,8 +111,8 @@ const EditCard: React.FC<Props> = ({ item }) => {
 					buttonStyle="danger"
 					href={
 						type === 'post'
-							? `/admin/posts/viewer/${slug}/edit`
-							: `/admin/spaces/viewer/${slug}/edit`
+							? `/admin/posts/${slug}/edit`
+							: `/admin/spaces/${slug}/edit`
 					}
 				>
 					{type === 'post' ? 'Edit Post' : 'Edit Space'}

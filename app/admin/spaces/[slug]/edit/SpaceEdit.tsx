@@ -209,7 +209,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 
 	return (
 		<>
-			<Link href={`/admin/spaces/viewer/`} className="flex items-center">
+			<Link href={`/admin/spaces/`} className="flex items-center">
 				<ChevronLeftIcon className="h-4 w-4" />
 				<span className="text-sm text-pink-500">Back to Space Viewer</span>
 			</Link>
