@@ -1,33 +1,28 @@
 import { Database } from '#/lib/types/database.types';
 
-type Post = Database['public']['Tables']['post']['Row'];
-type BlogSpace = Database['public']['Tables']['blog_space']['Row'];
-type BlogSpaceInsert = Database['public']['Tables']['blog_space']['Insert'];
-type PostPreviousVersion =
+export type DB = Database;
+export type Post = Database['public']['Tables']['post']['Row'];
+export type PostInsert = Database['public']['Tables']['post']['Insert'];
+export type BlogSpace = Database['public']['Tables']['blog_space']['Row'];
+export type BlogSpaceInsert =
+	Database['public']['Tables']['blog_space']['Insert'];
+export type BlogSpaceUpdate =
+	Database['public']['Tables']['blog_space']['Update'];
+export type PostPreviousVersion =
 	Database['public']['Tables']['post_previous_version']['Row'];
 
-type AbbreviatedPost = {
+export type AbbreviatedPost = {
 	title: string;
 	slug: string;
 	description: string | null;
 };
 
-type BlogSpaceWithAbbreviatedPosts = BlogSpace & {
+export type BlogSpaceWithAbbreviatedPosts = BlogSpace & {
 	posts: AbbreviatedPost[] | null;
 };
 
-type BlogSpaceWithPosts = BlogSpace & {
+export type BlogSpaceWithPosts = BlogSpace & {
 	posts: Post[] | null;
 };
 
-type User = Database['public']['Tables']['profiles']['Row'];
-
-export type {
-	Post,
-	BlogSpace,
-	BlogSpaceInsert,
-	PostPreviousVersion,
-	BlogSpaceWithPosts,
-	User,
-	BlogSpaceWithAbbreviatedPosts,
-};
+export type User = Database['public']['Tables']['profiles']['Row'];

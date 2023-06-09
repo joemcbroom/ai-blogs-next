@@ -168,6 +168,10 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      auth_user_is_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
       is_admin: {
         Args: {
           user_id: string
