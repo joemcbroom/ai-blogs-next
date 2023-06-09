@@ -7,7 +7,7 @@ export const revalidate = 30;
 const getPost = async (post_slug: string) => {
 	const { data: post, error } = await supabase
 		.from('post')
-		.select('*')
+		.select('*, space:space_id (image_path)')
 		.eq('slug', post_slug)
 		.single();
 
