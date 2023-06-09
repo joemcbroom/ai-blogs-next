@@ -15,7 +15,6 @@ const Login = () => {
 	const { supabase } = useSupabase();
 	const [submitted, setSubmitted] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const pathname = usePathname();
 
 	const {
 		register,
