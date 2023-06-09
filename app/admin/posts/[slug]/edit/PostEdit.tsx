@@ -159,7 +159,6 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 	};
 
 	const handleSaveChanges = async () => {
-		console.log('editedValues: ', editedValues);
 		// TODO: save 'previous version'
 		setIsSaving(true);
 		await updatePost(post.slug, editedValues);

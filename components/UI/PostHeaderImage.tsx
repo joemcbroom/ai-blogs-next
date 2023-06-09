@@ -21,7 +21,6 @@ const PostHeaderImage = ({
 
 	const onLoaded = () => {
 		if (fullImage.current && placeHolderImage.current) {
-			console.log('loaded');
 			fullImage.current.classList.remove('opacity-0');
 			fullImage.current.classList.add('opacity-100');
 			placeHolderImage.current.classList.add('opacity-0');
