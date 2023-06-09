@@ -94,7 +94,7 @@ const PostContent: React.FC<Post> = ({ post }) => {
 					__html: removeDuplicateTitle(post.content || '<p>no content yet</p>'),
 				}}
 			/>
-			<section className="mx-auto my-6 flex w-full max-w-4xl items-center justify-between border-y p-6 sm:justify-end sm:space-x-6">
+			<section className="mx-auto my-6 flex w-full max-w-4xl items-center justify-between border-y p-6 sm:justify-end sm:space-x-2">
 				<span className="text-neutral-600">Share this post:</span>
 				<ShareLinks />
 			</section>
