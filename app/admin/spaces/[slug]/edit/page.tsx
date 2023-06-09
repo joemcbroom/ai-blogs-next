@@ -1,5 +1,5 @@
 // components
-import SpaceEdit from '#/app/admin/spaces/viewer/(viewer)/[slug]/edit/SpaceEdit';
+import SpaceEdit from '#/app/admin/spaces/[slug]/edit/SpaceEdit';
 
 // lib
 import { getSpace } from '#/lib/supabase/server';

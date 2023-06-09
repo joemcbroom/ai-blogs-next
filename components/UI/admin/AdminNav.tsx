@@ -25,19 +25,19 @@ const adminPages = [
 	},
 	{
 		name: 'New Blog Post',
-		href: '/admin/new-blog-post',
+		href: '/admin/posts/new',
 		bgClass: 'bg-violet-700',
 		icon: <DocumentPlusIcon className="w-6" />,
 	},
 	{
 		name: 'Space Viewer',
-		href: '/admin/spaces/viewer',
+		href: '/admin/spaces',
 		bgClass: 'bg-pink-600',
 		icon: <RectangleStackIcon className="w-6" />,
 	},
 	{
 		name: 'Post Viewer',
-		href: '/admin/posts/viewer',
+		href: '/admin/posts',
 		bgClass: 'bg-slate-400',
 		icon: <DocumentDuplicateIcon className="w-6" />,
 	},
