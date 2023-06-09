@@ -50,7 +50,6 @@ export const generateStaticParams = async ({ params: { blogName } }) => {
 		blogName,
 		slug: blogEntry.slug,
 	}));
-	console.log('params:\n', params);
 	return params;
 };
 
