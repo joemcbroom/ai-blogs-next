@@ -1,6 +1,8 @@
 import { supabase } from '#/lib/supabase/static';
-import { BlogSpace, BlogSpaceWithPosts } from '#/lib/types/inferred.types';
+import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
 import Link from 'next/link';
+
+export const dynamic = 'force-dynamic';
 
 const getSpaces = async () => {
 	const { data: spaces, error } = await supabase
