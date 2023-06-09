@@ -3,7 +3,7 @@ import NavBar from '#/components/UI/NavBar';
 type HomeLayoutProps = {
 	children: React.ReactNode;
 };
-const HomeLayout = ({ children }: HomeLayoutProps) => {
+const HomeLayout = async ({ children }: HomeLayoutProps) => {
 	return (
 		<div
 			id="main-content-wrapper"

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?><svg xml:space="preserve" viewBox="0 0 100 100" y="0px" x="0px"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" id="Layer_1" version="1.1">
+    <g style="transform-origin:50% 50%;transform:rotate(0deg) scale(0.8, 0.8);animation-play-state:paused">
+        <circle r="23" cy="50" cx="50" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round"
+            stroke-width="3.5" stroke="#323334" fill="#FEE1C5"
+            style="stroke:rgb(50, 51, 52);fill:rgb(254, 225, 197);animation-play-state:paused"></circle>
+        <line y2="18" x2="50" y1="9" x1="50" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round"
+            stroke-width="3.5" stroke="#323334" fill="none" style="stroke:rgb(50, 51, 52);animation-play-state:paused">
+        </line>
+        <line y2="27.37" x2="27.37" y1="21.01" x1="21.01" stroke-miterlimit="10" stroke-linejoin="round"
+            stroke-linecap="round" stroke-width="3.5" stroke="#323334" fill="none"
+            style="stroke:rgb(50, 51, 52);animation-play-state:paused"></line>
+        <line y2="50" x2="18" y1="50" x1="9" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round"
+            stroke-width="3.5" stroke="#323334" fill="none" style="stroke:rgb(50, 51, 52);animation-play-state:paused">
+        </line>
+        <line y2="72.63" x2="27.37" y1="78.99" x1="21.01" stroke-miterlimit="10" stroke-linejoin="round"
+            stroke-linecap="round" stroke-width="3.5" stroke="#323334" fill="none"
+            style="stroke:rgb(50, 51, 52);animation-play-state:paused"></line>
+        <line y2="82" x2="50" y1="91" x1="50" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round"
+            stroke-width="3.5" stroke="#323334" fill="none" style="stroke:rgb(50, 51, 52);animation-play-state:paused">
+        </line>
+        <line y2="72.63" x2="72.63" y1="78.99" x1="78.99" stroke-miterlimit="10" stroke-linejoin="round"
+            stroke-linecap="round" stroke-width="3.5" stroke="#323334" fill="none"
+            style="stroke:rgb(50, 51, 52);animation-play-state:paused"></line>
+        <line y2="50" x2="82" y1="50" x1="91" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round"
+            stroke-width="3.5" stroke="#323334" fill="none" style="stroke:rgb(50, 51, 52);animation-play-state:paused">
+        </line>
+        <line y2="27.37" x2="72.63" y1="21.01" x1="78.99" stroke-miterlimit="10" stroke-linejoin="round"
+            stroke-linecap="round" stroke-width="3.5" stroke="#323334" fill="none"
+            style="stroke:rgb(50, 51, 52);animation-play-state:paused"></line>
+        <metadata xmlns:d="https://loading.io/stock/" style="animation-play-state:paused">
+            <d:name style="animation-play-state:paused">weather</d:name>
+
+
+            <d:tags style="animation-play-state:paused">weather,nature,sky,froecast,sun,sunny,hot</d:tags>
+
+
+            <d:license style="animation-play-state:paused">by</d:license>
+
+
+            <d:slug style="animation-play-state:paused">o6mhxl</d:slug>
+        </metadata>
+    </g>
+</svg>
