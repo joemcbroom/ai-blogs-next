@@ -6,6 +6,8 @@ import { PencilIcon } from '@heroicons/react/24/outline';
 import PostsAndSubscribers from './PostsAndSubscribers';
 import useSpaceEditedText from '#/lib/hooks/useSpaceEditedText';
 import ColorPicker from '#/components/UI/ColorPicker';
+import Tabs from '#/components/UI/TabsComponent';
+import ImageUploader from '#/components/UI/ImageUploader';
 
 const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 	const { editedText } = useSpaceEditedText(space);
@@ -20,6 +22,10 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 		type: 'primary' | 'secondary' | 'tertiary'
 	) => {
 		console.log(color, type);
+	};
+	const handleUpdateImage = (file: File) => {
+		// upload the image to supabase filestorage
+		console.log(file);
 	};
 
 	return (
@@ -62,6 +68,12 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 				{/* space colors with color pickers */}
 				<div className="mt-3">
 					<h2 className="text-lg font-semibold">Space Colors</h2>
+					<p>
+						Want some color ideas?
+						<Link className="pl-2 text-pink-500" href="https://coolors.co/">
+							Color Palette Generator
+						</Link>
+					</p>
 					{/* color pickers */}
 					<ColorPicker
 						color={space.primary_color || '#000000'}
@@ -82,9 +94,57 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 						handleChange={(color) => handleUpdateColor(color, 'tertiary')}
 					/>
 				</div>
+
+				{/* Tabs for front page, blog posts, and subscribers */}
+				<div className="mt-3">
+					<Tabs
+						tabs={[
+							{
+								title: 'Front Page',
+								content: (
+									<FrontPageTab>
+										<ImageUploader onChange={handleUpdateImage} />
+									</FrontPageTab>
+								),
+							},
+							{ title: 'Blog Posts', content: <BlogPostsTab /> },
+							{ title: 'Subscribers', content: <SubscribersTab /> },
+						]}
+					/>
+				</div>
 			</div>
 		</>
 	);
+};
+
+const FrontPageTab = ({ children }: { children: JSX.Element }): JSX.Element => {
+	return (
+		<>
+			<h2 className="text-lg font-semibold">Main Image</h2>
+			<p>
+				Looking for cool creative common images?
+				{/* link to unsplash, pexels, pixabay */}
+				<Link className="pl-1 text-pink-500" href="https://unsplash.com/">
+					Unsplash /
+				</Link>
+				<Link className="pl-1 text-pink-500" href="https://www.pexels.com/">
+					Pexels /
+				</Link>
+				<Link className="pl-1 text-pink-500" href="https://pixabay.com/">
+					Pixabay
+				</Link>
+			</p>
+			{children}
+		</>
+	);
+};
+
+const BlogPostsTab = () => {
+	return <div>Blog Posts</div>;
+};
+
+const SubscribersTab = () => {
+	return <div>Subscribers</div>;
 };
 
 export default SpaceEdit;

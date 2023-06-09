@@ -1,5 +1,3 @@
-'use client';
-
 // framework
 import { useState, useRef, useCallback } from 'react';
 
@@ -29,7 +27,7 @@ export default function ColorPicker({
 	useClickOutside(popover, close);
 
 	return (
-		<div className=" my-6 flex flex-col gap-2">
+		<div className=" flex flex-col gap-2">
 			{label && <label className="block text-xs">{label}</label>}
 			<div className="relative flex items-center gap-2">
 				<HexColorInput

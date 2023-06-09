@@ -25,7 +25,7 @@ export default function SpacesViewer({
 		<>
 			<SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-			<div className="mt-8 flex flex-col gap-4">
+			<div className="mt-8 flex max-w-5xl flex-col gap-4">
 				{filteredSpaces?.map((space) => (
 					<SpaceCard space={space} key={space.slug} />
 				))}
