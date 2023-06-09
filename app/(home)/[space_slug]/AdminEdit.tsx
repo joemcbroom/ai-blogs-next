@@ -31,10 +31,14 @@ const AdminEdit = () => {
 	return (
 		<>
 			{isAdmin && (
-				<span className="fixed bottom-1 right-1 flex flex-col rounded bg-white p-2 text-lg text-black shadow">
-					<Link href={`/admin/spaces/${space_slug}/edit`}>Edit Space</Link>
-					<Link href={`/admin/posts/${post_slug}/edit`}>Edit Post</Link>
-				</span>
+				<div className="fixed bottom-1 right-1 flex flex-col rounded bg-white p-2 text-lg text-teal-800 shadow">
+					{space_slug && (
+						<Link href={`/admin/spaces/${space_slug}/edit`}>Edit Space</Link>
+					)}
+					{post_slug && space_slug && (
+						<Link href={`/admin/posts/${post_slug}/edit`}>Edit Post</Link>
+					)}
+				</div>
 			)}
 		</>
 	);
