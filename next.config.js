@@ -13,6 +13,16 @@ const nextConfig = {
       },
     ]
   },
+  images: {
+    remotePatterns: [
+      //https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/post/jfk-2.jpg?width=700&height=300
+      {
+        protocol: 'https',
+        hostname: 'dyhumgxwuzsrinvjiefx.supabase.co',
+        pathname: '/storage/v1/render/image/public/blogverse-public/**',
+      }
+    ],
+  }
 }
 
 module.exports = nextConfig
