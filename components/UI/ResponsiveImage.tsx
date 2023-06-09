@@ -37,7 +37,7 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
 			width={width}
 			height={height}
 			className={className}
-			style={{ objectFit: 'cover' }}
+			style={{ objectFit: 'cover', objectPosition: 'top' }}
 			blurDataURL={`data:image/svg+xml;base64,${toBase64(
 				shimmer(height, width)
 			)}`}
