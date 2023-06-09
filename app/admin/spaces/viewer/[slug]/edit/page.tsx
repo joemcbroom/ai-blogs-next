@@ -1,5 +1,5 @@
 import SpaceEdit from '#/components/admin/spaces/SpaceEdit';
-import { getSpace } from '#/lib/supabase';
+import { getSpace } from '#/lib/supabase/server';
 
 export const revalidate = 0;
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { BlogSpaceWithPosts } from '../types/inferred.types';
-import formatDistanceToNow from '../utils/formatDistanceToNow';
+import { BlogSpaceWithAbbreviatedPosts } from '#/lib/types/inferred.types';
+import formatDistanceToNow from '#/lib/utils/formatDistanceToNow';
 
-const useSpaceEditedText = (space: BlogSpaceWithPosts) => {
+const useSpaceEditedText = (space: BlogSpaceWithAbbreviatedPosts) => {
 	const [editedText, setEditedText] = useState('');
 	const { created_at, updated_at } = space;
 
