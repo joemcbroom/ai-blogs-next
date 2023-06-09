@@ -1,6 +1,7 @@
 // components
-import AdminHeading from '#/components/admin/AdminHeading';
-import SpacesViewer from '#/components/admin/spaces/SpacesViewer';
+import AdminHeading from '#/components/UI/admin/AdminHeading';
+import SpacesViewer from './SpacesViewer';
+
 // lib
 import { getAllSpaces } from '#/lib/supabase/server';
 

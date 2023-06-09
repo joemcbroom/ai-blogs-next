@@ -1,18 +1,29 @@
 'use client';
 
+// framework
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useMemo, useState, useTransition } from 'react';
+
+// library
+import { Transition } from '@headlessui/react';
+import { ArrowLongRightIcon } from '@heroicons/react/24/solid';
+
+// components
 import ButtonComponent from '#/components/UI/ButtonComponent';
 import SelectBox from '#/components/UI/SelectBox';
 import IconLoader from '#/components/UI/loaders/IconLoader';
-import { useAlert } from '#/lib/hooks/useAlert';
+
+// lib
+import slugify from '#/lib/utils/slugify';
 import { createPosts } from '#/lib/supabase/client';
+import { useAlert } from '#/lib/hooks/useAlert';
+
+// types
 import {
 	BlogSpaceWithAbbreviatedPosts,
 	PostInsert,
 } from '#/lib/types/inferred.types';
-import slugify from '#/lib/utils/slugify';
-import { Transition } from '@headlessui/react';
-import { useRouter } from 'next/navigation';
-import { startTransition, useEffect, useMemo, useState } from 'react';
 
 type Title = {
 	content: string;
@@ -29,9 +40,10 @@ export default function CreateBlogPosts({
 		useState<BlogSpaceWithAbbreviatedPosts>();
 	const [numberToGenerate, setNumberToGenerate] = useState<string>('1');
 	const [generatedTitles, setGeneratedTitles] = useState<Title[]>([]);
+	const [isPending, startTransition] = useTransition();
 	const [isGenerating, setIsGenerating] = useState(false);
 	const [isCreating, setIsCreating] = useState(false);
-	const isBusy = isGenerating || isCreating;
+	const isBusy = isGenerating || isCreating || isPending;
 	const { showAlert } = useAlert();
 	const router = useRouter();
 
@@ -49,7 +61,7 @@ export default function CreateBlogPosts({
 	const selectOptions = useMemo(() => {
 		return spaces.map((space) => ({
 			id: space.id.toString(),
-			name: space.name,
+			value: space.title,
 		}));
 	}, [spaces]);
 
@@ -59,7 +71,7 @@ export default function CreateBlogPosts({
 			const response = await fetch('/api/generate/post_titles', {
 				method: 'POST',
 				body: JSON.stringify({
-					spaceName: selectedSpace.name,
+					spaceTitle: selectedSpace.title,
 					spaceDescription: selectedSpace.description,
 					numberToGenerate: parseInt(numberToGenerate),
 				}),
@@ -84,7 +96,7 @@ export default function CreateBlogPosts({
 			setIsCreating(true);
 			const posts: PostInsert[] = selectedTitles.map((title) => ({
 				title: title.content,
-				blog_space_id: selectedSpace.id,
+				space_id: selectedSpace.id,
 				slug: slugify(title.content),
 				is_published: false,
 			}));
@@ -104,9 +116,9 @@ export default function CreateBlogPosts({
 	const formatTitlesString = () => `title${+numberToGenerate > 1 ? 's' : ''}`;
 
 	return (
-		<div className="grid grid-cols-2">
+		<div className="grid h-full grid-cols-12">
 			<div
-				className={`flex max-w-3xl flex-col ${
+				className={`col-span-7 flex max-h-[calc(100vh-220px)] max-w-3xl flex-col overflow-scroll ${
 					isBusy ? 'pointer-events-none animate-pulse' : ''
 				}`}
 			>
@@ -117,10 +129,10 @@ export default function CreateBlogPosts({
 					widthClass="w-1/2"
 				/>
 				<h2 className="mt-4 text-2xl font-bold">
-					{selectedSpace?.name && (
+					{selectedSpace?.title && (
 						<>
 							<span>Generate post titles for </span>
-							<span className="text-pink-600">{selectedSpace.name}</span>
+							<span className="text-pink-600">{selectedSpace.title}</span>
 						</>
 					)}
 				</h2>
@@ -131,19 +143,19 @@ export default function CreateBlogPosts({
 					<span>Create</span>
 					<SelectBox
 						options={[
-							{ id: '1', name: '1' },
-							{ id: '2', name: '2' },
-							{ id: '5', name: '5' },
-							{ id: '10', name: '10' },
+							{ id: '1', value: '1' },
+							{ id: '2', value: '2' },
+							{ id: '5', value: '5' },
+							{ id: '10', value: '10' },
 						]}
 						changeHandler={setNumberToGenerate}
 						widthClass="w-1/3"
 					/>
 					<span>titles</span>
 				</div>
-				<ButtonComponent onClick={generateTitles} additionalClasses="w-1/3">
+				<ButtonComponent onClick={generateTitles}>
 					{isGenerating ? (
-						<IconLoader className="h-4 w-4" />
+						<IconLoader className="h-5 w-5" />
 					) : (
 						<span className="text-sm">Generate {formatTitlesString()}</span>
 					)}
@@ -188,16 +200,29 @@ export default function CreateBlogPosts({
 				</Transition>
 			</div>
 
-			{selectedSpace && (
-				<div>
-					<h3 className="text-lg font-bold">{selectedSpace.name} Posts:</h3>
-					<ul className="list-inside list-disc">
-						{selectedSpace?.posts?.map((post) => (
-							<li key={post.slug}>{post.title}</li>
-						))}
-					</ul>
-				</div>
-			)}
+			<div className="col-span-5 -mr-16 bg-slate-100 p-6">
+				<h3 className="text-lg font-bold">Latest Posts in this Space:</h3>
+				{selectedSpace?.posts?.length ? (
+					<>
+						<ul className="mb-4 list-inside list-disc">
+							{selectedSpace?.posts?.map((post) => (
+								<li key={post.slug}>{post.title}</li>
+							))}
+						</ul>
+						<Link
+							href={`/admin/spaces/viewer/${selectedSpace.slug}/edit?tab=posts`}
+						>
+							<span className="mt-6 text-pink-600">
+								See All <ArrowLongRightIcon className="inline-block h-5 w-5" />
+							</span>
+						</Link>
+					</>
+				) : (
+					<span className="text-slate-500">
+						:/ There are no posts in this space yet
+					</span>
+				)}
+			</div>
 		</div>
 	);
 }

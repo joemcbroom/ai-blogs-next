@@ -1,14 +1,17 @@
 // components
-import AdminHeading from '#/components/admin/AdminHeading';
-import UserInfo from '#/components/admin/settings/UserInfo';
+import AdminHeading from '#/components/UI/admin/AdminHeading';
+import UserInfo from '#/app/admin/settings/UserInfo';
 
 // lib
 import { getProfile } from '#/lib/supabase/server';
 
+// types
+import type { User } from '#/lib/types/inferred.types';
+
 export const revalidate = 0;
 
 export default async function SettingsPage() {
-	const userProfile = await getProfile();
+	const userProfile: User = await getProfile();
 
 	return (
 		<>

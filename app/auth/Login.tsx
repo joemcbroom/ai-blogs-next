@@ -1,11 +1,17 @@
 'use client';
 
-import { useSupabase } from '#/lib/hooks/useSupabase';
+// framework
 import { useState } from 'react';
+
+// library
 import { useForm, SubmitHandler } from 'react-hook-form';
-import IconLoader from '../UI/loaders/IconLoader';
-import ButtonComponent from '../UI/ButtonComponent';
-import { usePathname } from 'next/navigation';
+
+// components
+import IconLoader from '#/components/UI/loaders/IconLoader';
+import ButtonComponent from '#/components/UI/ButtonComponent';
+
+// hooks
+import { useSupabase } from '#/lib/hooks/useSupabase';
 
 type Inputs = {
 	email: string;

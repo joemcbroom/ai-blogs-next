@@ -8,18 +8,18 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
 // components
-import AdminHeading from '#/components/admin/AdminHeading';
+import AdminHeading from '#/components/UI/admin/AdminHeading';
 import ButtonComponent from '#/components/UI/ButtonComponent';
 import ColorPicker from '#/components/UI/ColorPicker';
-
-// utils
-import slugify from '#/lib/utils/slugify';
 import IconLoader from '#/components/UI/loaders/IconLoader';
+
+// lib
+import slugify from '#/lib/utils/slugify';
 import { createSpace } from '#/lib/supabase/client';
 import { useAlert } from '#/lib/hooks/useAlert';
 
 type Inputs = {
-	name: string;
+	title: string;
 	description: string;
 	primary_color: string;
 	secondary_color: string;
@@ -27,7 +27,7 @@ type Inputs = {
 };
 
 const defaultValues: Inputs = {
-	name: "What's My Name?",
+	title: "What's My Name?",
 	description: '',
 	primary_color: '#7418EA',
 	secondary_color: '#21FA90',
@@ -50,17 +50,18 @@ export default function NewSpacePage() {
 
 	const [spaceSlug, setSpaceSlug] = useState('');
 
-	const name = watch('name');
-	const [hasSpaceName, setHasSpaceName] = useState(false);
+	const title = watch('title');
+	const [hasSpaceTitle, setHasSpaceTitle] = useState(false);
 
 	useEffect(() => {
-		if (!name || name === defaultValues.name) {
-			setHasSpaceName(false);
+		if (!title || title === defaultValues.title) {
+			setHasSpaceTitle(false);
+			setSpaceSlug('');
 			return;
 		}
-		setSpaceSlug(slugify(name));
-		setHasSpaceName(true);
-	}, [name]);
+		setSpaceSlug(slugify(title));
+		setHasSpaceTitle(true);
+	}, [title]);
 
 	const handleGenerate = async () => {
 		setIsBusy(true);
@@ -105,7 +106,7 @@ export default function NewSpacePage() {
 			<form className={`mt-8 ${isSaving ? 'animate-pulse' : ''}`}>
 				<input
 					defaultValue=""
-					{...register('name', { required: true })}
+					{...register('title', { required: true })}
 					placeholder="What's My Name?"
 					className="mt-2 w-[400px] rounded-md border border-gray-300 p-2 text-xs"
 				/>
@@ -125,18 +126,17 @@ export default function NewSpacePage() {
 					rows={5}
 					{...register('description')}
 					placeholder="What's this space all about?"
-					className="mt-2 block w-[500px] rounded-md border border-gray-300 p-2 text-xs"
+					className="my-2 block w-[500px] rounded-md border border-gray-300 p-2 text-xs"
 				/>
 
 				<ButtonComponent
-					disabled={isBusy || !hasSpaceName}
+					disabled={isBusy || !hasSpaceTitle}
 					onClick={handleGenerate}
 					hoverText={`Generate a description for this space ${
-						hasSpaceName ? '' : '\n after you give it a new name'
+						hasSpaceTitle ? '' : '\n after you give it a new name'
 					}`}
-					additionalClasses="mt-2 min-w-[100px]"
 				>
-					{isBusy ? <IconLoader className="h-4 w-4" /> : 'Generate'}
+					{isBusy ? <IconLoader className="h-5 w-5" /> : 'Generate'}
 				</ButtonComponent>
 
 				<h2 className="mt-6 text-lg">Color Theme</h2>
@@ -187,7 +187,7 @@ export default function NewSpacePage() {
 					<ButtonComponent
 						type="submit"
 						onClick={handleCreate}
-						disabled={!name}
+						disabled={!title}
 					>
 						Yes, Create Space
 					</ButtonComponent>
