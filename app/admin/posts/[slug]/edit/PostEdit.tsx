@@ -10,7 +10,11 @@ import { Post } from '#/lib/types/inferred.types';
 // hooks
 import { useAlert } from '#/lib/hooks/useAlert';
 
-import { ChevronLeftIcon, PencilIcon } from '@heroicons/react/24/solid';
+import {
+	ChevronLeftIcon,
+	MagnifyingGlassIcon,
+	PencilIcon,
+} from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
@@ -24,7 +28,7 @@ import ContentEditor from '#/components/UI/admin/ContentEditor';
 import ButtonComponent from '#/components/UI/ButtonComponent';
 
 interface Props {
-	post: Post & { space: { title: string; description: string } };
+	post: Post & { space: { title: string; description: string; slug: string } };
 }
 
 const defaultValues = {
@@ -191,6 +195,13 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 					isMutating ? 'animate-pulse' : ''
 				}`}
 			>
+				<Link href={`/${post.space.slug}/${post.slug}`}>
+					<IconWithText
+						icon={MagnifyingGlassIcon}
+						text="Preview"
+						onClick={() => {}}
+					/>
+				</Link>
 				<input
 					className="min-w-[270px] text-2xl font-bold text-gray-800"
 					size={editedValues.title.length}

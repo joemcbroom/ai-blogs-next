@@ -1,5 +1,7 @@
-import { createServerComponentSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import { headers, cookies } from 'next/headers';
+import {
+	SupabaseClient,
+	createServerComponentClient,
+} from '@supabase/auth-helpers-nextjs';
 
 import {
 	DB,
@@ -11,11 +13,17 @@ import {
 } from '#/lib/types/inferred.types';
 import { AuthenticatedUser } from '../types/authenticatedUser.types';
 
-const supabaseSingleton = async () => {
-	return createServerComponentSupabaseClient<DB>({
-		headers,
-		cookies,
-	});
+let supabaseClientInstance: SupabaseClient | null = null;
+
+const supabaseSingleton = async (): Promise<SupabaseClient> => {
+	// only import cookies when this function is called to avoid errors on static site generation
+	const { cookies } = await import('next/headers');
+	if (!supabaseClientInstance) {
+		supabaseClientInstance = createServerComponentClient<DB>({
+			cookies,
+		});
+	}
+	return supabaseClientInstance;
 };
 
 export const getAuthenticatedUser =
@@ -44,7 +52,7 @@ export const getProfile = async (user?: any): Promise<User> => {
 		console.error(error);
 		throw new Error(error.message);
 	}
-	return profile;
+	return profile as User;
 };
 
 export const userIsAdmin = async (
@@ -130,11 +138,13 @@ export const getSpace = async (slug: string): Promise<BlogSpaceWithPosts> => {
 
 export const getPost = async (
 	slug: string
-): Promise<Post & { space: { title: string; description: string } }> => {
+): Promise<
+	Post & { space: { title: string; description: string; slug: string } }
+> => {
 	const supabase = await supabaseSingleton();
 	const { data, error } = await supabase
 		.from('post')
-		.select('*, space: space(title, description)')
+		.select('*, space: space(title, description, slug)')
 		.eq('slug', slug)
 		.single();
 
@@ -142,10 +152,12 @@ export const getPost = async (
 		console.error(error);
 		throw error.message;
 	}
-	return data as Post & { space: { title: string; description: string } };
+	return data as Post & {
+		space: { title: string; description: string; slug: string };
+	};
 };
 
-type ItemSortProps = { created_at: string; updated_at: string | null };
+type ItemSortProps = { [x: string]: any };
 const sortByUpdatedOrCreated = ():
 	| ((a: ItemSortProps, b: ItemSortProps) => number)
 	| undefined => {

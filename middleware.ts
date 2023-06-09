@@ -1,4 +1,4 @@
-import { createMiddlewareSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
@@ -23,7 +23,7 @@ const redirect = ({
 
 export async function middleware(request: NextRequest) {
 	const res = NextResponse.next();
-	const supabase = createMiddlewareSupabaseClient<Database>({
+	const supabase = createMiddlewareClient<Database>({
 		req: request,
 		res,
 	});
