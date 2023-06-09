@@ -209,9 +209,7 @@ export default function CreateBlogPosts({
 								<li key={post.slug}>{post.title}</li>
 							))}
 						</ul>
-						<Link
-							href={`/admin/spaces/viewer/${selectedSpace.slug}/edit?tab=posts`}
-						>
+						<Link href={`/admin/spaces/${selectedSpace.slug}/edit?tab=posts`}>
 							<span className="mt-6 text-pink-600">
 								See All <ArrowLongRightIcon className="inline-block h-5 w-5" />
 							</span>
