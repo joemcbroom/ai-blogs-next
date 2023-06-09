@@ -2,7 +2,7 @@ import BlogverseLogo from '#/components/UI/BlogverseLogo';
 import IconLoader from '#/components/UI/loaders/IconLoader';
 import Authenticating from './Authenticating';
 
-const Page = () => {
+export default function AuthPage() {
 	return (
 		<div className="grid h-screen w-screen place-items-center">
 			<span className="flex flex-col items-center justify-center">
@@ -12,6 +12,4 @@ const Page = () => {
 			</span>
 		</div>
 	);
-};
-
-export default Page;
+}
