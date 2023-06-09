@@ -232,11 +232,10 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 				{/* space description with edit pencil icon below */}
 				<div className="mt-3">
 					<textarea
-						className="w-1/2 rounded border-2 p-3 text-sm"
+						className="w-1/2 resize-none rounded border-2 p-3 text-sm"
 						defaultValue={editedValues.description}
 						onChange={(e) => handleEdit(e.target.value, 'description')}
 						ref={descriptionRef}
-						rows={1}
 					/>
 					{/* edit description with pencil icon */}
 					{/* TODO: add generate button to generate a description depends on: https://github.com/joemcbroom/ai-blogs-next/issues/43 */}
