@@ -1,6 +1,6 @@
 'use client';
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import Alert, { AlertProps } from './Alert';
+import Alert, { AlertProps } from '#/components/UI/Alert';
 
 interface AlertContextValue {
 	showAlert: (options: Omit<AlertProps, 'onClose'>) => void;

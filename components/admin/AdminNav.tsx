@@ -2,6 +2,7 @@
 
 // components
 import AdminLink from '#/components/admin/NavLink';
+import BlogverseLogo from '#/components/UI/BlogverseLogo';
 
 // library
 import {
@@ -12,8 +13,7 @@ import {
 } from '@heroicons/react/24/solid';
 
 // framework
-import { usePathname, useRouter } from 'next/navigation';
-import BlogverseLogo from '../UI/BlogverseLogo';
+import { usePathname } from 'next/navigation';
 
 const adminPages = [
 	{
