@@ -1,59 +1,58 @@
 'use client';
 
-import { useEffect, useId, useState, useRef } from 'react';
-import { SketchPicker } from 'react-color';
-import { XCircleIcon } from '@heroicons/react/24/solid';
 import { ColorPickerProps } from '#/lib/ComponentProps';
+import { useState, useRef, useCallback } from 'react';
+import { HexColorInput, HexColorPicker } from 'react-colorful';
+import useClickOutside from 'lib/hooks/useClickOutside';
 
 export default function ColorPicker({
 	color,
-	handleColorChangeComplete,
+	handleChange,
+	label,
+	subLabel,
 }: ColorPickerProps) {
-	const [currentColor, setCurrentColor] = useState(color || '#000');
 	const [showPicker, setShowPicker] = useState(false);
-	const modalId = useId();
-	const modalRef = useRef(null);
+	const popover = useRef(null);
 
-	const handleColorChange = (hex: string) => {
-		setCurrentColor(hex);
-	};
-
-	const handleShowPicker = () => {
-		const modal = document.getElementById(modalId);
-		if (!modal) return;
-		setShowPicker(true);
-		// @ts-ignore
-		modal.showModal();
-	};
-
-	const closeModal = () => {
-		const modal = document.getElementById(modalId);
-		// @ts-ignore
-		modal?.close();
-	};
+	const close = useCallback(() => setShowPicker(false), []);
+	useClickOutside(popover, close);
 
 	return (
-		<>
-			<div
-				className="w-12 aspect-video rounded border-gray-500 cursor-pointer"
-				style={{
-					backgroundColor: currentColor,
-				}}
-				onClick={() => handleShowPicker()}
-			/>
-			<dialog ref={modalRef} id={modalId}>
-				<XCircleIcon
-					className="absolute w-4 h-4 top-2 right-2 cursor-pointer"
-					onClick={() => closeModal()}
+		<div className="my-4 flex flex-col gap-2">
+			{label && (
+				<label className="block text-sm font-medium text-gray-700">
+					{label}
+				</label>
+			)}
+			<div className="flex items-center gap-2 relative">
+				<HexColorInput
+					color={color}
+					onChange={handleChange}
+					prefixed
+					className="block border border-gray-300 rounded-md p-2 w-[200px] text-sm"
+				/>
+
+				<div
+					className="w-14 aspect-video rounded border-gray-500 cursor-pointer"
+					style={{ backgroundColor: color }}
+					onClick={() => {
+						setShowPicker(true);
+					}}
 				/>
 				{showPicker && (
-					<SketchPicker
-						color={color}
-						onChange={({ hex }) => handleColorChange(hex)}
-						onChangeComplete={({ hex }) => handleColorChangeComplete(hex)}
-					/>
+					<div
+						ref={popover}
+						className="absolute -bottom-20 left-72 rounded-md shadow-md"
+					>
+						<HexColorPicker
+							color={color}
+							onChange={handleChange}
+							className="absolute top-0"
+						/>
+					</div>
 				)}
-			</dialog>
-		</>
+			</div>
+			{subLabel && <p className="text-xs text-gray-500">{subLabel}</p>}
+		</div>
 	);
 }

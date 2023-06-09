@@ -12,6 +12,7 @@ export default function AdminButton({
 	disabled,
 	onClick,
 	hoverText,
+	type,
 	...rest
 }: AdminButtonProps) {
 	const disabledClass = disabled ? 'opacity-50 cursor-not-allowed' : '';
@@ -19,11 +20,12 @@ export default function AdminButton({
 	return (
 		<>
 			<button
-				onClick={() => !disabled && onClick()}
+				onClick={() => !disabled && onClick && onClick()}
 				className={`bg-purple-400 text-white text-xs font-bold py-2 px-4 rounded-full mt-2 ${disabledClass}`}
 				id={id}
 				data-tooltip-content={hoverText}
 				data-tooltip-place="top"
+				type={type}
 				{...rest}
 			>
 				{children}
