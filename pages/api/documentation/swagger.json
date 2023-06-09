@@ -1,0 +1,521 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Blogverse API Documentation",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/blog_space": {
+      "post": {
+        "description": "Create a new blog space",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The name of the blog space",
+                    "example": "Mountain Biking"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The blog space was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/blog_space"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The blog space already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "The error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/500_error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "Gets all blog spaces and their (abbreviated) posts",
+        "responses": {
+          "200": {
+            "description": "Blog spaces with their posts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/blog_space_with_posts"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/blog_space/{blog_space_id}": {
+      "get": {
+        "description": "Get a blog space by id",
+        "parameters": [
+          {
+            "name": "blog_space_id",
+            "in": "path",
+            "description": "The id of the blog space",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The blog space",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/blog_space"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The blog space does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "The error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/blog_space/{blog_space_id}/posts": {
+      "get": {
+        "description": "Get all posts for a blog space",
+        "parameters": [
+          {
+            "name": "blog_space_id",
+            "in": "path",
+            "description": "The id of the blog space",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The posts for the blog space",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/post"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      },
+      "post": {
+        "description": "Create n number of posts (in draft mode) for a blog space",
+        "parameters": [
+          {
+            "name": "blog_space_id",
+            "in": "path",
+            "description": "The id of the blog space",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "qty",
+            "in": "query",
+            "description": "The number of posts to create",
+            "required": false,
+            "default": 1,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The posts for the blog space",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/post"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/api/blog_space/{blog_space_id}/tags": {
+      "get": {
+        "description": "Get all tags for a blog space",
+        "parameters": [
+          {
+            "name": "blog_space_id",
+            "in": "path",
+            "description": "The id of the blog space",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The tags for the blog space",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/tag"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      },
+      "post": {
+        "description": "Create n number of tags",
+        "parameters": [
+          {
+            "name": "blog_space_id",
+            "in": "path",
+            "description": "The id of the blog space",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "qty",
+            "in": "query",
+            "description": "The number of tags to create",
+            "required": false,
+            "default": 1,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/blog_space/{blog_space_id}/published": {
+      "get": {
+        "description": "Get all published posts for a blog space",
+        "parameters": [
+          {
+            "name": "blog_space_id",
+            "in": "path",
+            "description": "The id of the blog space",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The published posts for the blog space",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/post"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "500_error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "The error message"
+          }
+        }
+      },
+      "blog_space": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The id of the blog space"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The date the blog space was created"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the blog space"
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug of the blog space"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the blog space"
+          },
+          "about_us": {
+            "type": "string",
+            "description": "The about us of the blog space"
+          }
+        }
+      },
+      "post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The id of the post"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The date the post was created"
+          },
+          "blog_space_id": {
+            "type": "string",
+            "description": "The id of the blog space"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the post"
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug of the post"
+          },
+          "content": {
+            "type": "string",
+            "description": "The content of the post"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the post"
+          },
+          "is_draft": {
+            "type": "boolean",
+            "description": "Whether the post is a draft"
+          },
+          "tag_ids": {
+            "type": "array",
+            "description": "The ids of the tags",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "abbreviated_post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The id of the post"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the post"
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug of the post"
+          }
+        }
+      },
+      "blog_space_with_posts": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The id of the blog space"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The date the blog space was created"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the blog space"
+          },
+          "slug": {
+            "type": "string",
+            "description": "The slug of the blog space"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the blog space"
+          },
+          "about_us": {
+            "type": "string",
+            "description": "The about us of the blog space"
+          },
+          "posts": {
+            "type": "array",
+            "description": "The posts of the blog space",
+            "items": {
+              "$ref": "#/components/schemas/abbreviated_post"
+            }
+          }
+        }
+      },
+      "post_previous_version": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The id of the post"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The date the post was created"
+          },
+          "post_id": {
+            "type": "string",
+            "description": "The id of the post"
+          },
+          "content": {
+            "type": "string",
+            "description": "The content of the post"
+          }
+        }
+      },
+      "tag": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The id of the tag"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The date the tag was created"
+          },
+          "blog_space_id": {
+            "type": "string",
+            "description": "The id of the blog space"
+          },
+          "tag_name": {
+            "type": "string",
+            "description": "The name of the tag"
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}
