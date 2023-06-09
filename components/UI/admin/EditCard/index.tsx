@@ -54,7 +54,7 @@ const EditCard: React.FC<Props> = ({ item }) => {
 	const handleDelete = async () => {
 		setIsFetching(true);
 
-		await fetch(`/api/${type}`, {
+		await fetch(`/api/supabase/${type}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
@@ -72,14 +72,7 @@ const EditCard: React.FC<Props> = ({ item }) => {
 	const handlePublishOrUnpublish = async () => {
 		setIsFetching(true);
 
-		// const { error } = await supabase
-		// 	.from(type)
-		// 	.update({ is_published: !is_published })
-		// 	.eq('id', id);
-
-		// if (error) throw error;
-
-		await fetch(`/api/${type}`, {
+		await fetch(`/api/supabase/${type}`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
