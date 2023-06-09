@@ -10,7 +10,7 @@ import { HexColorInput, HexColorPicker } from 'react-colorful';
 import useClickOutside from '#/lib/hooks/useClickOutside';
 
 interface ColorPickerProps {
-	color?: string;
+	color: string | undefined;
 	handleChange: (color: string) => void;
 	label?: string;
 	subLabel?: string;
