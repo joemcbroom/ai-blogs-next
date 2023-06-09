@@ -1,10 +1,12 @@
-'use client';
-
-// types
-import { AdminLinkProps } from '#/lib/ComponentProps';
-
 // framework
 import Link from 'next/link';
+
+interface AdminLinkProps {
+	href: string;
+	text: string;
+	currentPathname: string | null;
+	children: React.ReactNode;
+}
 
 export default function AdminLink({
 	href,
@@ -18,7 +20,7 @@ export default function AdminLink({
 	return (
 		<Link
 			href={href}
-			className={`admin-link rounded-full py-3 px-6 transition-all flex items-center gap-1 w-full ${activeClass}`}
+			className={`admin-link flex w-full items-center gap-1 rounded-full py-3 px-6 transition-all ${activeClass}`}
 		>
 			{children} {text}
 		</Link>

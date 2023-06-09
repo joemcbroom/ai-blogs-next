@@ -1,8 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { ImgComponentProps } from '#/lib/ComponentProps';
+interface ImgComponentProps {
+	src: string;
+	alt: string;
+	className?: string;
+}
 
-export default function ImgComponent({ src, alt, className = '' }: ImgComponentProps) {
-	if (!src) throw new Error('ImgComponent requires a src');
+export default function ImgComponent({
+	src,
+	alt,
+	className = '',
+}: ImgComponentProps) {
 	return <img src={src} alt={alt} className={className} />;
 }

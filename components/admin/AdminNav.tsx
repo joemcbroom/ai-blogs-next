@@ -25,13 +25,13 @@ const adminPages = [
 	{
 		name: 'New Blog Post',
 		href: '/admin/new-blog-post',
-		bgClass: 'bg-violet-600',
+		bgClass: 'bg-violet-700',
 		icon: <DocumentPlusIcon className="w-6" />,
 	},
 	{
 		name: 'Space Viewer',
 		href: '/admin/spaces/viewer',
-		bgClass: 'bg-rose-500',
+		bgClass: 'bg-pink-600',
 		icon: <RectangleStackIcon className="w-6" />,
 	},
 	{
@@ -49,11 +49,11 @@ export default function AdminNav() {
 
 	return (
 		<nav
-			className={`flex flex-col justify-center items-center gap-3 h-screen sticky top-0 min-w-max px-10 transition-colors ${bgClass} `}
+			className={`sticky top-0 flex h-screen min-w-max flex-col items-center justify-center gap-3 px-10 transition-colors ${bgClass} `}
 		>
 			<BlogverseLogo
 				type="whiteVertical"
-				className="w-full p-14 absolute top-8"
+				className="absolute top-8 w-full p-14"
 			/>
 			{adminPages.map(({ name, href, icon }) => (
 				<AdminLink
