@@ -33,15 +33,16 @@ export const getAuthenticatedUser =
 export const getProfile = async (user?: any): Promise<User> => {
 	const supabase = await supabaseSingleton();
 	user ??= await getAuthenticatedUser();
-	const { data: profiles, error } = await supabase
+	const { data: profile, error } = await supabase
 		.from('profiles')
 		.select('*')
-		.eq('id', user.id);
+		.eq('id', user.id)
+		.single();
 	if (error) {
 		console.error(error);
 		throw new Error(error.message);
 	}
-	return profiles[0];
+	return profile;
 };
 
 export const userIsAdmin = async (
