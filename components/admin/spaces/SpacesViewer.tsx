@@ -1,14 +1,14 @@
 'use client';
 
 import SearchInput from '#/components/UI/SearchInput';
-import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
+import { BlogSpaceWithAbbreviatedPosts } from '#/lib/types/inferred.types';
 import { useEffect, useState } from 'react';
 import SpaceCard from './SpaceCard';
 
 export default function SpacesViewer({
 	spaces,
 }: {
-	spaces: BlogSpaceWithPosts[];
+	spaces: BlogSpaceWithAbbreviatedPosts[];
 }) {
 	const [filteredSpaces, setFilteredSpaces] = useState(spaces);
 	const [searchQuery, setSearchQuery] = useState('');

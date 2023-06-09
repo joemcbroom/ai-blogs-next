@@ -214,7 +214,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 				</div>
 
 				<span className="flex items-center gap-2">
-					<PostsAndSubscribers postCount={space.posts.length} />
+					<PostsAndSubscribers postCount={space?.posts?.length ?? 0} />
 					<span className="text-sm italic text-slate-400">{editedText}</span>
 				</span>
 				{/* horizontal line */}

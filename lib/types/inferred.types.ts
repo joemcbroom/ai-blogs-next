@@ -12,11 +12,11 @@ type AbbreviatedPost = {
 };
 
 type BlogSpaceWithAbbreviatedPosts = BlogSpace & {
-	posts: AbbreviatedPost | AbbreviatedPost[] | null;
+	posts: AbbreviatedPost[] | null;
 };
 
 type BlogSpaceWithPosts = BlogSpace & {
-	posts: Post | Post[] | null;
+	posts: Post[] | null;
 };
 
 type User = Database['public']['Tables']['profiles']['Row'];
