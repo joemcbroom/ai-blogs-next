@@ -1,21 +1,41 @@
-const formatDistanceToNow = (date: Date) => {
+const formatDistanceToNow = (() => {
+	const ONE_SECOND = 1000;
+	const ONE_MINUTE = ONE_SECOND * 60;
+	const ONE_HOUR = ONE_MINUTE * 60;
+	const ONE_DAY = ONE_HOUR * 24;
+	const ONE_MONTH = ONE_DAY * 30;
+	const ONE_YEAR = ONE_MONTH * 12;
+
 	const now = new Date();
-	const seconds = Math.abs((now.getTime() - date.getTime()) / 1000);
-	const minutes = Math.floor(seconds / 60);
-	const hours = Math.floor(minutes / 60);
-	const days = Math.floor(hours / 24);
-	const months = Math.floor(days / 30);
-	const years = Math.floor(months / 12);
-	const buildString = (value: number, unit: string) => {
-		return `${value} ${unit}${value === 1 ? '' : 's'} ago`;
+
+	return (date: Date) => {
+		const diff = Math.abs(now.getTime() - date.getTime());
+		if (diff >= ONE_YEAR) {
+			const years = Math.floor(diff / ONE_YEAR);
+			return `${years} year${years === 1 ? '' : 's'} ago`;
+		}
+		if (diff >= ONE_MONTH) {
+			const months = Math.floor(diff / ONE_MONTH);
+			return `${months} month${months === 1 ? '' : 's'} ago`;
+		}
+		if (diff >= ONE_DAY) {
+			const days = Math.floor(diff / ONE_DAY);
+			return `${days} day${days === 1 ? '' : 's'} ago`;
+		}
+		if (diff >= ONE_HOUR) {
+			const hours = Math.floor(diff / ONE_HOUR);
+			return `${hours} hour${hours === 1 ? '' : 's'} ago`;
+		}
+		if (diff >= ONE_MINUTE) {
+			const minutes = Math.floor(diff / ONE_MINUTE);
+			return `${minutes} minute${minutes === 1 ? '' : 's'} ago`;
+		}
+		if (diff >= ONE_SECOND) {
+			const seconds = Math.floor(diff / ONE_SECOND);
+			return `${seconds} second${seconds === 1 ? '' : 's'} ago`;
+		}
+		return 'just now';
 	};
-	if (years > 0) return buildString(years, 'year');
-	if (months > 0) return buildString(months, 'month');
-	if (days > 0) return buildString(days, 'day');
-	if (hours > 0) return buildString(hours, 'hour');
-	if (minutes > 0) return buildString(minutes, 'minute');
-	if (seconds > 0) return buildString(seconds, 'second');
-	return 'just now';
-};
+})();
 
 export default formatDistanceToNow;
