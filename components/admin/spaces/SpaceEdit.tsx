@@ -61,7 +61,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 	const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
 	const [hasChanges, setHasChanges] = useState(false);
 	const nameRef = useRef<HTMLInputElement>(null);
-	const descriptionRef = useRef<HTMLTextAreaElement>(null);
+	const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
 	const { showAlert } = useAlert();
 
 	const initialSpaceValues = {
@@ -77,8 +77,6 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 		initialSpaceValues,
 		init
 	);
-
-	useAutosizeTextArea(descriptionRef.current, editedValues.description);
 
 	useEffect(() => {
 		if (!space.image_path) {
@@ -181,6 +179,8 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 		secondary: (color: string) => handleEdit(color, 'secondary_color'),
 		tertiary: (color: string) => handleEdit(color, 'tertiary_color'),
 	};
+
+	useAutosizeTextArea(descriptionRef, editedValues.description);
 
 	return (
 		<>
