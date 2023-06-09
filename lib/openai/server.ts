@@ -9,30 +9,70 @@ const LANGUAGE_MODEL = process.env.OPENAI_LANGUAGE_MODEL || 'gpt-3.5-turbo';
 export const openai = new OpenAIApi(config);
 
 export const generateSpaceDescription = async (name: string) => {
-	debugger;
 	const { data } = await openai.createChatCompletion({
 		model: LANGUAGE_MODEL,
 		messages: [
-			defaultSystemRoleMessage,
+			{
+				role: 'system',
+				content:
+					'You are an expert content writer for a blog. Omit quotation marks, extra details, and explanations from responses.',
+			},
 			{
 				role: 'user',
-				content: buildPrompts.spaceDescription(name),
+				content: `Write a description for a blog called ${name}.  It should be short and succint, like the type used for meta description and SEO.`,
 			},
 		],
 	});
 	return data.choices[0]?.message?.content;
 };
 
-const buildPrompts = {
-	spaceDescription: (name: string) => {
-		return `Write a description for a blog called ${name}.  It should be short and succint, like the type used for meta description and SEO.`;
-	},
+export const generatePostTitles = async ({
+	spaceName,
+	spaceDescription = '',
+	numberToGenerate = 1,
+}: {
+	spaceName: string;
+	spaceDescription?: string;
+	numberToGenerate?: number;
+}) => {
+	const { data } = await openai.createChatCompletion({
+		model: LANGUAGE_MODEL,
+		messages: [
+			{
+				role: 'system',
+				content:
+					'You are an expert content writer for a blog. Omit extra details or superfulous explanations',
+			},
+			{
+				role: 'user',
+				content: `Write ${numberToGenerate} titles of posts for a blog called ${spaceName}. ${
+					spaceDescription ? `The blog description is: ${spaceDescription}` : ''
+				}`,
+			},
+		],
+	});
+	const titles = data.choices[0]?.message?.content;
+	if (!titles) throw new Error('No titles generated');
+	return fixTitles(titles);
 };
 
-const defaultSystemRoleMessage: ChatCompletionRequestMessage = {
-	role: 'system',
-	content:
-		'You are an expert content writer for a blog. Omit quotation marks, extra details, and explanations from responses.',
+const fixTitles = async (titles: string) => {
+	const { data } = await openai.createChatCompletion({
+		model: LANGUAGE_MODEL,
+		messages: [
+			{
+				role: 'system',
+				content:
+					'You are a helpful AI assistant. Omit extra details or superfulous explanations',
+			},
+			{
+				role: 'user',
+				content: `Fix this string by removing any numbered bullets and newlines, and format as an array of strings: ${titles}`,
+			},
+		],
+	});
+	const fixedTitles = data.choices[0]?.message?.content as string;
+	return JSON.parse(fixedTitles);
 };
 
 /** Class for ChatGPTChat */
