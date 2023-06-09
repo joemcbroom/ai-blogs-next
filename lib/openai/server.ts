@@ -38,14 +38,15 @@ export const generatePostContent = async ({
 	description = '',
 	space_title = '',
 	space_description = '',
-	content_length = '1500',
+	content_length = '3500',
 }: PostContentParams) => {
-	let contentString = `Write a blog post titled ${title}`;
-	if (space_title) contentString += ` for a blog called ${space_title}`;
+	let contentString = `Write a blog post (article) titled "${title}"`;
+	if (space_title) contentString += ` for a blog called "${space_title}"`;
 	if (space_description)
-		contentString += `. The blog description is: ${space_description}`;
-	if (description) contentString += `. The post description is: ${description}`;
-	contentString += `.  Format the blog post as html.  It should be ${content_length} words long.`;
+		contentString += `. The blog description is: "${space_description}"`;
+	if (description)
+		contentString += `. The post description is: "${description}"`;
+	contentString += `.  Format the blog post as html.  The article be approximately \`${content_length}\` words long.`;
 
 	const { data } = await openai.createChatCompletion({
 		model: LANGUAGE_MODEL,
