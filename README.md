@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Blogverse.ai
+
+Welcome to Blogverse.ai, a simple blog application built using Next.js 13 with the new App Router, server components, and other exciting features!
 
 ## Getting Started
 
-First, run the development server:
+To get started with Blogverse.ai, clone this repository and follow the steps below:
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.jsx`. The page auto-updates as you edit the file.
+## Features
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Blogverse.ai is built using Next.js 13 App Router (beta) which includes the following features:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- New file-system based router with support for layouts, nested routing, loading states, error handling, and more.
+- Client-side and server-side rendering with client and server components.
+- Simplified data fetching with async/await support in React components and the fetch() API.
+- Next.js HTTP Cache and client-side cache optimized for server components and client-side navigation.
+- Improved Image Component with native browser lazy loading and automatic font optimization.
+- Automatic transpilation and bundling of dependencies from local packages or external dependencies.
+- Turbopack, a Rust-based Webpack replacement for faster development.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Directory Structure
+
+- `app`: The main directory containing server components, layouts, and pages for your application.
+- `public`: Contains static assets like images, styles, and fonts.
+- `components`: Contains reusable client components.
+- `lib`: Contains helper functions and utilities.
+
+## Type safety
+
+After making any changes to supabase, run the following command to generate the typescript types:
+
+```bash
+npx supabase gen types typescript --project-id "dyhumgxwuzsrinvjiefx" --schema public > lib/types/database.types.ts 
+```
+if it asks you to login:
+```bash
+npx supabase login
+```
+You can generate a new access token here: [https://app.supabase.com/account/tokens](https://app.supabase.com/account/tokens)
+
+## License
+
+Blogverse.ai is [MIT licensed](LICENSE.md).
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about the new features in Next.js 13 App Router, check out the [official documentation](https://nextjs.org/docs/app-router).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

@@ -1,21 +1,39 @@
-const formatDistanceToNow = (date: Date) => {
+enum TimeUnits {
+	SECOND = 1000,
+	MINUTE = 60 * 1000,
+	HOUR = 60 * 60 * 1000,
+	DAY = 24 * 60 * 60 * 1000,
+	MONTH = 30 * 24 * 60 * 60 * 1000,
+	YEAR = 12 * 30 * 24 * 60 * 60 * 1000,
+}
+
+function pluralize(unit: string, value: number): string {
+	return `${value} ${unit}${value === 1 ? '' : 's'} ago`;
+}
+
+function formatDistanceToNow(date: Date): string {
 	const now = new Date();
-	const seconds = Math.abs((now.getTime() - date.getTime()) / 1000);
-	const minutes = Math.floor(seconds / 60);
-	const hours = Math.floor(minutes / 60);
-	const days = Math.floor(hours / 24);
-	const months = Math.floor(days / 30);
-	const years = Math.floor(months / 12);
-	const buildString = (value: number, unit: string) => {
-		return `${value} ${unit}${value === 1 ? '' : 's'} ago`;
-	};
-	if (years > 0) return buildString(years, 'year');
-	if (months > 0) return buildString(months, 'month');
-	if (days > 0) return buildString(days, 'day');
-	if (hours > 0) return buildString(hours, 'hour');
-	if (minutes > 0) return buildString(minutes, 'minute');
-	if (seconds > 0) return buildString(seconds, 'second');
+	const diff = Math.abs(now.getTime() - date.getTime());
+
+	if (diff >= TimeUnits.YEAR) {
+		return pluralize('year', Math.floor(diff / TimeUnits.YEAR));
+	}
+	if (diff >= TimeUnits.MONTH) {
+		return pluralize('month', Math.floor(diff / TimeUnits.MONTH));
+	}
+	if (diff >= TimeUnits.DAY) {
+		return pluralize('day', Math.floor(diff / TimeUnits.DAY));
+	}
+	if (diff >= TimeUnits.HOUR) {
+		return pluralize('hour', Math.floor(diff / TimeUnits.HOUR));
+	}
+	if (diff >= TimeUnits.MINUTE) {
+		return pluralize('minute', Math.floor(diff / TimeUnits.MINUTE));
+	}
+	if (diff >= TimeUnits.SECOND) {
+		return pluralize('second', Math.floor(diff / TimeUnits.SECOND));
+	}
 	return 'just now';
-};
+}
 
 export default formatDistanceToNow;

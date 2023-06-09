@@ -1,5 +1,13 @@
 'use client';
+import Link from 'next/link';
 // Reusable button component with styles, click handler, and children
+
+// framework
+import { useRouter } from 'next/navigation';
+import { useId } from 'react';
+
+// library
+import { Tooltip } from 'react-tooltip';
 
 // types
 interface BaseProps {
@@ -7,6 +15,7 @@ interface BaseProps {
 	disabled?: boolean;
 	hoverText?: string;
 	type?: any;
+	backgroundClass?: string;
 }
 interface AdminButtonPropsWithOnClick extends BaseProps {
 	onClick: () => void;
@@ -18,14 +27,6 @@ interface AdminButtonPropsWithHref extends BaseProps {
 	onClick?: () => void;
 }
 
-type AdminButtonProps = AdminButtonPropsWithOnClick | AdminButtonPropsWithHref;
-
-import { useRouter } from 'next/navigation';
-import { useId } from 'react';
-
-// library
-import { Tooltip } from 'react-tooltip';
-
 export default function AdminButton({
 	children,
 	disabled,
@@ -33,25 +34,27 @@ export default function AdminButton({
 	hoverText,
 	type,
 	href,
+	backgroundClass = 'bg-purple-400',
 	...rest
-}: AdminButtonProps) {
+}: AdminButtonPropsWithOnClick | AdminButtonPropsWithHref) {
 	const disabledClass = disabled ? 'opacity-50 cursor-not-allowed' : '';
 	const id = useId();
 	const isLink = href && href.length > 0;
-	const router = useRouter();
-	const handleClick = () => {
-		if (isLink) {
-			router.push(href);
-		} else {
-			!disabled && onClick && onClick();
-		}
+
+	interface LinkOrButtonProps {
+		children: React.ReactNode;
+		href?: string;
+	}
+
+	const LinkOrButton: React.FC<LinkOrButtonProps> = ({ children, href }) => {
+		return href ? <Link href={href}>{children}</Link> : <>{children}</>;
 	};
 
 	return (
-		<>
+		<LinkOrButton href={href}>
 			<button
-				onClick={() => handleClick()}
-				className={`mt-2 rounded-full bg-purple-400 py-2 px-4 text-xs font-bold text-white ${disabledClass}`}
+				onClick={() => (isLink ? null : !disabled && onClick && onClick())}
+				className={` rounded-full py-2 px-4 text-xs font-bold text-white ${disabledClass} ${backgroundClass}`}
 				id={id}
 				data-tooltip-content={hoverText}
 				data-tooltip-place="top"
@@ -71,6 +74,6 @@ export default function AdminButton({
 					}}
 				/>
 			)}
-		</>
+		</LinkOrButton>
 	);
 }

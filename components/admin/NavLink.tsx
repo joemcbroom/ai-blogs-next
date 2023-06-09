@@ -1,19 +1,19 @@
 // framework
 import Link from 'next/link';
 
-interface AdminLinkProps {
+interface NavLinkProps {
 	href: string;
 	text: string;
 	currentPathname: string | null;
 	children: React.ReactNode;
 }
 
-export default function AdminLink({
+export default function NavLink({
 	href,
 	text,
 	currentPathname,
 	children,
-}: AdminLinkProps) {
+}: NavLinkProps) {
 	const isActive = currentPathname?.includes(href);
 	const activeClass = isActive ? 'bg-yellow-400 text-black' : 'text-white';
 
