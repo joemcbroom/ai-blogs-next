@@ -14,8 +14,7 @@ interface BaseProps {
 	disabled?: boolean;
 	hoverText?: string;
 	type?: any;
-	backgroundClass?: string;
-	additionalClasses?: string;
+	buttonStyle?: ButtonStyle;
 }
 interface ButtonComponentPropsWithOnClick extends BaseProps {
 	onClick?: React.MouseEventHandler;
@@ -27,6 +26,15 @@ interface ButtonComponentPropsWithHref extends BaseProps {
 	onClick?: React.MouseEventHandler;
 }
 
+type ButtonStyle = 'default' | 'primary' | 'secondary' | 'danger';
+
+const buttonClass: Record<ButtonStyle, string> = {
+	default: 'bg-purple-500 hover:bg-purple-700 text-white',
+	primary: 'bg-green-600 hover:bg-green-700 text-white',
+	secondary: 'bg-white hover:bg-slate-50 text-slate-900',
+	danger: 'bg-pink-600 hover:bg-pink-700 text-white',
+};
+
 export default function ButtonComponent({
 	children,
 	disabled,
@@ -34,8 +42,7 @@ export default function ButtonComponent({
 	hoverText,
 	type,
 	href,
-	backgroundClass = 'bg-purple-400',
-	additionalClasses,
+	buttonStyle = 'default',
 	...rest
 }: ButtonComponentPropsWithOnClick | ButtonComponentPropsWithHref) {
 	const disabledClass = disabled ? 'opacity-50 cursor-not-allowed' : '';
@@ -55,7 +62,7 @@ export default function ButtonComponent({
 		<LinkOrButton href={href}>
 			<button
 				onClick={(e) => (isLink ? null : !disabled && onClick && onClick(e))}
-				className={`rounded-full px-4 py-2 text-xs font-bold text-white ${disabledClass} ${backgroundClass} ${additionalClasses}`}
+				className={`rounded-full px-4 py-2 text-xs font-bold ${disabledClass} ${buttonClass[buttonStyle]}`}
 				id={id}
 				data-tooltip-content={hoverText}
 				data-tooltip-place="top"
