@@ -3,7 +3,7 @@
 import IconWithText from '#/components/UI/IconWithText';
 import ImageUploader from '#/components/UI/ImageUploader';
 import SUPABASE_CONSTANTS from '#/lib/constants/supabaseConstants';
-import { supabase, supabaseStorage } from '#/lib/supabase/client';
+import { supabaseStorage } from '#/lib/supabase/client';
 // types
 import { Post, PostUpdate } from '#/lib/types/inferred.types';
 
@@ -96,7 +96,7 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ slug, data }),
+			body: JSON.stringify({ slug, data, spaceSlug: post.space.slug }),
 		});
 	};
 
@@ -183,25 +183,62 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 			// content_length: 500,
 		};
 
-		const res = await fetch('/api/generate/post_content', {
+		await fetch('/api/generate/post_content', {
 			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
 			body: JSON.stringify(body),
 		});
 
-		const { content } = await res.json();
-		handleEdit(content, 'content');
-		setIsSaving(false);
+		showAlert({
+			message: 'Generating content... Please wait up to 2 minutes',
+			type: 'info',
+		});
+
+		const startTime = Date.now();
+		const interval = setInterval(async () => {
+			// if longer than 2 minutes, stop
+			if (Date.now() - startTime >= 1000 * 60 * 2) {
+				clearInterval(interval);
+				setIsSaving(false);
+				return showAlert({
+					message: 'Generation timed out',
+					type: 'error',
+				});
+			}
+			const res = await fetch(
+				`/api/generate/post_content?title=${body.title}&space_title=${body.space_title}`,
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			);
+			const { content: cachedContent } = await res.json();
+			if (cachedContent !== null) {
+				clearInterval(interval);
+				handleEdit(cachedContent, 'content');
+				setIsSaving(false);
+			}
+		}, 5000);
 	};
 
 	const handlePublishOrUnpublish = async () => {
 		setIsSaving(true);
 
-		const { error } = await supabase
-			.from('post')
-			.update({ is_published: !post.is_published })
-			.eq('id', post.id);
-
-		if (error) throw error;
+		await fetch('/api/supabase/post', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				slug: post.slug,
+				data: { is_published: !post.is_published },
+				spaceSlug: post.space.slug,
+			}),
+		});
 
 		setIsSaving(false);
 
@@ -221,7 +258,9 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 			</Link>
 			<div
 				className={`mt-3 flex flex-col items-center gap-4 ${
-					isMutating ? 'animate-pulse' : ''
+					isMutating
+						? 'pointer-events-none animate-pulse cursor-not-allowed'
+						: ''
 				}`}
 			>
 				<div className="relative flex w-full items-center justify-center gap-4">
@@ -260,6 +299,9 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 					onClear={handleClearImage}
 					fileUrl={imageUrl}
 				/>
+				<span className="text-xs">
+					Image will default to space image if left blank
+				</span>
 				<ContentEditor
 					content={editedValues.content}
 					onUpdate={(contentHtml) => handleEdit(contentHtml, 'content')}

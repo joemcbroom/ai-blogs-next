@@ -15,7 +15,7 @@ import SelectBox from '#/components/UI/SelectBox';
 import type { AbbreviatedPost } from '#/lib/types/inferred.types';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import ButtonComponent from '#/components/UI/ButtonComponent';
-import { supabase } from '#/lib/supabase/client';
+import { useSupabase } from '#/lib/hooks/useSupabase';
 
 // Reduce posts to an array of spaces like this: [{ title: string, id: number }, ...]
 // a space looks like { title: string, id: number }
@@ -33,6 +33,7 @@ export default function PostsViewer({ posts }: { posts: AbbreviatedPost[] }) {
 	const [filteredPosts, setFilteredPosts] = useState(posts);
 	const [showCards, setShowCards] = useState(false);
 	const [isBusy, setIsBusy] = useState(false);
+	const { supabase } = useSupabase();
 
 	const spaces = useMemo(() => {
 		return getSpaces(posts);

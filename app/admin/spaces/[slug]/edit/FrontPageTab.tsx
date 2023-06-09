@@ -8,13 +8,25 @@ const FrontPageTab = ({ children }: { children: JSX.Element }): JSX.Element => {
 			<p>
 				Looking for cool creative common images?
 				{/* link to unsplash, pexels, pixabay */}
-				<Link className="pl-1 text-pink-500" href="https://unsplash.com/">
+				<Link
+					className="pl-1 text-pink-500"
+					target="_blank"
+					href="https://unsplash.com/"
+				>
 					Unsplash /
 				</Link>
-				<Link className="pl-1 text-pink-500" href="https://www.pexels.com/">
+				<Link
+					className="pl-1 text-pink-500"
+					target="_blank"
+					href="https://www.pexels.com/"
+				>
 					Pexels /
 				</Link>
-				<Link className="pl-1 text-pink-500" href="https://pixabay.com/">
+				<Link
+					className="pl-1 text-pink-500"
+					target="_blank"
+					href="https://pixabay.com/"
+				>
 					Pixabay
 				</Link>
 			</p>

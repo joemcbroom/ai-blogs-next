@@ -1,6 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
+import AdminEdit from './AdminEdit';
 
 export const dynamic = 'force-static';
+
+export const revalidate = 30;
 
 export const generateStaticParams = async () => {
 	const supabase = createClient(
@@ -23,7 +26,12 @@ export const generateStaticParams = async () => {
 };
 
 const SpaceLayout = ({ children }: { children: React.ReactNode }) => {
-	return <>{children}</>;
+	return (
+		<>
+			{children}
+			<AdminEdit />
+		</>
+	);
 };
 
 export default SpaceLayout;
