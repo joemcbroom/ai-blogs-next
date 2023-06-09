@@ -4,7 +4,6 @@ import ButtonComponent from '#/components/UI/ButtonComponent';
 import SelectBox from '#/components/UI/SelectBox';
 import IconLoader from '#/components/UI/loaders/IconLoader';
 import { useAlert } from '#/lib/hooks/useAlert';
-import { useSupabase } from '#/lib/hooks/useSupabase';
 import { createPosts } from '#/lib/supabase/client';
 import {
 	BlogSpaceWithAbbreviatedPosts,
