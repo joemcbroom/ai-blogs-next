@@ -3,9 +3,8 @@ import '#/components/UI/admin/ContentEditor/styles.css';
 import 'react-tooltip/dist/react-tooltip.css';
 
 import type { Metadata } from 'next';
-
-import { AlertProvider } from '#/lib/hooks/useAlert';
-import { SupabaseProvider } from '#/lib/hooks/useSupabase';
+import Providers from './providers';
+import { ServerThemeProvider } from 'next-themes';
 
 export const metadata: Metadata = {
 	title: 'Blogverse!',
@@ -18,16 +17,14 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html>
-			<head></head>
+		<ServerThemeProvider attribute="class">
+			<html suppressHydrationWarning>
+				<head></head>
 
-			<body className="h-full">
-				<SupabaseProvider>
-					<AlertProvider>
-						<main className="h-full">{children}</main>
-					</AlertProvider>
-				</SupabaseProvider>
-			</body>
-		</html>
+				<body className="relative h-full">
+					<Providers>{children}</Providers>
+				</body>
+			</html>
+		</ServerThemeProvider>
 	);
 }

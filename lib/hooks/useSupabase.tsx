@@ -5,7 +5,7 @@ import {
 	Session,
 	createPagesBrowserClient,
 } from '@supabase/auth-helpers-nextjs';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import type { SupabaseClient } from '@supabase/auth-helpers-nextjs';
 import type { Database } from '#/lib/types/database.types';

@@ -15,6 +15,7 @@ import {
 
 // framework
 import { usePathname } from 'next/navigation';
+import DarkToggle from '../NavBar/DarkToggle';
 
 type AdminPage = {
 	name: string;
@@ -101,6 +102,7 @@ export default function AdminNav() {
 					{icon}
 				</AdminLink>
 			))}
+			<DarkToggle />
 		</nav>
 	);
 }

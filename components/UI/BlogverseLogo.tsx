@@ -1,7 +1,10 @@
-import ImgComponent from '#/components/UI/ImgComponent';
+'use client';
+import Image from 'next/image';
 
 interface BlogverseLogoProps {
 	type?: 'star' | 'horizontal' | 'vertical' | 'whiteVertical';
+	width?: number;
+	height?: number;
 	className?: string;
 }
 
@@ -15,15 +18,22 @@ const logos = {
 export default function BlogverseLogo({
 	type = 'star',
 	className = '',
+	width = 150,
+	height = 45,
 	...rest
 }: BlogverseLogoProps) {
 	const logo = logos[type];
+	const loader = ({ src }: { src: string }) => {
+		return `${src}`;
+	};
 	return (
-		<ImgComponent
+		<Image
+			loader={loader}
 			src={logo}
 			alt="Blogverse Logo"
 			className={className}
-			{...rest}
+			width={width}
+			height={height}
 		/>
 	);
 }
