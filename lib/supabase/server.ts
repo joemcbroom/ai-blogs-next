@@ -128,6 +128,21 @@ export const getSpace = async (slug: string): Promise<BlogSpaceWithPosts> => {
 	return space as BlogSpaceWithPosts;
 };
 
+export const getPost = async (slug: string): Promise<Post> => {
+	const supabase = await supabaseSingleton();
+	const { data, error } = await supabase
+		.from('post')
+		.select('*')
+		.eq('slug', slug)
+		.single();
+
+	if (error) {
+		console.error(error);
+		throw error.message;
+	}
+	return data as Post;
+};
+
 type ItemSortProps = { created_at: string; updated_at: string | null };
 const sortByUpdatedOrCreated = ():
 	| ((a: ItemSortProps, b: ItemSortProps) => number)

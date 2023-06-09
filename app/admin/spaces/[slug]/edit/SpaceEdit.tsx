@@ -202,7 +202,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 		{
 			title: `Blog Posts (${space.posts?.length ?? 0})`,
 			slug: 'posts',
-			content: <BlogPostsTab posts={space.posts} />,
+			content: <BlogPostsTab posts={space.posts} spaceSlug={space.slug} />,
 		},
 		{ title: 'Subscribers', slug: 'subscribers', content: <SubscribersTab /> },
 	];
