@@ -14,7 +14,7 @@ export default function AdminLink({
 	currentPathname,
 	children,
 }: AdminLinkProps) {
-	const isActive = currentPathname === href;
+	const isActive = currentPathname?.includes(href);
 	const activeClass = isActive ? 'bg-yellow-400 text-black' : 'text-white';
 
 	return (

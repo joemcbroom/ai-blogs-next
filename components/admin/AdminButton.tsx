@@ -1,14 +1,26 @@
+'use client';
 // Reusable button component with styles, click handler, and children
 
 // types
-type AdminButtonProps = {
+interface BaseProps {
 	children: React.ReactNode;
 	disabled?: boolean;
 	hoverText?: string;
 	type?: any;
-	onClick?: () => void;
-};
+}
+interface AdminButtonPropsWithOnClick extends BaseProps {
+	onClick: () => void;
+	href?: string;
+}
 
+interface AdminButtonPropsWithHref extends BaseProps {
+	href: string;
+	onClick?: () => void;
+}
+
+type AdminButtonProps = AdminButtonPropsWithOnClick | AdminButtonPropsWithHref;
+
+import { useRouter } from 'next/navigation';
 import { useId } from 'react';
 
 // library
@@ -20,15 +32,26 @@ export default function AdminButton({
 	onClick,
 	hoverText,
 	type,
+	href,
 	...rest
 }: AdminButtonProps) {
 	const disabledClass = disabled ? 'opacity-50 cursor-not-allowed' : '';
 	const id = useId();
+	const isLink = href && href.length > 0;
+	const router = useRouter();
+	const handleClick = () => {
+		if (isLink) {
+			router.push(href);
+		} else {
+			!disabled && onClick && onClick();
+		}
+	};
+
 	return (
 		<>
 			<button
-				onClick={() => !disabled && onClick && onClick()}
-				className={`bg-purple-400 text-white text-xs font-bold py-2 px-4 rounded-full mt-2 ${disabledClass}`}
+				onClick={() => handleClick()}
+				className={`mt-2 rounded-full bg-purple-400 py-2 px-4 text-xs font-bold text-white ${disabledClass}`}
 				id={id}
 				data-tooltip-content={hoverText}
 				data-tooltip-place="top"

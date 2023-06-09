@@ -12,7 +12,7 @@ import {
 } from '@heroicons/react/24/solid';
 
 // framework
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import BlogverseLogo from '../UI/BlogverseLogo';
 
 const adminPages = [
@@ -45,7 +45,7 @@ const adminPages = [
 export default function AdminNav() {
 	const currentPathname = usePathname();
 	const { bgClass } =
-		adminPages.find(({ href }) => href === currentPathname) || {};
+		adminPages.find(({ href }) => currentPathname.includes(href)) || {};
 
 	return (
 		<nav

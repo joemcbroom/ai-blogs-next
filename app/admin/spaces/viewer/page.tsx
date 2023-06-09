@@ -1,13 +1,7 @@
-'use client';
 // components
 import AdminHeading from '#/components/admin/AdminHeading';
-import SpaceCard from '#/components/admin/spaces/SpaceCard';
-import Loader from '#/components/UI/Loader';
-import SearchInput from '#/components/UI/SearchInput';
+import SpacesViewer from '#/components/admin/spaces/SpacesViewer';
 import supabase from '#/lib/supabase';
-
-// framework
-import { useEffect, useState } from 'react';
 
 const getAllSpaces = async () => {
 	const { data, error } = await supabase
@@ -17,28 +11,8 @@ const getAllSpaces = async () => {
 	return data;
 };
 
-export default function SpacesPage() {
-	const [spaces, setSpaces] = useState<SpaceType[]>([]);
-	const [filteredSpaces, setFilteredSpaces] = useState<SpaceType[]>([]);
-	const [searchQuery, setSearchQuery] = useState('');
-	const [spacesLoading, setSpacesLoading] = useState(true);
-
-	useEffect(() => {
-		getAllSpaces().then((data) => {
-			setSpaces(data);
-			setSpacesLoading(false);
-		});
-	}, []);
-
-	useEffect(() => {
-		return searchQuery
-			? setFilteredSpaces(
-					spaces.filter((space) =>
-						space.name.toLowerCase().includes(searchQuery.toLowerCase())
-					)
-			  )
-			: setFilteredSpaces(spaces);
-	}, [searchQuery, spaces]);
+export default async function SpacesPage() {
+	const spaces = await getAllSpaces();
 
 	return (
 		<>
@@ -46,16 +20,7 @@ export default function SpacesPage() {
 				title="Space Viewer"
 				subtitle="Select the Space you wish to edit"
 			/>
-			<SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-			{spacesLoading ? (
-				<Loader />
-			) : (
-				<div className="mt-8 flex flex-col">
-					{filteredSpaces.map((space) => (
-						<SpaceCard space={space} key={space.slug} />
-					))}
-				</div>
-			)}
+			<SpacesViewer spaces={spaces} />
 		</>
 	);
 }
