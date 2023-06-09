@@ -16,7 +16,15 @@ import {
 // framework
 import { usePathname } from 'next/navigation';
 
-const adminPages = [
+type AdminPage = {
+	name: string;
+	href: string;
+	bgClass: string;
+	icon: React.ReactNode;
+	children?: string[];
+};
+
+const adminPages: AdminPage[] = [
 	{
 		name: 'New Space',
 		href: '/admin/spaces/new',
@@ -34,12 +42,14 @@ const adminPages = [
 		href: '/admin/spaces',
 		bgClass: 'bg-pink-600',
 		icon: <RectangleStackIcon className="w-6" />,
+		children: ['/edit', '/subscribers'],
 	},
 	{
 		name: 'Post Viewer',
 		href: '/admin/posts',
 		bgClass: 'bg-slate-400',
 		icon: <DocumentDuplicateIcon className="w-6" />,
+		children: ['/edit'],
 	},
 	{
 		name: 'Settings',
@@ -49,10 +59,28 @@ const adminPages = [
 	},
 ];
 
+// path is active if it ends with the href
+// or if the href is included in the currentPathname
+// and ends with one of the children defined in the objects children array
+function pathIsActive(currentPathname: string, page: AdminPage): boolean {
+	const currentPathnameEndsWithHref = currentPathname.endsWith(page.href);
+
+	if (currentPathnameEndsWithHref) return true;
+
+	const currentPathnameIncludesHref = currentPathname.includes(page.href);
+	const currentPathnameEndsWithChild =
+		page.children ||
+		[].some((child: string) => currentPathname.endsWith(child));
+
+	return currentPathnameEndsWithChild && currentPathnameIncludesHref;
+}
+
 export default function AdminNav() {
 	const currentPathname = usePathname();
-	const { bgClass } =
-		adminPages.find(({ href }) => currentPathname.includes(href)) || {};
+
+	const { href: activePath, bgClass } = adminPages.find((page) =>
+		pathIsActive(currentPathname, page)
+	) || { href: '', bgClass: '' };
 
 	return (
 		<nav
@@ -68,6 +96,7 @@ export default function AdminNav() {
 					text={name}
 					href={href}
 					currentPathname={currentPathname}
+					isActive={href === activePath}
 				>
 					{icon}
 				</AdminLink>

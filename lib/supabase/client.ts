@@ -5,6 +5,7 @@ import {
 	BlogSpaceUpdate,
 	BlogSpaceWithPosts,
 	PostInsert,
+	PostUpdate,
 } from '#/lib/types/inferred.types';
 
 export const supabase = createClient<DB>(
@@ -31,6 +32,11 @@ export const getAllTags = async () => {
 
 export const updateSpace = async (slug: string, data: BlogSpaceUpdate) => {
 	const { error } = await supabase.from('space').update(data).eq('slug', slug);
+	if (error) throw error;
+};
+
+export const updatePost = async (slug: string, data: PostUpdate) => {
+	const { error } = await supabase.from('post').update(data).eq('slug', slug);
 	if (error) throw error;
 };
 

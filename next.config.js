@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   experimental: {
     appDir: true,
@@ -11,7 +12,7 @@ const nextConfig = {
         permanent: true
       },
     ]
-  }
+  },
 }
 
 module.exports = nextConfig

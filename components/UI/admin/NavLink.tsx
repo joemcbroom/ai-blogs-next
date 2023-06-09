@@ -6,15 +6,15 @@ interface NavLinkProps {
 	text: string;
 	currentPathname: string | null;
 	children: React.ReactNode;
+	isActive: boolean;
 }
 
 export default function NavLink({
 	href,
 	text,
-	currentPathname,
 	children,
+	isActive,
 }: NavLinkProps) {
-	const isActive = currentPathname?.endsWith(href);
 	const activeClass = isActive ? 'bg-yellow-400 text-black' : 'text-white';
 
 	return (

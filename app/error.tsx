@@ -1,22 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
+import Error from '#/components/UI/Error';
 
-export default function Error({ error, reset }: any) {
-	useEffect(() => {
-		console.log('logging error:', error);
-	}, [error]);
-
-	return (
-		<>
-			<div className="space-y-4">
-				<div className="text-sm text-pink-300">
-					<strong className="font-bold">Error:</strong> {error?.message}
-				</div>
-				<div>
-					<button onClick={() => reset()}>Try Again</button>
-				</div>
-			</div>
-		</>
-	);
+export default function ErrorPage({ error, reset }: any) {
+	return <Error error={error} reset={reset} />;
 }
