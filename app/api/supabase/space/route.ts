@@ -21,9 +21,6 @@ export async function PUT(req: Request) {
 	const { error } = await supabase.from('space').update(data).eq('slug', slug);
 	if (error) throw error;
 
-	revalidatePath('/');
-	revalidatePath(`/${slug}`);
-
 	return NextResponse.json({ success: true });
 }
 

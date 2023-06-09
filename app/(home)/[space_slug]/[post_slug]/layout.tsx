@@ -2,6 +2,8 @@ import { supabase } from '#/lib/supabase/static';
 
 export const dynamic = 'force-static';
 
+export const revalidate = 30;
+
 export async function generateStaticParams({
 	params: { space_slug },
 }: {
