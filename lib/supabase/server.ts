@@ -18,7 +18,6 @@ let supabaseClientInstance: SupabaseClient | null = null;
 export const supabaseSingleton = async (): Promise<SupabaseClient> => {
 	// only import cookies when this function is called to avoid errors on static site generation
 	const { cookies } = await import('next/headers');
-	debugger;
 	if (!supabaseClientInstance) {
 		supabaseClientInstance = createServerComponentClient<DB>({
 			cookies,
