@@ -15,15 +15,16 @@ interface BaseProps {
 	hoverText?: string;
 	type?: any;
 	backgroundClass?: string;
+	additionalClasses?: string;
 }
 interface ButtonComponentPropsWithOnClick extends BaseProps {
-	onClick?: () => void;
+	onClick?: React.MouseEventHandler;
 	href?: string;
 }
 
 interface ButtonComponentPropsWithHref extends BaseProps {
 	href: string;
-	onClick?: () => void;
+	onClick?: React.MouseEventHandler;
 }
 
 export default function ButtonComponent({
@@ -34,6 +35,7 @@ export default function ButtonComponent({
 	type,
 	href,
 	backgroundClass = 'bg-purple-400',
+	additionalClasses,
 	...rest
 }: ButtonComponentPropsWithOnClick | ButtonComponentPropsWithHref) {
 	const disabledClass = disabled ? 'opacity-50 cursor-not-allowed' : '';
@@ -52,8 +54,8 @@ export default function ButtonComponent({
 	return (
 		<LinkOrButton href={href}>
 			<button
-				onClick={() => (isLink ? null : !disabled && onClick && onClick())}
-				className={` rounded-full px-4 py-2 text-xs font-bold text-white ${disabledClass} ${backgroundClass}`}
+				onClick={(e) => (isLink ? null : !disabled && onClick && onClick(e))}
+				className={`rounded-full px-4 py-2 text-xs font-bold text-white ${disabledClass} ${backgroundClass} ${additionalClasses}`}
 				id={id}
 				data-tooltip-content={hoverText}
 				data-tooltip-place="top"

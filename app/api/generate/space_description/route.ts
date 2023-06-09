@@ -1,16 +1,20 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+import { generateSpaceDescription } from '#/lib/openai/server';
 
-export async function POST(req: NextRequest) {
-	/* get the data from the body of the request */
-	/* send to the chat-gpt api (sdk?) */
-	// const res = await fetch('chat-gpt.com', {
-	// 	headers: {
-	// 		method: 'POST',
-	// 		'Content-Type': 'application/json',
-	// 		'API-Key': process.env.DATA_API_KEY,
-	// 	},
-	// 	body: JSON.stringify({ time: new Date().toISOString() }),
-	// });
-	// const data = await res.json();
-	// return NextResponse.json(data);
+export async function POST(req: Request) {
+	const { name } = await req.json();
+	if (!name) {
+		return NextResponse.json({ error: 'No name provided' }, { status: 400 });
+	}
+
+	const description = await generateSpaceDescription(name);
+
+	if (!description) {
+		return NextResponse.json(
+			{ error: 'No description generated' },
+			{ status: 500 }
+		);
+	}
+
+	return NextResponse.json({ description });
 }

@@ -61,7 +61,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 	const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
 	const [hasChanges, setHasChanges] = useState(false);
 	const nameRef = useRef<HTMLInputElement>(null);
-	const descriptionRef = useRef<HTMLTextAreaElement>(null);
+	const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
 	const { showAlert } = useAlert();
 
 	const initialSpaceValues = {
@@ -77,8 +77,6 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 		initialSpaceValues,
 		init
 	);
-
-	useAutosizeTextArea(descriptionRef.current, editedValues.description);
 
 	useEffect(() => {
 		if (!space.image_path) {
@@ -182,6 +180,8 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 		tertiary: (color: string) => handleEdit(color, 'tertiary_color'),
 	};
 
+	useAutosizeTextArea(descriptionRef, editedValues.description);
+
 	return (
 		<>
 			<Link href={`/admin/spaces/viewer/`} className="flex items-center">
@@ -191,7 +191,8 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 			<div className={`mt-3 ${isMutating ? 'animate-pulse' : ''}`}>
 				<div className="flex items-center gap-2">
 					<input
-						className="text-2xl font-bold text-gray-800"
+						className="min-w-[270px] text-2xl font-bold text-gray-800"
+						size={editedValues.name.length}
 						defaultValue={editedValues.name}
 						ref={nameRef}
 						onChange={(e) => handleEdit(e.target.value, 'name')}
@@ -231,11 +232,10 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 				{/* space description with edit pencil icon below */}
 				<div className="mt-3">
 					<textarea
-						className="w-1/2 rounded border-2 p-3 text-sm"
+						className="w-1/2 resize-none rounded border-2 p-3 text-sm"
 						defaultValue={editedValues.description}
 						onChange={(e) => handleEdit(e.target.value, 'description')}
 						ref={descriptionRef}
-						rows={1}
 					/>
 					{/* edit description with pencil icon */}
 					{/* TODO: add generate button to generate a description depends on: https://github.com/joemcbroom/ai-blogs-next/issues/43 */}
@@ -249,7 +249,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 				{/* space colors with color pickers */}
 				<div className="mt-3">
 					<h2 className="text-lg font-semibold">Space Colors</h2>
-					<p>
+					<p className="text-sm">
 						Want some color ideas?
 						<Link
 							className="pl-2 text-pink-500"

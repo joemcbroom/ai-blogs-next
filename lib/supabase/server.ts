@@ -63,12 +63,19 @@ export const getAllSpaces = async (): Promise<
 	const supabase = await supabaseSingleton();
 	const { data, error } = await supabase
 		.from('blog_space')
-		.select(`*, posts: post(title, slug, description)`)
-		.order('updated_at', { ascending: false, nullsFirst: false });
+		.select(`*, posts: post(title, slug, description)`);
+
 	if (error) {
 		console.error(error);
 		throw error.message;
 	}
+
+	// Order data by updated_at OR created_at, descending
+	data?.sort((a, b) => {
+		const aDate = new Date(a.updated_at ?? a.created_at);
+		const bDate = new Date(b.updated_at ?? b.created_at);
+		return bDate.getTime() - aDate.getTime();
+	});
 
 	return data as BlogSpaceWithAbbreviatedPosts[];
 };

@@ -2,6 +2,7 @@ import { Database } from '#/lib/types/database.types';
 
 type Post = Database['public']['Tables']['post']['Row'];
 type BlogSpace = Database['public']['Tables']['blog_space']['Row'];
+type BlogSpaceInsert = Database['public']['Tables']['blog_space']['Insert'];
 type PostPreviousVersion =
 	Database['public']['Tables']['post_previous_version']['Row'];
 
@@ -24,6 +25,7 @@ type User = Database['public']['Tables']['profiles']['Row'];
 export type {
 	Post,
 	BlogSpace,
+	BlogSpaceInsert,
 	PostPreviousVersion,
 	BlogSpaceWithPosts,
 	User,

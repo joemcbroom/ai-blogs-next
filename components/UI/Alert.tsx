@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 export interface AlertProps {
-	message: string;
+	message: string | React.ReactNode;
 	duration?: number;
 	type?: 'success' | 'error' | 'info';
 }
