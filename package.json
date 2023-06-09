@@ -12,12 +12,16 @@
     "@heroicons/react": "^2.0.14",
     "@next/font": "13.1.1",
     "@supabase/supabase-js": "^2.2.3",
+    "@types/react-color": "^3.0.6",
     "eslint": "8.30.0",
     "eslint-config-next": "13.1.1",
     "limax": "^3.0.0",
     "next": "^13.0.4",
     "react": "18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.0",
+    "react-tooltip": "^5.7.3",
     "typeit-react": "^2.6.4"
   },
   "devDependencies": {

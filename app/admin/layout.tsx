@@ -12,7 +12,7 @@ export default function AdminLayout({
 			<AdminNav />
 			<div className="flex flex-col w-full">
 				<AdminHeader />
-				<section className="p-12">{children}</section>
+				<section className="py-10 px-16">{children}</section>
 			</div>
 		</div>
 	);
