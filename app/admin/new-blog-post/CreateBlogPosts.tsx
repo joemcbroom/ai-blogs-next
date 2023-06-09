@@ -1,20 +1,29 @@
 'use client';
 
+// framework
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
+
+// library
+import { Transition } from '@headlessui/react';
+import { ArrowLongRightIcon } from '@heroicons/react/24/solid';
+
+// components
 import ButtonComponent from '#/components/UI/ButtonComponent';
 import SelectBox from '#/components/UI/SelectBox';
 import IconLoader from '#/components/UI/loaders/IconLoader';
-import { useAlert } from '#/lib/hooks/useAlert';
+
+// lib
+import slugify from '#/lib/utils/slugify';
 import { createPosts } from '#/lib/supabase/client';
+import { useAlert } from '#/lib/hooks/useAlert';
+
+// types
 import {
 	BlogSpaceWithAbbreviatedPosts,
 	PostInsert,
 } from '#/lib/types/inferred.types';
-import slugify from '#/lib/utils/slugify';
-import { Transition } from '@headlessui/react';
-import { ArrowLongRightIcon } from '@heroicons/react/24/solid';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { startTransition, useEffect, useMemo, useState } from 'react';
 
 type Title = {
 	content: string;
@@ -143,7 +152,7 @@ export default function CreateBlogPosts({
 					/>
 					<span>titles</span>
 				</div>
-				<ButtonComponent onClick={generateTitles} additionalClasses="w-1/3">
+				<ButtonComponent onClick={generateTitles}>
 					{isGenerating ? (
 						<IconLoader className="h-5 w-5" />
 					) : (

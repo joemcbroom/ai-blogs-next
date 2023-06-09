@@ -10,6 +10,7 @@ import {
 	PlusCircleIcon,
 	RectangleStackIcon,
 	Cog6ToothIcon,
+	DocumentDuplicateIcon,
 } from '@heroicons/react/24/solid';
 
 // framework
@@ -33,6 +34,12 @@ const adminPages = [
 		href: '/admin/spaces/viewer',
 		bgClass: 'bg-pink-600',
 		icon: <RectangleStackIcon className="w-6" />,
+	},
+	{
+		name: 'Post Viewer',
+		href: '/admin/posts/viewer',
+		bgClass: 'bg-slate-400',
+		icon: <DocumentDuplicateIcon className="w-6" />,
 	},
 	{
 		name: 'Settings',

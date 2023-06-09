@@ -1,10 +1,15 @@
 'use client';
 
-import SearchInput from '#/components/UI/SearchInput';
-import { BlogSpaceWithAbbreviatedPosts } from '#/lib/types/inferred.types';
+// framework
 import { useEffect, useState } from 'react';
-import EditCard from './EditCard';
-import CardsContainer from './EditCard/CardsContainer';
+
+// components
+import EditCard from '#/components/UI/admin/EditCard';
+import CardsContainer from '#/components/UI/admin/EditCard/CardsContainer';
+import SearchInput from '#/components/UI/SearchInput';
+
+// types
+import type { BlogSpaceWithAbbreviatedPosts } from '#/lib/types/inferred.types';
 
 export default function SpacesViewer({
 	spaces,
@@ -29,7 +34,7 @@ export default function SpacesViewer({
 
 			<CardsContainer>
 				{filteredSpaces?.map((space) => (
-					<EditCard item={space} type="space" key={space.slug} />
+					<EditCard item={space} key={space.slug} />
 				))}
 			</CardsContainer>
 		</>

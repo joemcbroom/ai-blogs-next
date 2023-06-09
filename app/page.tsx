@@ -1,4 +1,7 @@
-import Logout from '#/components/auth/Logout';
+// components
+import Logout from '#/app/auth/Logout';
+
+// lib
 import { getAuthenticatedUser } from '#/lib/supabase/server';
 
 export default async function Page() {

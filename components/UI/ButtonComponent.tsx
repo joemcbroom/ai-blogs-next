@@ -32,7 +32,7 @@ const buttonClass: Record<ButtonStyle, string> = {
 	default: 'bg-purple-500 hover:bg-purple-700 text-white',
 	primary: 'bg-green-600 hover:bg-green-700 text-white',
 	secondary: 'bg-white hover:bg-slate-50 text-slate-900',
-	danger: 'bg-pink-600 hover:bg-pink-700 text-white',
+	danger: 'bg-red-600 hover:bg-red-700 text-white',
 };
 
 export default function ButtonComponent({
