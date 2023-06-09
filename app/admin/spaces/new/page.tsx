@@ -9,7 +9,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 // components
 import AdminHeading from '#/components/admin/AdminHeading';
-import AdminButton from '#/components/admin/AdminButton';
+import ButtonComponent from '#/components/UI/ButtonComponent';
 import ColorPicker from '#/components/UI/ColorPicker';
 
 // utils
@@ -97,13 +97,13 @@ export default function NewSpacePage() {
 					className="mt-2 block w-[500px] rounded-md border border-gray-300 p-2 text-xs"
 				/>
 
-				<AdminButton
+				<ButtonComponent
 					disabled={!!watch('spaceDescription')?.length || !spaceName}
 					onClick={handleGenerate}
 					hoverText="Generate a description for this space"
 				>
 					Generate
-				</AdminButton>
+				</ButtonComponent>
 
 				<h2 className="mt-6 text-lg">Color Theme</h2>
 				<p>
@@ -150,13 +150,13 @@ export default function NewSpacePage() {
 							No, Thanos snap that shit
 						</span>
 					</p>
-					<AdminButton
+					<ButtonComponent
 						type="submit"
 						onClick={handleCreate}
 						disabled={!spaceName}
 					>
 						Yes, Create Space
-					</AdminButton>
+					</ButtonComponent>
 				</div>
 			</form>
 		</>

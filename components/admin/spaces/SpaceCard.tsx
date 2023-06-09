@@ -1,7 +1,7 @@
 'use client';
 // lib
 import useSpaceEditedText from '#/lib/hooks/useSpaceEditedText';
-import supabase from '#/lib/requestHelpers/supabase-client';
+import supabase from '#/lib/supabase/client';
 // types
 import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
 
@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 
 // components
-import AdminButton from '#/components/admin/AdminButton';
+import ButtonComponent from '#/components/UI/ButtonComponent';
 import PostsAndSubscribers from '#/components/admin/spaces/PostsAndSubscribers';
 import Modal from '#/components/UI/Modal';
 
@@ -169,12 +169,12 @@ const SpaceCard = ({ space }: { space: BlogSpaceWithPosts }) => {
 					isPublished={space.is_published}
 					handlePauseOrResume={handlePauseOrResume}
 				/>
-				<AdminButton
+				<ButtonComponent
 					backgroundClass="bg-pink-600"
 					href={`/admin/spaces/viewer/${slug}/edit`}
 				>
 					Edit Space
-				</AdminButton>
+				</ButtonComponent>
 			</div>
 		</div>
 	);

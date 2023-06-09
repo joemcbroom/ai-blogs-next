@@ -1,6 +1,6 @@
 import React, { useEffect, useId, useState } from 'react';
 import BlogverseLogo from '#/components/UI/BlogverseLogo';
-import AdminButton from '#/components/admin/AdminButton';
+import ButtonComponent from '#/components/UI/ButtonComponent';
 
 interface ModalProps {
 	title: string;
@@ -72,18 +72,18 @@ const Modal: React.FC<ModalProps> = ({
 						</div>
 					</div>
 					<div className="gap-2 bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-						<AdminButton
+						<ButtonComponent
 							onClick={onConfirm}
 							backgroundClass="bg-green-600 hover:bg-green-700"
 						>
 							Confirm
-						</AdminButton>
-						<AdminButton
+						</ButtonComponent>
+						<ButtonComponent
 							onClick={onCancel}
 							backgroundClass="bg-white text-inherit hover:bg-gray-50"
 						>
 							Cancel
-						</AdminButton>
+						</ButtonComponent>
 					</div>
 				</div>
 			</div>

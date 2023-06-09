@@ -2,7 +2,7 @@
 import AdminHeading from '#/components/admin/AdminHeading';
 import SpacesViewer from '#/components/admin/spaces/SpacesViewer';
 // lib
-import { getAllSpaces } from '#/lib/requestHelpers/supabase-server';
+import { getAllSpaces } from '#/lib/supabase/server';
 
 export const revalidate = 0;
 
