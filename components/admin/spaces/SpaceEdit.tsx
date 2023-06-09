@@ -238,6 +238,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 						rows={1}
 					/>
 					{/* edit description with pencil icon */}
+					{/* TODO: add generate button to generate a description depends on: https://github.com/joemcbroom/ai-blogs-next/issues/43 */}
 					<IconWithText
 						icon={PencilIcon}
 						text="Edit description"
