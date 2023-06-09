@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .bubble::after {
-  content: ' ';
+  content: '';
   position: absolute;
   width: 0;
   height: 0;
@@ -14,4 +14,8 @@
   border: 9px solid;
   border-color: white white transparent transparent;
   transform: rotate(-13deg);
+}
+
+.svg-violet-700 {
+  filter: invert(12%) sepia(65%) saturate(7228%) hue-rotate(266deg) brightness(99%) contrast(90%);
 }

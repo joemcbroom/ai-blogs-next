@@ -1,20 +1,34 @@
-// framework
+'use client';
+// utils
 import formatDistanceToNow from '#/lib/utils/formatDistanceToNow';
+
+// library
 import { PauseIcon, TrashIcon } from '@heroicons/react/24/solid';
+
+// framework
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
+// components
 import AdminButton from '../AdminButton';
 
 const SpaceCard = ({ space }: { space: SpaceType }) => {
+	const [editedText, setEditedText] = useState('');
 	const { name, slug, created_at, updated_at } = space;
 	const postCount = space.posts.length;
-	// "Edited x hours ago" or "Created x hours ago"
-	const time = updated_at ? updated_at : created_at;
-	const timeAgo = formatDistanceToNow(new Date(time));
+
+	useEffect(() => {
+		const time = updated_at ? updated_at : created_at;
+		const timeAgo = formatDistanceToNow(new Date(time));
+		const editedText = updated_at ? 'Edited' : 'Created';
+		setEditedText(`${editedText} ${timeAgo}`);
+	}, [updated_at, created_at]);
+
 	return (
 		<div className="grid grid-cols-2 gap-4 rounded-lg border border-slate-400 p-6">
 			<div className="">
 				<h3 className="text-2xl font-semibold">{name}</h3>
-				<p className="mt-2 text-sm italic text-slate-400">{timeAgo}</p>
+				<p className="mt-2 text-sm italic text-slate-400">{editedText}</p>
 				<p>
 					{postCount} post{postCount === 1 ? '' : 's'}
 				</p>
