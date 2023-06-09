@@ -115,7 +115,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 
 	const handleUpdateImage = async (file: File) => {
 		setIsSaving(true);
-		const hasImage = space.image_path ? true : false;
+		const hasImage = space.image_path !== null;
 		const bucket = SUPABASE_CONSTANTS.PUBLIC_BUCKET;
 
 		if (hasImage) {
@@ -124,15 +124,14 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 			await supabaseStorage.delete({ bucket, paths });
 		}
 
-		const newPath = `${SUPABASE_CONSTANTS.SPACE_IMAGES_PATH}/${
-			file.name
-		}${Date.now()}`;
+		const newPath = `${SUPABASE_CONSTANTS.SPACE_IMAGES_PATH}/${file.name}`;
 
 		const path = await supabaseStorage.upload({
 			file,
 			path: newPath,
 			bucket,
 		});
+
 		await updateSpace(space.slug, { image_path: path });
 		setIsSaving(false);
 
