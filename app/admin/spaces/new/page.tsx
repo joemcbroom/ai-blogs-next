@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
 // components
-import AdminHeading from '#/components/admin/AdminHeading';
+import AdminHeading from '#/components/UI/admin/AdminHeading';
 import ButtonComponent from '#/components/UI/ButtonComponent';
 import ColorPicker from '#/components/UI/ColorPicker';
 import IconLoader from '#/components/UI/loaders/IconLoader';
@@ -56,6 +56,7 @@ export default function NewSpacePage() {
 	useEffect(() => {
 		if (!title || title === defaultValues.title) {
 			setHasSpaceTitle(false);
+			setSpaceSlug('');
 			return;
 		}
 		setSpaceSlug(slugify(title));
@@ -125,7 +126,7 @@ export default function NewSpacePage() {
 					rows={5}
 					{...register('description')}
 					placeholder="What's this space all about?"
-					className="mt-2 block w-[500px] rounded-md border border-gray-300 p-2 text-xs"
+					className="my-2 block w-[500px] rounded-md border border-gray-300 p-2 text-xs"
 				/>
 
 				<ButtonComponent
@@ -134,9 +135,8 @@ export default function NewSpacePage() {
 					hoverText={`Generate a description for this space ${
 						hasSpaceTitle ? '' : '\n after you give it a new name'
 					}`}
-					additionalClasses="mt-2 min-w-[100px]"
 				>
-					{isBusy ? <IconLoader className="h-4 w-4" /> : 'Generate'}
+					{isBusy ? <IconLoader className="h-5 w-5" /> : 'Generate'}
 				</ButtonComponent>
 
 				<h2 className="mt-6 text-lg">Color Theme</h2>
