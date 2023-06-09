@@ -36,7 +36,7 @@ const Tabs = ({ tabs }: TabsProps) => {
 			{tabs.map((tab, index) => (
 				<div
 					key={index}
-					className={` mt-3 ${index === activeTab ? 'block' : 'hidden'}`}
+					className={`mt-3 ${index === activeTab ? 'block' : 'hidden'}`}
 				>
 					{tab.content}
 				</div>

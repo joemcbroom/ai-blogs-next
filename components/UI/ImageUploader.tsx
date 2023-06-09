@@ -22,6 +22,9 @@ function ImageUploader({
 	const fileInputRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
+		if (!image && !fileUrl) {
+			return setPreviewImage(null);
+		}
 		if (image) {
 			const reader = new FileReader();
 			reader.readAsDataURL(image);
@@ -51,24 +54,17 @@ function ImageUploader({
 	return (
 		<>
 			<div
-				className="relative z-10 flex h-64 w-64 cursor-pointer items-center justify-center bg-gray-200"
+				className="relative z-10 flex max-w-fit cursor-pointer items-center justify-center bg-gray-200"
 				ref={fileInputRef}
 				onClick={() => {
 					fileInputRef.current?.querySelector('input')?.click();
 				}}
 			>
 				{previewImage ? (
-					<div className="relative">
-						<ImgComponent
-							src={previewImage}
-							alt="Preview"
-							className="max-h-full max-w-full"
-						/>
-					</div>
+					<ImgComponent src={previewImage} alt="Preview" className="max-w-lg" />
 				) : (
-					<div className="text-gray-400">
+					<div className="grid h-32 w-32 place-items-center text-gray-400">
 						<PhotoIcon className="mx-auto h-16 w-16" />
-						<p className="text-center">Click to upload image</p>
 					</div>
 				)}
 				<input
@@ -78,7 +74,7 @@ function ImageUploader({
 					className="hidden"
 				/>
 			</div>
-			<span>Click To Upload/Change Image</span>
+			<span>Click Image To Upload/Change</span>
 			{previewImage && (
 				<IconWithText
 					icon={XCircleIcon}

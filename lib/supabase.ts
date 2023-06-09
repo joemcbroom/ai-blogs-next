@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { cache } from 'react';
+
 import type { Database } from './types/database.types';
 import { BlogSpaceWithPosts } from './types/inferred.types';
 
@@ -31,43 +31,32 @@ export const updateSpace = async (
 	if (error) throw error;
 };
 
-export const getAllSpaces = cache(async () => {
+export const getAllSpaces = async () => {
 	const { data, error } = await supabase
 		.from('blog_space')
-		.select(`*, posts: post(title, slug, description)`);
+		.select(`*, posts: post(title, slug, description)`)
+		.order('updated_at', { ascending: false, nullsFirst: false });
 	if (error) throw error;
 
 	return data as BlogSpaceWithPosts[];
-});
+};
 
 export const supabaseStorage = {
 	upload: async ({
 		file,
 		bucket,
 		path,
-		upsert = false,
 	}: {
 		file: File;
 		bucket: string;
 		path: string;
-		upsert?: boolean;
 	}): Promise<string> => {
 		let data;
 		let error;
 
-		if (upsert) {
-			({ data, error } = await supabase.storage
-				.from(bucket)
-				.update(path, file, {
-					cacheControl: '3600',
-				}));
-		} else {
-			({ data, error } = await supabase.storage
-				.from(bucket)
-				.upload(path, file, {
-					cacheControl: '3600',
-				}));
-		}
+		({ data, error } = await supabase.storage.from(bucket).upload(path, file, {
+			cacheControl: '3600',
+		}));
 
 		if (error) throw error;
 		return data!.path;
