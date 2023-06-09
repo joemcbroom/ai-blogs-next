@@ -191,7 +191,8 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 			<div className={`mt-3 ${isMutating ? 'animate-pulse' : ''}`}>
 				<div className="flex items-center gap-2">
 					<input
-						className="text-2xl font-bold text-gray-800"
+						className="min-w-[270px] text-2xl font-bold text-gray-800"
+						size={editedValues.name.length}
 						defaultValue={editedValues.name}
 						ref={nameRef}
 						onChange={(e) => handleEdit(e.target.value, 'name')}
@@ -249,7 +250,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 				{/* space colors with color pickers */}
 				<div className="mt-3">
 					<h2 className="text-lg font-semibold">Space Colors</h2>
-					<p>
+					<p className="text-sm">
 						Want some color ideas?
 						<Link
 							className="pl-2 text-pink-500"

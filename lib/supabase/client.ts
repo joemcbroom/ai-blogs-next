@@ -1,7 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
 
 import type { Database } from '#/lib/types/database.types';
-import { BlogSpaceWithPosts } from '#/lib/types/inferred.types';
+import {
+	BlogSpaceInsert,
+	BlogSpaceWithPosts,
+} from '#/lib/types/inferred.types';
 
 const supabase = createClient<Database>(
 	process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -29,6 +32,12 @@ export const updateSpace = async (
 		.update(data)
 		.eq('slug', slug);
 	if (error) throw error;
+};
+
+export const createSpace = async (data: BlogSpaceInsert) => {
+	const { error } = await supabase.from('blog_space').insert([data]);
+	if (error) throw error;
+	return;
 };
 
 export const supabaseStorage = {
