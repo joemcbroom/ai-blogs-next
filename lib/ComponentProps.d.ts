@@ -18,6 +18,7 @@ export interface AdminLinkProps {
 	href: string;
 	text: string;
 	currentPathname: string | null;
+	children: React.ReactNode;
 }
 
 // AdminHeading
