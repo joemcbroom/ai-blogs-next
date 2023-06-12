@@ -1,4 +1,5 @@
-import { getPost } from '#/lib/supabase/server';
+import { supabase } from '#/lib/supabase/static';
+import { Post } from '#/lib/types/inferred.types';
 import { ImageResponse } from 'next/server';
 
 // Route segment config
@@ -13,6 +14,20 @@ export const size = {
 
 export const contentType = 'image/png';
 
+const getPost = async (slug: string) => {
+	const { data, error } = await supabase
+		.from('post')
+		.select('*')
+		.eq('slug', slug)
+		.single();
+
+	if (error) {
+		console.error(error);
+		throw error.message;
+	}
+	return data as Post;
+};
+
 // Font
 const interSemiBold = fetch(
 	new URL('./Inter-SemiBold.ttf', import.meta.url)
@@ -25,6 +40,14 @@ export default async function Image({
 	params: { space_slug: string; post_slug: string };
 }) {
 	const post = await getPost(post_slug);
+	let imageSrc = '';
+	const imagePath = post.image_path;
+	if (imagePath) {
+		const { data } = supabase.storage
+			.from('blogverse-public')
+			.getPublicUrl(imagePath || '');
+		imageSrc = data?.publicUrl || '';
+	}
 	return new ImageResponse(
 		(
 			// ImageResponse JSX element
