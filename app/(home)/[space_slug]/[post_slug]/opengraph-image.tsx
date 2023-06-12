@@ -58,7 +58,14 @@ export default async function Image({
 					backgroundImage: `url(${imageSrc})`,
 				}}
 			>
-				<span tw="text-2xl font-bold text-white p-4 bg-black bg-opacity-50 w-full">
+				<span
+					style={{
+						background: 'rgba(0,0,0,0.5)',
+						color: 'white',
+						fontSize: '2rem',
+						padding: '1rem',
+					}}
+				>
 					{post.title}
 				</span>
 			</div>
