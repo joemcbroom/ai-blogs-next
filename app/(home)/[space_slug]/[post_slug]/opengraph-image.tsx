@@ -38,7 +38,7 @@ export default async function Image({
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center',
-					backgroundImage: `url(${imageSrc})`,
+					backgroundImage: `url("${imageSrc}")`,
 				}}
 			>
 				<span>{imageSrc}</span>
