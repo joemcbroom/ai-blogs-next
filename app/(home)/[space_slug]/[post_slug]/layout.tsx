@@ -28,10 +28,7 @@ export async function generateMetadata({ params: { post_slug } }: Props) {
 	const { title, description } = post;
 
 	return {
-		title: {
-			template: `%s | Blogverse.ai`,
-			default: title,
-		},
+		title: `${title} | Blogverse.ai`,
 		description,
 		// keywords: tags.join(', '), TODO: get tags
 	};

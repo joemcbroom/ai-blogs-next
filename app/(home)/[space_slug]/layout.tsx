@@ -34,10 +34,7 @@ export async function generateMetadata({
 	const { title, description } = space;
 
 	return {
-		title: {
-			template: `%s | Blogverse.ai`,
-			default: title,
-		},
+		title: `${title} | Blogverse.ai`,
 		description,
 		// keywords: tags.join(', '), TODO: get tags
 	};
