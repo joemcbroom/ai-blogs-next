@@ -1,5 +1,9 @@
 import NavBar from '#/components/UI/NavBar';
 
+export const metadata = {
+	metadataBase: new URL('ai-blogs-next-git-share-links-blogverse.vercel.app'),
+};
+
 type HomeLayoutProps = {
 	children: React.ReactNode;
 };
