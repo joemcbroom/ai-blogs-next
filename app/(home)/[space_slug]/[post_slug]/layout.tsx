@@ -13,6 +13,8 @@ export async function generateMetadata(
 
 	const parentDescription = (await parent)?.description;
 
+	debugger;
+
 	return {
 		title: `${title} | Blogverse.ai`,
 		description: description || parentDescription,

@@ -1,4 +1,4 @@
-import { supabase } from '#/lib/supabase/static';
+import { getPost, supabase } from '#/lib/supabase/static';
 import { Post } from '#/lib/types/inferred.types';
 import { ImageResponse } from 'next/server';
 
@@ -14,20 +14,6 @@ export const size = {
 
 export const contentType = 'image/png';
 
-const getPost = async (slug: string) => {
-	const { data, error } = await supabase
-		.from('post')
-		.select('*')
-		.eq('slug', slug)
-		.single();
-
-	if (error) {
-		console.error(error);
-		throw error.message;
-	}
-	return data as Post;
-};
-
 // Image generation
 export default async function Image({
 	params: { space_slug, post_slug },
@@ -40,7 +26,13 @@ export default async function Image({
 	if (imagePath) {
 		const { data } = supabase.storage
 			.from('blogverse-public')
-			.getPublicUrl(imagePath || '');
+			.getPublicUrl(imagePath || '', {
+				transform: {
+					width: 525,
+					height: 355,
+					resize: 'cover',
+				},
+			});
 		imageSrc = data?.publicUrl || '';
 	}
 	return new ImageResponse(
