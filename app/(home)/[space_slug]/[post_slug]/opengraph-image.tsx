@@ -22,9 +22,9 @@ export default async function Image({
 }) {
 	const post = await getPost(post_slug);
 	const imagePath = post.image_path || post?.space?.image_path;
-	const imageSrc = imagePath
-		? `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${imagePath}?width=500&height=300&resize=cover`
-		: '';
+	// const imageSrc = imagePath
+	// 	? `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${imagePath}?width=500&height=300&resize=cover`
+	// 	: '';
 
 	return new ImageResponse(
 		(
@@ -37,19 +37,10 @@ export default async function Image({
 					height: '100%',
 					display: 'flex',
 					alignItems: 'center',
-					justifyContent: 'end',
+					justifyContent: 'center',
 				}}
 			>
-				{imageSrc ? (
-					<img
-						src={imageSrc || ''}
-						alt={alt}
-						width={size.width}
-						height={size.height}
-					/>
-				) : (
-					<div>{post.title}</div>
-				)}
+				{imagePath}
 			</div>
 		),
 		// ImageResponse options
