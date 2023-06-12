@@ -1,7 +1,9 @@
 import NavBar from '#/components/UI/NavBar';
 
 export const metadata = {
-	metadataBase: new URL(process.env.VERCEL_URL || 'http://localhost:3000'),
+	metadataBase: new URL(
+		`https://${process.env.VERCEL_URL}` || 'http://localhost:3000'
+	),
 };
 
 type HomeLayoutProps = {
