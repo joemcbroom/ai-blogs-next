@@ -30,7 +30,7 @@ export default async function Image() {
 				}}
 			>
 				<img
-					src="./images/logos/logo-blogverse-horiz.svg"
+					src="/images/logos/logo-blogverse-horiz.svg"
 					alt="Blogverse.ai logo"
 					style={{
 						objectFit: 'cover',
