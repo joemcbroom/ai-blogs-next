@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import { getPost, supabase } from '#/lib/supabase/static';
-import { Post } from '#/lib/types/inferred.types';
 import { ImageResponse } from 'next/server';
 
 // Route segment config
@@ -47,10 +47,16 @@ export default async function Image({
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'end',
-					backgroundImage: `url(${imageSrc})`,
 				}}
 			>
+				<img
+					src={imageSrc}
+					alt=""
+					tw="flex-1 w-full h-full z-0"
+					style={{ objectFit: 'cover', objectPosition: 'center' }}
+				/>
 				<span
+					tw="flex-1 w-full z-10"
 					style={{
 						background: 'rgba(0,0,0,0.5)',
 						color: 'white',
