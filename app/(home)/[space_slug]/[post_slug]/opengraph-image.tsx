@@ -21,20 +21,11 @@ export default async function Image({
 	params: { space_slug: string; post_slug: string };
 }) {
 	const post = await getPost(post_slug);
-	let imageSrc = '';
 	const imagePath = post.image_path;
-	if (imagePath) {
-		const { data } = supabase.storage
-			.from('blogverse-public')
-			.getPublicUrl(imagePath || '', {
-				transform: {
-					width: 525,
-					height: 355,
-					resize: 'cover',
-				},
-			});
-		imageSrc = data?.publicUrl || '';
-	}
+	const imageSrc =
+		`https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/${imagePath}?width=500&height=300&resize=cover` ||
+		'';
+
 	return new ImageResponse(
 		(
 			// ImageResponse JSX element
