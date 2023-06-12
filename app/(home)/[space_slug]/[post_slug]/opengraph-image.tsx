@@ -52,16 +52,21 @@ export default async function Image({
 				<img
 					src={imageSrc}
 					alt=""
-					tw="flex-1 w-full h-full z-0"
-					style={{ objectFit: 'cover', objectPosition: 'center' }}
+					style={{
+						objectFit: 'cover',
+						width: '100%',
+						zIndex: '0',
+						objectPosition: 'center',
+					}}
 				/>
 				<span
-					tw="flex-1 w-full z-10"
 					style={{
 						background: 'rgba(0,0,0,0.5)',
 						color: 'white',
 						fontSize: '2rem',
 						padding: '1rem',
+						zIndex: '10',
+						width: '100%',
 					}}
 				>
 					{post.title}
