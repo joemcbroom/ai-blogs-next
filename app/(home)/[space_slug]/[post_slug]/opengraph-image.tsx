@@ -22,11 +22,10 @@ export default async function Image({
 }) {
 	const post = await getPost(post_slug);
 	const imagePath = post.image_path;
-	const imageSrc =
-		`https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${imagePath}?width=500&height=300&resize=cover` ||
-		'';
+	const imageSrc = imagePath
+		? `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${imagePath}?width=500&height=300&resize=cover`
+		: '';
 
-	debugger;
 	return new ImageResponse(
 		(
 			// ImageResponse JSX element
