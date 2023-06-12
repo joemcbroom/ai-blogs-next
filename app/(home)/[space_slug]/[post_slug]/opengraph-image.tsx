@@ -22,9 +22,6 @@ export default async function Image({
 }) {
 	const post = await getPost(post_slug);
 	const imagePath = post.image_path;
-	const imageSrc = imagePath
-		? `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${imagePath}?width=500&height=300&resize=cover`
-		: '';
 
 	return new ImageResponse(
 		(
@@ -40,7 +37,7 @@ export default async function Image({
 					justifyContent: 'end',
 				}}
 			>
-				<span>{imageSrc}</span>
+				<span>{imagePath}</span>
 			</div>
 		),
 		// ImageResponse options
