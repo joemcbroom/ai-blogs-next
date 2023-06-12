@@ -18,7 +18,7 @@ export const getPost = async (post_slug: string) => {
 		throw error.message;
 	}
 
-	return post as Post;
+	return post as Post & { space: BlogSpace };
 };
 
 export const getPosts = async (space_slug: string) => {
