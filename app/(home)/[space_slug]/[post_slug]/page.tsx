@@ -1,5 +1,6 @@
 import { supabase } from '#/lib/supabase/static';
 import { Post } from '#/lib/types/inferred.types';
+import { Metadata } from 'next';
 import PostContent from './PostContent';
 
 export const revalidate = 30;
