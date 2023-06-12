@@ -54,10 +54,13 @@ export default async function Image({
 					height: '100%',
 					display: 'flex',
 					alignItems: 'center',
-					justifyContent: 'center',
+					justifyContent: 'end',
+					backgroundImage: `url(${imageSrc})`,
 				}}
 			>
-				{post.title}
+				<span tw="text-2xl font-bold text-white p-4 bg-black bg-opacity-50 w-full">
+					{post.title}
+				</span>
 			</div>
 		),
 		// ImageResponse options
