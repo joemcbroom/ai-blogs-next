@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-import { getPost, supabase } from '#/lib/supabase/static';
 import { ImageResponse } from 'next/server';
 
 // Route segment config
@@ -14,18 +12,15 @@ export const size = {
 
 export const contentType = 'image/png';
 
-// Image generation
+interface ImageProps {
+	params: {
+		space_slug: string;
+		post_slug: string;
+	};
+}
 export default async function Image({
 	params: { space_slug, post_slug },
-}: {
-	params: { space_slug: string; post_slug: string };
-}) {
-	const post = await getPost(post_slug);
-	const imagePath = post.image_path;
-	const imageSrc =
-		`https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/${imagePath}?width=500&height=300&resize=cover` ||
-		'';
-
+}: ImageProps) {
 	return new ImageResponse(
 		(
 			// ImageResponse JSX element
@@ -37,31 +32,10 @@ export default async function Image({
 					height: '100%',
 					display: 'flex',
 					alignItems: 'center',
-					justifyContent: 'end',
+					justifyContent: 'center',
 				}}
 			>
-				<img
-					src={imageSrc}
-					alt=""
-					style={{
-						objectFit: 'cover',
-						width: '100%',
-						zIndex: '0',
-						objectPosition: 'center',
-					}}
-				/>
-				<span
-					style={{
-						background: 'rgba(0,0,0,0.5)',
-						color: 'white',
-						fontSize: '2rem',
-						padding: '1rem',
-						zIndex: '10',
-						width: '100%',
-					}}
-				>
-					{post.title}
-				</span>
+				{space_slug} | {post_slug}
 			</div>
 		),
 		// ImageResponse options
