@@ -1,35 +1,21 @@
-import { supabase } from '#/lib/supabase/static';
-import { Post } from '#/lib/types/inferred.types';
+import { getPost, getPostSlugs, supabase } from '#/lib/supabase/static';
+import { ResolvingMetadata, Metadata } from 'next';
 
 export const dynamic = 'force-static';
 
 export const revalidate = 30;
 
-const getPost = async (post_slug: string) => {
-	const { data: post, error } = await supabase
-		.from('post')
-		.select('*, space:space_id (image_path)')
-		.eq('slug', post_slug)
-		.single();
+export async function generateMetadata(
+	{ params: { post_slug } }: { params: { post_slug: string } },
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	const { title, description } = await getPost(post_slug);
 
-	if (error) {
-		console.error(error);
-		throw error.message;
-	}
-
-	return post as Post;
-};
-
-type Props = {
-	params: { post_slug: string };
-};
-export async function generateMetadata({ params: { post_slug } }: Props) {
-	const post = await getPost(post_slug);
-	const { title, description } = post;
+	const parentDescription = (await parent)?.description;
 
 	return {
 		title: `${title} | Blogverse.ai`,
-		description,
+		description: description || parentDescription,
 		// keywords: tags.join(', '), TODO: get tags
 	};
 }
@@ -39,16 +25,7 @@ export async function generateStaticParams({
 }: {
 	params: { space_slug: string };
 }) {
-	const { data: posts, error } = await supabase
-		.from('post')
-		.select(`slug, space!inner(slug)`)
-		.eq('is_published', true)
-		.eq('space.slug', space_slug);
-
-	if (error) {
-		console.error(error);
-		throw error.message;
-	}
+	const posts = await getPostSlugs(space_slug);
 
 	if (!posts) {
 		return [];

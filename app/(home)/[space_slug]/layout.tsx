@@ -1,27 +1,11 @@
-import { createClient } from '@supabase/supabase-js';
 import AdminEdit from './AdminEdit';
-import { supabase } from '#/lib/supabase/static';
-import { BlogSpace } from '#/lib/types/inferred.types';
+import { getSpaceSlugs, supabase } from '#/lib/supabase/static';
 import { Metadata } from 'next';
+import { getSpace } from '#/lib/supabase/server';
 
 export const dynamic = 'force-static';
 
 export const revalidate = 30;
-
-const getSpace = async (space_slug: string) => {
-	const { data: space, error } = await supabase
-		.from('space')
-		.select('*')
-		.eq('slug', space_slug)
-		.single();
-
-	if (error) {
-		console.error(error);
-		throw error.message;
-	}
-
-	return space as BlogSpace;
-};
 
 type Props = {
 	params: { space_slug: string };
@@ -41,17 +25,9 @@ export async function generateMetadata({
 }
 
 export const generateStaticParams = async () => {
-	const { data, error } = await supabase
-		.from('space')
-		.select('slug')
-		.eq('is_published', true);
+	const slugs = await getSpaceSlugs();
 
-	if (error) {
-		console.error(error);
-		throw error.message;
-	}
-
-	return data.map(({ slug }) => ({
+	return slugs.map(({ slug }) => ({
 		space_slug: slug,
 	}));
 };
