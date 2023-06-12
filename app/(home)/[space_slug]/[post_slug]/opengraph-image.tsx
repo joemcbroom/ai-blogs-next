@@ -31,7 +31,7 @@ export default async function Image({
 			// ImageResponse JSX element
 			<div
 				style={{
-					fontSize: 72,
+					fontSize: 12,
 					background: 'white',
 					width: '100%',
 					height: '100%',
@@ -40,7 +40,7 @@ export default async function Image({
 					justifyContent: 'center',
 				}}
 			>
-				{imageSrc}
+				<span>{imageSrc}</span>
 			</div>
 		),
 		// ImageResponse options
