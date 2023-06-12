@@ -1,29 +1,30 @@
-import { getPost } from '#/lib/supabase/static';
+/* eslint-disable @next/next/no-img-element */
+import { getPost, supabase } from '#/lib/supabase/static';
 import { ImageResponse } from 'next/server';
 
 // Route segment config
 export const runtime = 'edge';
 
 // Image metadata
-export const alt = 'About Acme';
+export const alt = '';
 export const size = {
-	width: 1200,
-	height: 630,
+	width: 500,
+	height: 300,
 };
 
 export const contentType = 'image/png';
 
-interface ImageProps {
-	params: {
-		space_slug: string;
-		post_slug: string;
-	};
-}
+// Image generation
 export default async function Image({
 	params: { space_slug, post_slug },
-}: ImageProps) {
+}: {
+	params: { space_slug: string; post_slug: string };
+}) {
 	const post = await getPost(post_slug);
-	const { title, description } = post;
+	const imagePath = post.image_path;
+	const imageSrc =
+		`https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${imagePath}?width=500&height=300&resize=cover` ||
+		'';
 
 	return new ImageResponse(
 		(
@@ -36,10 +37,31 @@ export default async function Image({
 					height: '100%',
 					display: 'flex',
 					alignItems: 'center',
-					justifyContent: 'center',
+					justifyContent: 'end',
 				}}
 			>
-				{title}
+				<img
+					src={imageSrc}
+					alt=""
+					style={{
+						objectFit: 'cover',
+						zIndex: '0',
+						width: '100%',
+						objectPosition: 'center',
+					}}
+				/>
+				<span
+					style={{
+						background: 'rgba(0,0,0,0.5)',
+						color: 'white',
+						fontSize: '2rem',
+						padding: '1rem',
+						zIndex: '10',
+						width: '100%',
+					}}
+				>
+					{post.title}
+				</span>
 			</div>
 		),
 		// ImageResponse options
