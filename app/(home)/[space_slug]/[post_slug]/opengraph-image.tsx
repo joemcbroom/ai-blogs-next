@@ -1,3 +1,4 @@
+import { getPost } from '#/lib/supabase/static';
 import { ImageResponse } from 'next/server';
 
 // Route segment config
@@ -21,6 +22,9 @@ interface ImageProps {
 export default async function Image({
 	params: { space_slug, post_slug },
 }: ImageProps) {
+	const post = await getPost(post_slug);
+	const { title, description } = post;
+
 	return new ImageResponse(
 		(
 			// ImageResponse JSX element
@@ -35,7 +39,7 @@ export default async function Image({
 					justifyContent: 'center',
 				}}
 			>
-				{space_slug} | {post_slug}
+				{title}
 			</div>
 		),
 		// ImageResponse options
