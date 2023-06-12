@@ -42,7 +42,7 @@ export default async function Image({
 			>
 				{imageSrc ? (
 					<img
-						src={imageSrc}
+						src={imageSrc || ''}
 						alt={alt}
 						width={size.width}
 						height={size.height}
