@@ -40,18 +40,7 @@ export default async function Image({
 					justifyContent: 'end',
 				}}
 			>
-				<span
-					style={{
-						background: 'rgba(0,0,0,0.5)',
-						color: 'white',
-						fontSize: '2rem',
-						padding: '1rem',
-						zIndex: '10',
-						width: '100%',
-					}}
-				>
-					{imageSrc}
-				</span>
+				<span>{imageSrc}</span>
 			</div>
 		),
 		// ImageResponse options
