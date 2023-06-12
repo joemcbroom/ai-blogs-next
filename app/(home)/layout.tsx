@@ -1,9 +1,7 @@
 import NavBar from '#/components/UI/NavBar';
 
 export const metadata = {
-	metadataBase: new URL(
-		'https://ai-blogs-next-git-share-links-blogverse.vercel.app/'
-	),
+	metadataBase: new URL(process.env.VERCEL_URL || 'http://localhost:3000'),
 };
 
 type HomeLayoutProps = {
