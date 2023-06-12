@@ -26,6 +26,7 @@ export default async function Image({
 		`https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${imagePath}?width=500&height=300&resize=cover` ||
 		'';
 
+	debugger;
 	return new ImageResponse(
 		(
 			// ImageResponse JSX element
@@ -40,16 +41,6 @@ export default async function Image({
 					justifyContent: 'end',
 				}}
 			>
-				<img
-					src={imageSrc}
-					alt=""
-					style={{
-						objectFit: 'cover',
-						zIndex: '0',
-						width: '100%',
-						objectPosition: 'center',
-					}}
-				/>
 				<span
 					style={{
 						background: 'rgba(0,0,0,0.5)',
@@ -60,7 +51,7 @@ export default async function Image({
 						width: '100%',
 					}}
 				>
-					{post.title}
+					{imageSrc}
 				</span>
 			</div>
 		),
