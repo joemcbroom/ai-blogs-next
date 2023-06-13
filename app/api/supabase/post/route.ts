@@ -1,5 +1,4 @@
 import { supabaseSingleton } from '#/lib/supabase/server';
-import { revalidatePaths } from '#/lib/utils/revalidatePaths';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
@@ -11,8 +10,6 @@ export async function POST(req: Request) {
 		.insert(Array.isArray(data) ? data : [data]);
 	if (error) throw error;
 
-	revalidatePaths();
-
 	return NextResponse.json({ success: true });
 }
 
@@ -23,8 +20,6 @@ export async function PUT(req: Request) {
 	const { error } = await supabase.from('post').update(data).eq('slug', slug);
 	if (error) throw error;
 
-	revalidatePaths();
-
 	return NextResponse.json({ success: true });
 }
 
@@ -34,8 +29,6 @@ export async function DELETE(req: Request) {
 	const supabase = await supabaseSingleton();
 	const { error } = await supabase.from('post').delete().eq('slug', slug);
 	if (error) throw error;
-
-	revalidatePaths();
 
 	return NextResponse.json({ success: true });
 }

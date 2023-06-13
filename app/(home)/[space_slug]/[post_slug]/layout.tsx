@@ -3,6 +3,8 @@ import { ResolvingMetadata, Metadata } from 'next';
 
 export const dynamic = 'force-static';
 
+export const revalidate = 60;
+
 export async function generateMetadata(
 	{ params: { post_slug } }: { params: { post_slug: string } },
 	parent: ResolvingMetadata

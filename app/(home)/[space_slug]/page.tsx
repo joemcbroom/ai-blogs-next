@@ -1,6 +1,8 @@
 import { getPosts, supabase } from '#/lib/supabase/static';
 import Link from 'next/link';
 
+export const revalidate = 60;
+
 const BlogHome = async ({
 	params: { space_slug },
 }: {
