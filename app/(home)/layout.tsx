@@ -1,6 +1,8 @@
 import NavBar from '#/components/UI/NavBar';
 import { Metadata } from 'next';
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
 	title: 'Blogverse!',
 	description: 'A whole new universe of blogs',

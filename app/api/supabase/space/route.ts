@@ -12,11 +12,6 @@ export async function POST(req: Request) {
 		.insert(Array.isArray(data) ? data : [data]);
 	if (error) throw error;
 
-	revalidatePath('/(home)/[space_slug]');
-	revalidatePath('/(home)/[space_slug]/[post_slug]');
-	revalidatePath('/(home)');
-	revalidatePath('/');
-
 	return NextResponse.json({ success: true });
 }
 
@@ -27,8 +22,6 @@ export async function PUT(req: Request) {
 	const { error } = await supabase.from('space').update(data).eq('slug', slug);
 	if (error) throw error;
 
-	revalidatePaths();
-
 	return NextResponse.json({ success: true });
 }
 
@@ -38,8 +31,6 @@ export async function DELETE(req: Request) {
 	const supabase = await supabaseSingleton();
 	const { error } = await supabase.from('space').delete().eq('slug', slug);
 	if (error) throw error;
-
-	revalidatePaths();
 
 	return NextResponse.json({ success: true });
 }

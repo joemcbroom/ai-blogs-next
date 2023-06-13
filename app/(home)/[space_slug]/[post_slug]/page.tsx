@@ -1,6 +1,8 @@
 import { getPost } from '#/lib/supabase/static';
 import PostContent from './PostContent';
 
+export const revalidate = 60;
+
 interface PostPageProps {
 	params: {
 		post_slug: string;
