@@ -1,12 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 import { BlogSpace, BlogSpaceWithPosts, Post } from '../types/inferred.types';
+import { cache } from 'react';
 
 export const supabase = createClient(
 	process.env.NEXT_PUBLIC_SUPABASE_URL!,
 	process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-export const getPost = async (post_slug: string) => {
+export const getPost = cache(async (post_slug: string) => {
 	const { data: post, error } = await supabase
 		.from('post')
 		.select('*, space:space_id (image_path)')
@@ -19,9 +20,9 @@ export const getPost = async (post_slug: string) => {
 	}
 
 	return post as Post & { space: BlogSpace };
-};
+});
 
-export const getPosts = async (space_slug: string) => {
+export const getPosts = cache(async (space_slug: string) => {
 	const { data: posts, error } = await supabase
 		.from('post')
 		.select(`*, space!inner(slug)`)
@@ -34,9 +35,9 @@ export const getPosts = async (space_slug: string) => {
 	}
 
 	return posts as Post[];
-};
+});
 
-export const getSpace = async (space_slug: string) => {
+export const getSpace = cache(async (space_slug: string) => {
 	const { data: space, error } = await supabase
 		.from('space')
 		.select('*')
@@ -49,9 +50,9 @@ export const getSpace = async (space_slug: string) => {
 	}
 
 	return space as BlogSpace;
-};
+});
 
-export const getSpaces = async () => {
+export const getSpaces = cache(async () => {
 	const { data: spaces, error } = await supabase
 		.from('space')
 		.select('*, posts: post(slug, is_published)')
@@ -63,9 +64,9 @@ export const getSpaces = async () => {
 	}
 
 	return spaces as BlogSpaceWithPosts[];
-};
+});
 
-export const getSpaceSlugs = async () => {
+export const getSpaceSlugs = cache(async () => {
 	const { data, error } = await supabase
 		.from('space')
 		.select('slug')
@@ -77,9 +78,9 @@ export const getSpaceSlugs = async () => {
 	}
 
 	return data as { slug: string }[];
-};
+});
 
-export const getPostSlugs = async (space_slug: string) => {
+export const getPostSlugs = cache(async (space_slug: string) => {
 	const { data: posts, error } = await supabase
 		.from('post')
 		.select(`slug, space!inner(slug)`)
@@ -92,4 +93,4 @@ export const getPostSlugs = async (space_slug: string) => {
 	}
 
 	return posts as { slug: string }[];
-};
+});
