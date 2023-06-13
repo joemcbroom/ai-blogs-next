@@ -1,4 +1,17 @@
 import NavBar from '#/components/UI/NavBar';
+import { Metadata } from 'next';
+
+export const revalidate = 60;
+
+export const metadata: Metadata = {
+	title: 'Blogverse!',
+	description: 'A whole new universe of blogs',
+	metadataBase: new URL(
+		`https://${process.env.VERCEL_URL}` ||
+			`https://${process.env.NEXT_PUBLIC_VERCEL_URL}` ||
+			'http://localhost:3000'
+	),
+};
 
 type HomeLayoutProps = {
 	children: React.ReactNode;

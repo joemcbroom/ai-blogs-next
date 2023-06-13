@@ -1,26 +1,31 @@
-import { createClient } from '@supabase/supabase-js';
 import AdminEdit from './AdminEdit';
+import { getSpaceSlugs, supabase } from '#/lib/supabase/static';
+import { Metadata } from 'next';
+import { getSpace } from '#/lib/supabase/server';
 
-export const dynamic = 'force-static';
+export const revalidate = 60;
 
-export const revalidate = 30;
+type Props = {
+	params: { space_slug: string };
+};
+
+export async function generateMetadata({
+	params: { space_slug },
+}: Props): Promise<Metadata> {
+	const space = await getSpace(space_slug);
+	const { title, description } = space;
+
+	return {
+		title: `${title} | Blogverse.ai`,
+		description,
+		// keywords: tags.join(', '), TODO: get tags
+	};
+}
 
 export const generateStaticParams = async () => {
-	const supabase = createClient(
-		process.env.NEXT_PUBLIC_SUPABASE_URL!,
-		process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-	);
-	const { data, error } = await supabase
-		.from('space')
-		.select('slug')
-		.eq('is_published', true);
+	const slugs = await getSpaceSlugs();
 
-	if (error) {
-		console.error(error);
-		throw error.message;
-	}
-
-	return data.map(({ slug }) => ({
+	return slugs.map(({ slug }) => ({
 		space_slug: slug,
 	}));
 };
