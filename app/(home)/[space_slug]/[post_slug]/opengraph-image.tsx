@@ -42,7 +42,7 @@ export default async function Image({
 					backgroundImage: `url(${imageSrc})`,
 				}}
 			>
-				<span
+				<div
 					style={{
 						width: '100%',
 						textAlign: 'center',
@@ -53,7 +53,7 @@ export default async function Image({
 					}}
 				>
 					{post.title}
-				</span>
+				</div>
 			</div>
 		),
 		// ImageResponse options
