@@ -14,6 +14,10 @@ export const size = {
 
 export const contentType = 'image/png';
 
+const logo = fetch(new URL('./logo.svg', import.meta.url)).then((res) =>
+	res.text()
+);
+
 // Image generation
 export default async function Image({
 	params: { space_slug, post_slug },
@@ -25,6 +29,7 @@ export default async function Image({
 	const imageSrc = imagePath
 		? `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${imagePath}?width=500&height=300&resize=cover`
 		: '';
+	const logoData = await logo;
 
 	return new ImageResponse(
 		(
@@ -47,6 +52,15 @@ export default async function Image({
 				}}
 			>
 				<div style={{ color: 'white', textAlign: 'center' }}>{post.title}</div>
+				<div
+					style={{
+						position: 'absolute',
+						top: '0.5rem',
+						right: '0.5rem',
+					}}
+				>
+					<img src={logoData} alt="Blogverse logo" width="75" height="25" />
+				</div>
 			</div>
 		),
 		// ImageResponse options
