@@ -20,8 +20,8 @@ export default async function Image({
 }: {
 	params: { space_slug: string; post_slug: string };
 }) {
-	const { title, image_path, space } = await getPost(post_slug);
-	const imagePath = image_path || space?.image_path;
+	const post = await getPost(post_slug);
+	const imagePath = post.image_path || post.space?.image_path;
 	const imageSrc = imagePath
 		? `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${imagePath}?width=500&height=300&resize=cover`
 		: '';
@@ -39,10 +39,21 @@ export default async function Image({
 					flexDirection: 'column',
 					alignItems: 'center',
 					justifyContent: 'end',
-					backgroundImage: `url("${imageSrc}")`,
+					backgroundImage: `url(${imageSrc})`,
 				}}
 			>
-				<span tw="bg-black bg-opacity-50 px-4 py-6">{title}</span>
+				<span
+					style={{
+						width: '100%',
+						textAlign: 'center',
+						color: 'white',
+						fontWeight: 'bold',
+						backgroundColor: 'rgba(0,0,0,0.5)',
+						padding: '0.5rem 0.75rem',
+					}}
+				>
+					{post.title}
+				</span>
 			</div>
 		),
 		// ImageResponse options
