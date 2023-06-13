@@ -32,7 +32,8 @@ const PostOrSpace = ({
 				style={{
 					color: 'white',
 					textAlign: 'center',
-					backgroundImage: 'linear-gradient(to top, black, rgba(0,0,0,0.1))',
+					backgroundImage:
+						'linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(0, 0, 0))',
 					padding: '4rem 3rem',
 					display: 'flex',
 					justifyContent: 'center',

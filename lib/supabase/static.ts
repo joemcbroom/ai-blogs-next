@@ -14,7 +14,7 @@ export const getPost = async (post_slug: string) => {
 		.single();
 
 	if (error) {
-		console.error(error);
+		console.error(`${post_slug}: ${error}`);
 		throw error.message;
 	}
 
@@ -44,7 +44,7 @@ export const getSpace = async (space_slug: string) => {
 		.single();
 
 	if (error) {
-		console.error(error);
+		console.error(`${space_slug}: ${error}`);
 		throw error.message;
 	}
 

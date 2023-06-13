@@ -47,7 +47,7 @@ const HeaderImage: React.FC<HeaderImageProps> = ({
 				className="absolute left-0 top-0 z-0 h-96 w-screen object-cover"
 			/>
 			<div className="z-10 flex h-96 w-full flex-col justify-end">
-				<div className="w-full bg-black bg-opacity-30">
+				<div className="w-full bg-gradient-to-b from-transparent to-black to-90%">
 					<div className="relative mx-auto flex w-full flex-col justify-center gap-2 overflow-hidden p-6 md:max-w-4xl md:px-0">
 						<div className="flex gap-2 text-sm font-semibold text-white">
 							<span>{formattedDate}</span>

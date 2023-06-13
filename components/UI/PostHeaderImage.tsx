@@ -15,7 +15,6 @@ const PostHeaderImage = ({
 	alt = '',
 	className = '',
 }: PostHeaderImageProps) => {
-	path = path || 'post/space-background.jpg';
 	const fullImage = useRef<HTMLImageElement>(null);
 	const placeHolderImage = useRef<HTMLImageElement>(null);
 
@@ -59,6 +58,14 @@ const PostHeaderImage = ({
 			}
 		};
 	}, []);
+
+	if (!path) {
+		return (
+			<div
+				className={`${className} bg-gradient-to-b from-pink-600 to-sky-400  `}
+			/>
+		);
+	}
 
 	return (
 		<>
