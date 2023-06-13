@@ -58,9 +58,8 @@ export default async function Image({
 						top: '0.5rem',
 						right: '0.5rem',
 					}}
-				>
-					<img src={logoData} alt="Blogverse logo" width="75" height="25" />
-				</div>
+					dangerouslySetInnerHTML={{ __html: logoData }}
+				></div>
 			</div>
 		),
 		// ImageResponse options
