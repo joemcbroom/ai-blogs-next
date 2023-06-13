@@ -42,24 +42,46 @@ export default async function Image({
 					justifyContent: 'flex-end',
 					fontSize: 28,
 					fontWeight: 600,
-					padding: '1rem',
-					maskImage: 'radial-gradient(circle at 50% 50%, blue, transparent)',
-					WebkitMaskImage:
-						'radial-gradient(circle at 50% 50%, blue, transparent)', // just for reference in html
 					position: 'relative',
+					backgroundSize: 'cover',
 				}}
 			>
-				<div style={{ color: 'white', textAlign: 'center' }}>{post.title}</div>
 				<div
 					style={{
+						color: 'white',
+						textAlign: 'center',
+						backgroundColor: 'black',
+						padding: '1rem',
+					}}
+				>
+					Tricks to Maximize Your Small-Space Vegetable Garden
+				</div>
+				<div
+					style={{
+						backgroundColor: 'rgba(255, 255, 255, 0.75)',
+						borderRadius: '1rem',
+						width: '120px',
+						height: '40px',
 						position: 'absolute',
 						top: '0.5rem',
 						right: '0.5rem',
-						width: 130,
-						height: 35,
-						backgroundImage: `url(${logoSrc})`,
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						padding: '0.75rem 0rem 0rem 0.5rem',
 					}}
-				/>
+				>
+					<div
+						style={{
+							width: '100%',
+							height: 35,
+							backgroundImage:
+								'url(https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/space/logo-blogverse-horiz.png?width=100&height=35&resize=contain)',
+							backgroundRepeat: 'no repeat',
+							backgroundSize: 'contain',
+						}}
+					/>
+				</div>
 			</div>
 		),
 		// ImageResponse options
