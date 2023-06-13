@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { getPost } from '#/lib/supabase/static';
+import { getPost, getSpace } from '#/lib/supabase/static';
 import { ImageResponse } from 'next/server';
 import PostOrSpace from '#/components/OgImage/PostOrSpace';
 
@@ -17,19 +17,14 @@ export const contentType = 'image/png';
 
 // Image generation
 export default async function Image({
-	params: { post_slug },
+	params: { space_slug },
 }: {
-	params: { post_slug: string };
+	params: { space_slug: string };
 }) {
-	const post = await getPost(post_slug);
+	const space = await getSpace(space_slug);
 
 	return new ImageResponse(
-		(
-			<PostOrSpace
-				backgroundImagePath={post.image_path || post.space?.image_path}
-				title={post.title}
-			/>
-		),
+		<PostOrSpace backgroundImagePath={space.image_path} title={space.title} />,
 
 		{
 			...size,

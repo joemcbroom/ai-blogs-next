@@ -1,15 +1,24 @@
+import FallbackOgImage from './FallbackOgImage';
+
 /* eslint-disable @next/next/no-img-element */
-const PostOgImage = ({
-	backgroundImageSrc,
+const PostOrSpace = ({
+	backgroundImagePath,
 	title,
 }: {
-	backgroundImageSrc: string;
+	backgroundImagePath: string | null;
 	title: string;
 }) => {
+	if (!backgroundImagePath) return <FallbackOgImage title={title} />;
+
+	const imageSrc =
+		'https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/' +
+		backgroundImagePath +
+		'?width=1200&height=600&resize=cover';
+
 	return (
 		<div
 			style={{
-				backgroundImage: `url(${backgroundImageSrc})`,
+				backgroundImage: `url(${imageSrc})`,
 				height: '100%',
 				width: '100%',
 				display: 'flex',
@@ -39,8 +48,8 @@ const PostOgImage = ({
 					width: '400px',
 					height: '120px',
 					position: 'absolute',
-					top: '1rem',
-					right: '1rem',
+					top: '2rem',
+					right: '2rem',
 					objectFit: 'contain',
 					padding: '0.75rem 0rem 0rem 0.5rem',
 				}}
@@ -51,4 +60,4 @@ const PostOgImage = ({
 	);
 };
 
-export default PostOgImage;
+export default PostOrSpace;
