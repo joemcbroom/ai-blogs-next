@@ -13,6 +13,8 @@ const PostOgImage = ({
 				height: '100%',
 				width: '100%',
 				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'flex-end',
 				position: 'relative',
 				backgroundSize: 'cover',
 			}}
@@ -25,9 +27,6 @@ const PostOgImage = ({
 					padding: '3rem',
 					fontSize: 48,
 					fontWeight: 600,
-					position: 'absolute',
-					bottom: 0,
-					left: 0,
 					width: '100%',
 				}}
 			>
