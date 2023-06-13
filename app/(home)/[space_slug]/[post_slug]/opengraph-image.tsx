@@ -46,6 +46,7 @@ export default async function Image({
 					maskImage: 'radial-gradient(circle at 50% 50%, blue, transparent)',
 					WebkitMaskImage:
 						'radial-gradient(circle at 50% 50%, blue, transparent)', // just for reference in html
+					position: 'relative',
 				}}
 			>
 				<div style={{ color: 'white', textAlign: 'center' }}>{post.title}</div>
@@ -54,10 +55,9 @@ export default async function Image({
 						position: 'absolute',
 						top: '0.5rem',
 						right: '0.5rem',
+						backgroundImage: `url(${logoSrc})`,
 					}}
-				>
-					<img src={logoSrc} alt="Blogverse logo" width={100} height={35} />
-				</div>
+				/>
 			</div>
 		),
 		// ImageResponse options
