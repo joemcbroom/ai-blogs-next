@@ -48,8 +48,7 @@ export default async function Image({
 						textAlign: 'center',
 						color: 'white',
 						fontWeight: 'bold',
-						backgroundColor: 'rgba(0,0,0,0.5)',
-						padding: '0.5rem 0.75rem',
+						backgroundColor: 'black',
 					}}
 				>
 					{post.title}
