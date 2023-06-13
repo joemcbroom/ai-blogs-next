@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { BlogSpace, Post } from '../types/inferred.types';
+import { BlogSpace, BlogSpaceWithPosts, Post } from '../types/inferred.types';
 
 export const supabase = createClient(
 	process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -49,6 +49,20 @@ export const getSpace = async (space_slug: string) => {
 	}
 
 	return space as BlogSpace;
+};
+
+export const getSpaces = async () => {
+	const { data: spaces, error } = await supabase
+		.from('space')
+		.select('*, posts: post(slug, is_published)')
+		.eq('is_published', true);
+
+	if (error) {
+		console.error(error);
+		throw error.message;
+	}
+
+	return spaces as BlogSpaceWithPosts[];
 };
 
 export const getSpaceSlugs = async () => {
