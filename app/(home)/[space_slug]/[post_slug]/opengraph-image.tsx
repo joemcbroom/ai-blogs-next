@@ -14,10 +14,6 @@ export const size = {
 
 export const contentType = 'image/png';
 
-const logo = fetch(new URL('./logo.svg', import.meta.url)).then((res) =>
-	res.text()
-);
-
 // Image generation
 export default async function Image({
 	params: { space_slug, post_slug },
