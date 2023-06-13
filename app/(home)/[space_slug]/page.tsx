@@ -1,23 +1,10 @@
-import { supabase } from '#/lib/supabase/static';
-import { Post } from '#/lib/types/inferred.types';
+import { getPosts, supabase } from '#/lib/supabase/static';
 import Link from 'next/link';
 
-export const revalidate = 30;
+export const revalidate = 60;
 
-const getPosts = async (space_slug: string) => {
-	const { data: posts, error } = await supabase
-		.from('post')
-		.select(`*, space!inner(slug)`)
-		.eq('is_published', true)
-		.eq('space.slug', space_slug);
+export const dynamic = 'force-static';
 
-	if (error) {
-		console.error(error);
-		throw error.message;
-	}
-
-	return posts as Post[];
-};
 const BlogHome = async ({
 	params: { space_slug },
 }: {

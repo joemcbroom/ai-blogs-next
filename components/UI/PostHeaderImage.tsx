@@ -15,13 +15,11 @@ const PostHeaderImage = ({
 	alt = '',
 	className = '',
 }: PostHeaderImageProps) => {
-	path = path || 'post/space-background.jpg';
 	const fullImage = useRef<HTMLImageElement>(null);
 	const placeHolderImage = useRef<HTMLImageElement>(null);
 
 	const onLoaded = () => {
 		if (fullImage.current && placeHolderImage.current) {
-			console.log('loaded');
 			fullImage.current.classList.remove('opacity-0');
 			fullImage.current.classList.add('opacity-100');
 			placeHolderImage.current.classList.add('opacity-0');
@@ -46,6 +44,16 @@ const PostHeaderImage = ({
 			},
 		});
 
+	const { data: smallSrc } = supabase.storage
+		.from('blogverse-public')
+		.getPublicUrl(path, {
+			transform: {
+				width: 600,
+				height: 450,
+				resize: 'cover',
+			},
+		});
+
 	useLayoutEffect(() => {
 		const image = fullImage.current;
 		if (image) {
@@ -61,6 +69,14 @@ const PostHeaderImage = ({
 		};
 	}, []);
 
+	if (!path) {
+		return (
+			<div
+				className={`${className} bg-gradient-to-b from-pink-600 to-sky-400  `}
+			/>
+		);
+	}
+
 	return (
 		<>
 			<img
@@ -74,6 +90,8 @@ const PostHeaderImage = ({
 				src={fullSrc.publicUrl}
 				alt={alt}
 				className={`${className} opacity-0 transition-opacity`}
+				srcSet={`${smallSrc.publicUrl} 600w, ${fullSrc.publicUrl} 1200w`}
+				sizes="(max-width: 600px) 100vw, 600px"
 			/>
 		</>
 	);
