@@ -29,7 +29,8 @@ export default async function Image({
 	const imageSrc = imagePath
 		? `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${imagePath}?width=500&height=300&resize=cover`
 		: '';
-	const logoData = await logo;
+	const logoSrc =
+		'https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/space/logo-blogverse-horiz.png?width=100&height=35&resize=cover';
 
 	return new ImageResponse(
 		(
@@ -58,8 +59,9 @@ export default async function Image({
 						top: '0.5rem',
 						right: '0.5rem',
 					}}
-					dangerouslySetInnerHTML={{ __html: logoData }}
-				></div>
+				>
+					<img src={logoSrc} alt="Blogverse logo" width={100} height={35} />
+				</div>
 			</div>
 		),
 		// ImageResponse options
