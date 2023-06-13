@@ -1,5 +1,6 @@
 import { supabaseSingleton } from '#/lib/supabase/server';
 import { revalidatePaths } from '#/lib/utils/revalidatePaths';
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
@@ -11,7 +12,10 @@ export async function POST(req: Request) {
 		.insert(Array.isArray(data) ? data : [data]);
 	if (error) throw error;
 
-	revalidatePaths();
+	revalidatePath('/(home)/[space_slug]');
+	revalidatePath('/(home)/[space_slug]/[post_slug]');
+	revalidatePath('/(home)');
+	revalidatePath('/');
 
 	return NextResponse.json({ success: true });
 }
