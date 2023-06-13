@@ -31,34 +31,26 @@ export default async function Image({
 			// ImageResponse JSX element
 			<div
 				style={{
-					fontSize: 12,
-					background: 'white',
-					width: '100%',
+					backgroundImage: `url(${imageSrc})`,
 					height: '100%',
+					width: '100%',
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'center',
-					justifyContent: 'end',
-					backgroundImage: `url(${imageSrc})`,
+					justifyContent: 'flex-end',
+					fontSize: 28,
+					fontWeight: 600,
+					padding: '1rem',
+					maskImage: 'radial-gradient(circle at 50% 50%, blue, transparent)',
+					WebkitMaskImage:
+						'radial-gradient(circle at 50% 50%, blue, transparent)', // just for reference in html
 				}}
 			>
-				<div
-					style={{
-						width: '100%',
-						textAlign: 'center',
-						color: 'white',
-						fontWeight: 'bold',
-						backgroundColor: 'black',
-					}}
-				>
-					{post.title}
-				</div>
+				<div style={{ color: 'white', textAlign: 'center' }}>{post.title}</div>
 			</div>
 		),
 		// ImageResponse options
 		{
-			// For convenience, we can re-use the exported opengraph-image
-			// size config to also set the ImageResponse's width and height.
 			...size,
 		}
 	);
