@@ -4,7 +4,7 @@ const FallbackOgImage = ({ title }: { title: string }) => {
 		<div
 			style={{
 				backgroundImage:
-					'radial-gradient(rgba(238,174,202,1), rgba(148,187,233,1))',
+					'linear-gradient(to bottom, rgba(238,174,202,1), rgba(148,187,233,1))',
 				height: '100%',
 				width: '100%',
 				display: 'flex',
