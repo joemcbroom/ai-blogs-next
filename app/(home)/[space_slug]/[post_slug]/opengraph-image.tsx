@@ -26,7 +26,7 @@ export default async function Image({
 		? `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${imagePath}?width=500&height=300&resize=cover`
 		: '';
 	const logoSrc =
-		'https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/space/logo-blogverse-horiz.png?width=100&height=35&resize=cover';
+		'https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/space/logo-blogverse-horiz.png?width=100&height=35&resize=contain';
 
 	return new ImageResponse(
 		(
@@ -55,6 +55,8 @@ export default async function Image({
 						position: 'absolute',
 						top: '0.5rem',
 						right: '0.5rem',
+						width: 130,
+						height: 35,
 						backgroundImage: `url(${logoSrc})`,
 					}}
 				/>
