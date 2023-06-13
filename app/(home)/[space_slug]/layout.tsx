@@ -3,8 +3,6 @@ import { getSpaceSlugs, supabase } from '#/lib/supabase/static';
 import { Metadata } from 'next';
 import { getSpace } from '#/lib/supabase/server';
 
-export const dynamic = 'force-static';
-
 export const revalidate = 60;
 
 type Props = {

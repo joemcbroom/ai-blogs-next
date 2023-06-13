@@ -3,6 +3,8 @@ import PostContent from './PostContent';
 
 export const revalidate = 60;
 
+export const dynamic = 'force-static';
+
 interface PostPageProps {
 	params: {
 		post_slug: string;

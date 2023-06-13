@@ -26,6 +26,7 @@ import {
 } from 'react';
 import ContentEditor from '#/components/UI/admin/ContentEditor';
 import ButtonComponent from '#/components/UI/ButtonComponent';
+import slugify from '#/lib/utils/slugify';
 
 interface Props {
 	post: Post & { space: { title: string; description: string; slug: string } };
@@ -35,6 +36,7 @@ const defaultValues = {
 	title: '',
 	content: '',
 	is_published: false,
+	slug: '',
 };
 
 type ActionType =
@@ -65,9 +67,11 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 	const isMutating = isSaving;
 	const titleRef = useRef<HTMLInputElement>(null);
 	const [hasChanges, setHasChanges] = useState(false);
+	const [hasNewSlug, setHasNewSlug] = useState(false);
 
 	const initialPostValues = {
 		title: post.title,
+		slug: post.slug,
 		content: post.content || '',
 		is_published: post.is_published,
 	};
@@ -76,6 +80,14 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 
 	const handleEdit = (value: string, field: keyof typeof defaultValues) => {
 		dispatch({ type: 'EDIT', field, value });
+		if (field === 'title') {
+			dispatch({
+				type: 'EDIT',
+				field: 'slug',
+				value: slugify(value),
+			});
+			setHasNewSlug(true);
+		}
 		setHasChanges(true);
 	};
 
@@ -168,7 +180,11 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 				message: 'Changes saved',
 				type: 'success',
 			});
-			router.refresh();
+			if (hasNewSlug) {
+				router.push(`/admin/posts/${editedValues.slug}/edit`);
+			} else {
+				router.refresh();
+			}
 		});
 	};
 

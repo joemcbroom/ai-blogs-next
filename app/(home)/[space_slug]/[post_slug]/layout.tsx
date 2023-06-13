@@ -1,8 +1,6 @@
 import { getPost, getPostSlugs, supabase } from '#/lib/supabase/static';
 import { ResolvingMetadata, Metadata } from 'next';
 
-export const dynamic = 'force-static';
-
 export const revalidate = 60;
 
 export async function generateMetadata(
