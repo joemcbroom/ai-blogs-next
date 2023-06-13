@@ -26,11 +26,12 @@ export default async function Image({
 	return new ImageResponse(
 		(
 			<PostOrSpace
-				backgroundImagePath={post.image_path || post.space?.image_path}
+				backgroundImagePath={
+					(post.image_path || post.space?.image_path) ?? null
+				}
 				title={post.title}
 			/>
 		),
-
 		{
 			...size,
 		}

@@ -3,7 +3,8 @@ const FallbackOgImage = ({ title }: { title: string }) => {
 	return (
 		<div
 			style={{
-				backgroundColor: 'black',
+				backgroundImage:
+					'radial-gradient(rgba(238,174,202,1), rgba(148,187,233,1))',
 				height: '100%',
 				width: '100%',
 				display: 'flex',
@@ -11,30 +12,29 @@ const FallbackOgImage = ({ title }: { title: string }) => {
 				justifyContent: 'space-around',
 				alignItems: 'center',
 				position: 'relative',
-				padding: '5rem 0',
+				padding: '7rem 3rem',
+				textAlign: 'center',
 			}}
 		>
 			<img
 				style={{
-					backgroundColor: 'rgba(255, 255, 255, 1)',
-					borderRadius: '1rem',
 					width: '400px',
 					height: '120px',
 					objectFit: 'contain',
-					padding: '0.75rem 0rem 0rem 0.5rem',
 				}}
 				src="https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/space/logo-blogverse-horiz.png?width=300&height=120&resize=contain"
 				alt="Blogverse logo"
 			/>
 			<div
 				style={{
-					color: 'white',
+					color: 'black',
 					textAlign: 'center',
-					backgroundColor: 'black',
-					padding: '3rem',
+					display: 'flex',
+					justifyContent: 'center',
 					fontSize: 48,
 					fontWeight: 600,
 					width: '100%',
+					textTransform: 'capitalize',
 				}}
 			>
 				{title}
