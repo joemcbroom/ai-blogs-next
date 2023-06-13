@@ -3,8 +3,6 @@ import Link from 'next/link';
 
 export const dynamic = 'force-static';
 
-export const revalidate = 60;
-
 export default async function HomePage() {
 	const spaces = await getSpaces();
 	return (
