@@ -32,11 +32,15 @@ const PostOrSpace = ({
 				style={{
 					color: 'white',
 					textAlign: 'center',
-					backgroundColor: 'black',
-					padding: '3rem',
+					backgroundImage: 'linear-gradient(to top, black, rgba(0,0,0,0.1))',
+					padding: '4rem 3rem',
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'flex-end',
 					fontSize: 48,
 					fontWeight: 600,
 					width: '100%',
+					height: '50%',
 				}}
 			>
 				{title}
@@ -49,7 +53,7 @@ const PostOrSpace = ({
 					height: '120px',
 					position: 'absolute',
 					top: '2rem',
-					right: '2rem',
+					right: '4rem',
 					objectFit: 'contain',
 					padding: '0.75rem 0rem 0rem 0.5rem',
 				}}
