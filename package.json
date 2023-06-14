@@ -8,9 +8,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gen-types": "npx supabase gen types typescript --project-id 'dyhumgxwuzsrinvjiefx' --schema public > lib/types/database.types.ts"
+    "gen-types": "npx supabase gen types typescript --project-id 'dyhumgxwuzsrinvjiefx' --schema public > lib/types/database.types.ts",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
   "pre-commit": [
+    "precommit-msg",
     "lint",
     "gen-types"
   ],
