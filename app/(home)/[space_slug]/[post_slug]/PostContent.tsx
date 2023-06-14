@@ -1,5 +1,6 @@
 import PostHeaderImage from '#/components/UI/PostHeaderImage';
 import ShareLinks from '#/components/UI/ShareLinks';
+import AdComponent from '#/components/UI/ads/AdComponent';
 import { supabase } from '#/lib/supabase/static';
 import { Post } from '#/lib/types/inferred.types';
 
@@ -88,6 +89,7 @@ const PostContent: React.FC<Post> = ({ post }) => {
 				wordCount={content?.split(' ').length || 0}
 			/>
 			{/* <LikesAndComments */}
+			<AdComponent />
 			<section
 				className="ProseMirror mx-auto max-w-4xl p-6 md:p-0 md:pt-6"
 				dangerouslySetInnerHTML={{
