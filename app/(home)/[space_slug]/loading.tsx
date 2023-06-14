@@ -15,7 +15,7 @@ export default function Loading() {
 
 	return (
 		<article>
-			<header className="relative flex h-64 flex-col items-center justify-end md:h-80">
+			<header className="relative flex h-64 animate-pulse flex-col items-center justify-end md:h-80">
 				<img
 					src={placeHolderSrc?.publicUrl}
 					alt="Loading..."

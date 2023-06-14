@@ -38,7 +38,7 @@ const Editor: React.FC<EditorProps> = ({ content, onUpdate }) => {
 		if (!editor || !content) return;
 		editor.commands.setContent(content);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [content]);
 
 	return (
 		<div className="ProseMirror mx-auto min-h-[32rem] rounded border border-slate-800">
