@@ -3,6 +3,7 @@
 import { ArrowLongRightIcon } from '@heroicons/react/20/solid';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface CardLinkProps {
 	href: string;
@@ -12,7 +13,7 @@ interface CardLinkProps {
 
 const CardLink = ({ href, slug, isSpace }: CardLinkProps) => {
 	const [card, setCardElement] = useState<HTMLDivElement | null>(null);
-	const buttonRef = useRef<HTMLButtonElement>(null);
+	const buttonRef = useRef<HTMLAnchorElement>(null);
 	const router = useRouter();
 
 	useEffect(() => {
@@ -37,11 +38,13 @@ const CardLink = ({ href, slug, isSpace }: CardLinkProps) => {
 	};
 
 	return (
-		<button
+		<Link
 			role="link"
 			className="z-10 text-xs font-medium text-neutral-100 opacity-100 transition-opacity duration-500 hover:bg-neutral-50"
 			onClick={() => handleLinkClick()}
 			ref={buttonRef}
+			href={href}
+			prefetch={false}
 		>
 			{isSpace ? (
 				'View Space'
@@ -50,7 +53,7 @@ const CardLink = ({ href, slug, isSpace }: CardLinkProps) => {
 					Read More <ArrowLongRightIcon className="inline-block h-4 w-4" />
 				</>
 			)}
-		</button>
+		</Link>
 	);
 };
 
