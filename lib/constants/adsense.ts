@@ -1,0 +1,2 @@
+export const ADSENSE_CLIENT_ID = 'ca-pub-9658193107419462';
+export const IN_ARTICLE_AD_SLOT = '5397151271';

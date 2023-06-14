@@ -9,6 +9,11 @@
   list-style: unset;
 }
 
+.ProseMirror ol .ad-component,
+.ProseMirror ul .ad-component {
+  margin-inline: -1rem;
+}
+
 .ProseMirror ol {
   list-style: auto;
 }
@@ -23,27 +28,23 @@
 }
 
 .ProseMirror h1 {
-  font-size: 2rem;
+  @apply text-3xl
 }
 
 .ProseMirror h2 {
-  font-size: 1.75rem;
+  @apply text-2xl
 }
 
 .ProseMirror h3 {
-  font-size: 1.5rem;
+  @apply text-xl
 }
 
 .ProseMirror h4 {
-  font-size: 1.25rem;
+  @apply text-lg
 }
 
 .ProseMirror h5 {
-  font-size: 1.1rem;
-}
-
-.ProseMirror h6 {
-  font-size: 1rem;
+  @apply text-base
 }
 
 .ProseMirror code {

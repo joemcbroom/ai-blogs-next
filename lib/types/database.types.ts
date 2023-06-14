@@ -49,6 +49,14 @@ export interface Database {
           title?: string
           updated_at?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: "post_space_id_fkey"
+            columns: ["space_id"]
+            referencedRelation: "space"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       post_previous_version: {
         Row: {
@@ -69,6 +77,14 @@ export interface Database {
           id?: number
           post_id?: number
         }
+        Relationships: [
+          {
+            foreignKeyName: "post_previous_version_post_id_fkey"
+            columns: ["post_id"]
+            referencedRelation: "post"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       profiles: {
         Row: {
@@ -104,6 +120,14 @@ export interface Database {
           username?: string | null
           website?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       space: {
         Row: {
@@ -148,6 +172,7 @@ export interface Database {
           title?: string
           updated_at?: string | null
         }
+        Relationships: []
       }
       tag: {
         Row: {
@@ -168,6 +193,14 @@ export interface Database {
           id?: number
           tag_name?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "tag_blog_space_id_fkey"
+            columns: ["blog_space_id"]
+            referencedRelation: "space"
+            referencedColumns: ["id"]
+          }
+        ]
       }
     }
     Views: {

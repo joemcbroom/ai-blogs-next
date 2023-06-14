@@ -8,8 +8,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gen-types": "npx supabase gen types typescript --project-id 'dyhumgxwuzsrinvjiefx' --schema public > lib/types/database.types.ts"
+    "gen-types": "npx supabase gen types typescript --project-id 'dyhumgxwuzsrinvjiefx' --schema public > lib/types/database.types.ts",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
+  "pre-commit": [
+    "precommit-msg",
+    "lint",
+    "gen-types"
+  ],
   "dependencies": {
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.14",
@@ -23,6 +29,7 @@
     "@tiptap/starter-kit": "^2.0.3",
     "eslint": "8.30.0",
     "eslint-config-next": "^13.4.3",
+    "html-react-parser": "^4.0.0",
     "limax": "^3.0.0",
     "next": "^13.4.4",
     "next-share": "^0.20.0",
@@ -33,6 +40,7 @@
     "react-colorful": "^5.6.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.0",
+    "react-itertools": "^0.0.6",
     "react-tooltip": "^5.7.3",
     "typeit-react": "^2.6.4"
   },
@@ -43,6 +51,7 @@
     "autoprefixer": "^10.4.13",
     "encoding": "^0.1.13",
     "postcss": "^8.4.21",
+    "pre-commit": "^1.2.2",
     "prettier": "^2.8.4",
     "prettier-plugin-tailwindcss": "^0.2.3",
     "supabase": "^1.41.6",
