@@ -7,14 +7,9 @@ import { useLayoutEffect, useRef } from 'react';
 interface PostHeaderImageProps {
 	path: string;
 	alt?: string;
-	className?: string;
 }
 
-const PostHeaderImage = ({
-	path,
-	alt = '',
-	className = '',
-}: PostHeaderImageProps) => {
+const PostHeaderImage = ({ path, alt = '' }: PostHeaderImageProps) => {
 	const fullImage = useRef<HTMLImageElement>(null);
 	const placeHolderImage = useRef<HTMLImageElement>(null);
 
@@ -68,6 +63,8 @@ const PostHeaderImage = ({
 			}
 		};
 	}, []);
+
+	const className = 'absolute left-0 top-0 z-0 h-full w-screen object-cover';
 
 	if (!path) {
 		return (

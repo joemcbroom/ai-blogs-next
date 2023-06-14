@@ -10,6 +10,10 @@
     "lint": "next lint",
     "gen-types": "npx supabase gen types typescript --project-id 'dyhumgxwuzsrinvjiefx' --schema public > lib/types/database.types.ts"
   },
+  "pre-commit": [
+    "lint",
+    "gen-types"
+  ],
   "dependencies": {
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.14",

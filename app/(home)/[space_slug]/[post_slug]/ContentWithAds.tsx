@@ -3,6 +3,9 @@ import parse from 'html-react-parser';
 import { ReactElement, ReactNode } from 'react';
 import AdComponent from '#/components/UI/ads/AdComponent';
 
+const CHARACTER_COUNT_MODIFIER = 500;
+const AD_FREQUENCY = 3;
+
 const ContentWithAds = ({ content }: { content: string }) => {
 	const removeDuplicateTitle = (content: string) => {
 		// remove newlines and carriage returns
@@ -53,48 +56,59 @@ const ContentWithAds = ({ content }: { content: string }) => {
 	const isValidForAds = (element: ReactNode) => {
 		// element must be an html element
 		// and not a list wrapper (ol, ul)
-		// so valid elements are p, h1, h2, h3, h4, h5, h6, blockquote, pre, div, li
+		// so valid elements are p, blockquote, pre, div, li
 		if (typeof element === 'string') {
 			return false;
 		}
-		const validElements = [
-			'p',
-			'h1',
-			'h2',
-			'h3',
-			'h4',
-			'h5',
-			'h6',
-			'blockquote',
-			'pre',
-			'div',
-			'li',
-		];
+
+		// @ts-expect-error
+		if (element.type === 'li') {
+			return (
+				// @ts-expect-error
+				JSON.stringify(element?.props?.children).length >=
+				CHARACTER_COUNT_MODIFIER
+			);
+		}
+
+		const validElements = ['p', 'blockquote', 'pre', 'div', 'li'];
 		// @ts-expect-error
 		return validElements.includes(element.type);
 	};
+
+	const isLongElement = (element: ReactNode) => {
+		if (typeof element === 'string') {
+			return false;
+		}
+
+		return (
+			// @ts-expect-error
+			JSON.stringify(element?.props?.children).length >=
+			CHARACTER_COUNT_MODIFIER
+		);
+	};
 	let index = 0;
-	// after the first 3 elements, add an ad every 4th element
-	return (
-		<>
-			{map(contentElements, (element) => {
-				if (!isValidForAds(element)) {
-					return element;
-				}
-				if (index > 3 && index % 4 === 0) {
-					index++;
-					return (
-						<>
-							<AdComponent />
-							{element}
-						</>
-					);
-				}
-				index++;
-				return element;
-			})}
-		</>
-	);
+	const mapFunction = (element: ReactNode) => {
+		if (!isValidForAds(element)) {
+			return element;
+		}
+		// skip the first 2 elements
+		// and then add an ad every {AD_FREQUENCY} elements
+		if (
+			(index >= 2 && index % AD_FREQUENCY === 0) ||
+			(index < 2 && isLongElement(element))
+		) {
+			index++;
+			return (
+				<>
+					{element}
+					<AdComponent />
+				</>
+			);
+		}
+		index++;
+		return element;
+	};
+	return <>{map(contentElements, mapFunction)}</>;
 };
 
 export default ContentWithAds;

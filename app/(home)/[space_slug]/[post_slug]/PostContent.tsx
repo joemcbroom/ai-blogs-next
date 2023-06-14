@@ -1,13 +1,11 @@
-import PostHeaderImage from '#/components/UI/PostHeaderImage';
 import ShareLinks from '#/components/UI/ShareLinks';
-import AdComponent from '#/components/UI/ads/AdComponent';
 import { supabase } from '#/lib/supabase/static';
 import { Post } from '#/lib/types/inferred.types';
-
-import React, { ReactElement, ReactNode } from 'react';
+import React from 'react';
 import ContentWithAds from './ContentWithAds';
+import PostHeaderImage from '#/components/UI/PostHeaderImage';
 
-interface HeaderImageProps {
+interface HeaderProps {
 	created_at: string;
 	updated_at?: string | null;
 	title: string;
@@ -16,11 +14,9 @@ interface HeaderImageProps {
 	wordCount: number;
 }
 
-const HeaderImage: React.FC<HeaderImageProps> = ({
+const Header: React.FC<HeaderProps> = ({
 	created_at,
-	updated_at,
 	title,
-	description,
 	image_path,
 	wordCount,
 }) => {
@@ -41,16 +37,10 @@ const HeaderImage: React.FC<HeaderImageProps> = ({
 
 	// 10 min read
 	const readTime = Math.floor(wordCount / 200);
-	const width = 1200;
-	const height = 900;
 	return (
-		<header className="relative flex flex-col items-center justify-end bg-black bg-opacity-50">
-			<PostHeaderImage
-				path={image_path || ''}
-				alt={title}
-				className="absolute left-0 top-0 z-0 h-96 w-screen object-cover"
-			/>
-			<div className="z-10 flex h-96 w-full flex-col justify-end">
+		<header className="relative flex h-64 flex-col items-center justify-end bg-black bg-opacity-50 md:h-80">
+			<PostHeaderImage path={image_path || ''} alt={title} />
+			<div className="z-10 flex h-full w-full flex-col justify-end">
 				<div className="w-full bg-gradient-to-b from-transparent to-black to-90%">
 					<div className="relative mx-auto flex w-full flex-col justify-center gap-2 overflow-hidden p-6 md:max-w-4xl md:px-0">
 						<div className="flex gap-2 text-sm font-semibold text-white">
@@ -58,7 +48,9 @@ const HeaderImage: React.FC<HeaderImageProps> = ({
 							<span>・</span>
 							<span>{readTime} min read</span>
 						</div>
-						<h1 className="text-3xl font-bold text-white">{title}</h1>
+						<h1 className="text-xl font-bold text-white md:text-3xl">
+							{title}
+						</h1>
 						{/* {description && (
 							<p className="text-xl font-semibold text-white">{description}</p>
 						)} */}
@@ -72,10 +64,9 @@ const HeaderImage: React.FC<HeaderImageProps> = ({
 //@ts-expect-error https://github.com/microsoft/TypeScript/pull/51328
 const PostContent: React.FC<Post> = ({ post }) => {
 	const { created_at, title, description, image_path, content, space } = post;
-
 	return (
 		<article>
-			<HeaderImage
+			<Header
 				created_at={created_at}
 				title={title}
 				description={description}
