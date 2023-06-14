@@ -40,7 +40,7 @@ const CardLink = ({ href, slug, isSpace }: CardLinkProps) => {
 	return (
 		<Link
 			role="link"
-			className="z-10 text-xs font-medium text-neutral-100 opacity-100 transition-opacity duration-500 hover:bg-neutral-50"
+			className="z-10 text-xs font-medium text-neutral-100 opacity-100 transition-opacity duration-500 hover:bg-neutral-50 hover:text-neutral-800"
 			onClick={() => handleLinkClick()}
 			ref={buttonRef}
 			href={href}
