@@ -25,6 +25,10 @@ export type AbbreviatedPost = {
 	};
 };
 
+export type PostWithSpace = Post & {
+	space: BlogSpace;
+};
+
 export type PostDelete = {
 	id: number;
 };

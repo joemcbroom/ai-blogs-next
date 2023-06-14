@@ -24,7 +24,7 @@ export default function RootLayout({
 }) {
 	return (
 		<ServerThemeProvider attribute="class">
-			<html suppressHydrationWarning>
+			<html suppressHydrationWarning className="scroll-smooth">
 				<head></head>
 				<body className="relative h-full">
 					<Providers>{children}</Providers>
