@@ -23,6 +23,7 @@
     "@tiptap/starter-kit": "^2.0.3",
     "eslint": "8.30.0",
     "eslint-config-next": "^13.4.3",
+    "html-react-parser": "^4.0.0",
     "limax": "^3.0.0",
     "next": "^13.4.4",
     "next-share": "^0.20.0",
