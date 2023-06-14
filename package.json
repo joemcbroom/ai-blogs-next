@@ -34,6 +34,7 @@
     "react-colorful": "^5.6.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.0",
+    "react-itertools": "^0.0.6",
     "react-tooltip": "^5.7.3",
     "typeit-react": "^2.6.4"
   },
