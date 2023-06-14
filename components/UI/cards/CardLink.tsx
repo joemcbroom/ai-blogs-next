@@ -18,6 +18,7 @@ const CardLink = ({ href, slug, isSpace }: CardLinkProps) => {
 	useEffect(() => {
 		const card = document.getElementById(slug);
 		setCardElement(card as HTMLDivElement);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleLinkClick = () => {
