@@ -5,6 +5,7 @@ import 'react-tooltip/dist/react-tooltip.css';
 import type { Metadata } from 'next';
 import Providers from './providers';
 import { ServerThemeProvider } from 'next-themes';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
 	title: 'Blogverse!',
@@ -25,7 +26,6 @@ export default function RootLayout({
 		<ServerThemeProvider attribute="class">
 			<html suppressHydrationWarning>
 				<head></head>
-
 				<body className="relative h-full">
 					<Providers>{children}</Providers>
 				</body>
