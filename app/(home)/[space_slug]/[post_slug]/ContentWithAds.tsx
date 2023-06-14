@@ -4,7 +4,7 @@ import { ReactElement, ReactNode } from 'react';
 import AdComponent from '#/components/UI/ads/AdComponent';
 
 const CHARACTER_COUNT_MODIFIER = 500;
-const AD_FREQUENCY = 3;
+const AD_FREQUENCY = 4;
 
 const ContentWithAds = ({ content }: { content: string }) => {
 	const removeDuplicateTitle = (content: string) => {
@@ -61,14 +61,13 @@ const ContentWithAds = ({ content }: { content: string }) => {
 			return false;
 		}
 
-		// @ts-expect-error
-		if (element.type === 'li') {
-			return (
-				// @ts-expect-error
-				JSON.stringify(element?.props?.children).length >=
-				CHARACTER_COUNT_MODIFIER
-			);
-		}
+		// if (element.type === 'li') {
+		// 	return (
+		// 		// @ts-expect-error
+		// 		JSON.stringify(element?.props?.children).length >=
+		// 		CHARACTER_COUNT_MODIFIER
+		// 	);
+		// }
 
 		const validElements = ['p', 'blockquote', 'pre', 'div', 'li'];
 		// @ts-expect-error
