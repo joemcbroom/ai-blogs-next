@@ -20,16 +20,6 @@ const BlogHome = async ({
 	return (
 		<>
 			<SpaceContent posts={posts} space={space} />
-
-			<ol className="list-inside list-decimal p-4 text-xs">
-				{posts.map((post) => (
-					<li key={post.slug} className="my-2">
-						<Link href={`/${space_slug}/${post.slug}`} className="underline">
-							{post.title}
-						</Link>
-					</li>
-				))}
-			</ol>
 		</>
 	);
 };
