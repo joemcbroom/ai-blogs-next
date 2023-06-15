@@ -1,4 +1,4 @@
-import Header from '#/components/UI/Header';
+import Header from '#/components/UI/Header/Header';
 import PostCard from '#/components/UI/cards/PostCard';
 import { BlogSpace, PostWithSpace } from '#/lib/types/inferred.types';
 

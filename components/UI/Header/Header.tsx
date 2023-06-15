@@ -1,5 +1,6 @@
 import { supabase } from '#/lib/supabase/static';
-import PostHeaderImage from './PostHeaderImage';
+import PostHeaderImage from '../PostHeaderImage';
+import HeaderWrapper from './HeaderWrapper';
 
 interface HeaderProps {
 	created_at: string;
@@ -43,26 +44,20 @@ const Header: React.FC<HeaderProps> = ({
 	return (
 		<header className="relative flex h-64 flex-col items-center justify-end md:h-80">
 			<PostHeaderImage path={image_path || ''} alt={title} />
-			<div className="z-10 flex h-full w-full flex-col justify-end">
-				<div className="w-full bg-gradient-to-b from-transparent to-black to-90%">
-					<div className="relative mx-auto flex w-full flex-col justify-center gap-2 overflow-hidden p-6 md:max-w-4xl md:px-0">
-						<div className="flex gap-2 text-sm font-semibold text-white">
-							<span>{formattedDate}</span>
-							<span>・</span>
-							{readTime && <span>{readTime} min read</span>}
-							{postCount && <span>{postCount} posts</span>}
-						</div>
-						<h1 className="text-xl font-bold text-white md:text-3xl">
-							{title}
-						</h1>
-						{showDescription && (
-							<p className="text-sm font-semibold text-white">
-								{removeQuotes(description || '')}
-							</p>
-						)}
-					</div>
+			<HeaderWrapper>
+				<div className="flex gap-2 text-sm font-semibold text-white">
+					<span>{formattedDate}</span>
+					<span>・</span>
+					{readTime && <span>{readTime} min read</span>}
+					{postCount && <span>{postCount} posts</span>}
 				</div>
-			</div>
+				<h1 className="text-xl font-bold text-white md:text-3xl">{title}</h1>
+				{showDescription && (
+					<p className="text-sm font-semibold text-white">
+						{removeQuotes(description || '')}
+					</p>
+				)}
+			</HeaderWrapper>
 		</header>
 	);
 };

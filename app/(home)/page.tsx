@@ -1,3 +1,4 @@
+import SpaceCard from '#/components/UI/cards/SpaceCard';
 import { getSpaces } from '#/lib/supabase/static';
 import Link from 'next/link';
 
@@ -9,20 +10,13 @@ export default async function HomePage() {
 	const spaces = await getSpaces();
 	return (
 		<>
-			<ol className="list-inside list-decimal p-4 text-xs">
-				{spaces.map((space) => {
-					const totalPosts = space?.posts?.length || 0;
-					const publishedPosts =
-						space?.posts?.filter((post) => post.is_published).length || 0;
-					return (
-						<li key={space.slug} className="my-2">
-							<Link href={`/${space.slug}`} className="underline">
-								{space.title} ({publishedPosts}/{totalPosts} published)
-							</Link>
-						</li>
-					);
-				})}
-			</ol>
+			<article>
+				<div className="mx-auto mt-6 grid max-w-4xl gap-4 px-4 md:grid-cols-auto-fit md:px-0">
+					{spaces.map((space) => (
+						<SpaceCard key={space.id} space={space} />
+					))}
+				</div>
+			</article>
 		</>
 	);
 }

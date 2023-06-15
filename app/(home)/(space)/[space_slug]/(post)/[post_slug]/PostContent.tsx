@@ -4,7 +4,7 @@ import { Post } from '#/lib/types/inferred.types';
 import React from 'react';
 import ContentWithAds from './ContentWithAds';
 import PostHeaderImage from '#/components/UI/PostHeaderImage';
-import Header from '#/components/UI/Header';
+import Header from '#/components/UI/Header/Header';
 
 //@ts-expect-error https://github.com/microsoft/TypeScript/pull/51328
 const PostContent: React.FC<Post> = ({ post }) => {
