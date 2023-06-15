@@ -1,6 +1,5 @@
 import SpaceCard from '#/components/UI/cards/SpaceCard';
 import { getSpaces } from '#/lib/supabase/static';
-import Link from 'next/link';
 
 export const dynamic = 'force-static';
 
