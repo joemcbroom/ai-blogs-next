@@ -18,7 +18,7 @@ export default function AdminLayout({
 	return (
 		<div className="flex h-full dark:bg-white dark:text-slate-900">
 			<AdminNav />
-			<div className="flex w-full flex-col">
+			<div className="ml-[281px] flex w-full flex-col">
 				<AdminHeader />
 				<section className="h-full px-16 py-10">{children}</section>
 			</div>

@@ -5,8 +5,14 @@ import DarkToggle from './DarkToggle';
 const DesktopBar = () => (
 	<div className="relative hidden items-center justify-between px-4 py-2 md:flex">
 		<BlogverseLogo
-			className="max-w-md rounded-lg pt-1 dark:bg-neutral-50"
+			className="max-w-md rounded-lg pt-1 dark:hidden"
 			type="horizontal"
+			width={200}
+			height={45}
+		/>
+		<BlogverseLogo
+			className="hidden max-w-md rounded-lg pt-1 dark:block"
+			type="whiteHorizontal"
 			width={200}
 			height={45}
 		/>

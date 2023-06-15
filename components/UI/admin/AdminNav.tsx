@@ -85,7 +85,7 @@ export default function AdminNav() {
 
 	return (
 		<nav
-			className={`sticky top-0 flex h-screen min-w-max flex-col items-center justify-center gap-3 px-10 transition-colors ${bgClass} `}
+			className={`fixed top-0 flex h-screen w-[281px] min-w-max flex-col items-center justify-center gap-3 px-10 transition-colors ${bgClass} `}
 		>
 			<BlogverseLogo
 				type="whiteVertical"
