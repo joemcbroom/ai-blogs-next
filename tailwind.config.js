@@ -13,6 +13,9 @@ module.exports = {
         secondary: "var(--color-secondary)",
         tertiary: "var(--color-tertiary)",
       },
+      gridTemplateColumns: {
+        "auto-fit": "repeat(auto-fit, minmax(250px, 1fr))",
+      }
     },
     plugins: [],
   }

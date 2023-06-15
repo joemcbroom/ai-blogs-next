@@ -4,7 +4,7 @@ import { ReactElement, ReactNode } from 'react';
 import AdComponent from '#/components/UI/ads/AdComponent';
 
 const CHARACTER_COUNT_MODIFIER = 500;
-const AD_FREQUENCY = 4;
+const AD_FREQUENCY = 3;
 
 const ContentWithAds = ({ content }: { content: string }) => {
 	const removeDuplicateTitle = (content: string) => {

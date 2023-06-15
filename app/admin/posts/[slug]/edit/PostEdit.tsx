@@ -68,6 +68,7 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 	const titleRef = useRef<HTMLInputElement>(null);
 	const [hasChanges, setHasChanges] = useState(false);
 	const [hasNewSlug, setHasNewSlug] = useState(false);
+	const [isGeneratedContent, setIsGeneratedContent] = useState(false);
 
 	const initialPostValues = {
 		title: post.title,
@@ -212,9 +213,9 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 		});
 
 		const startTime = Date.now();
+		const MAX_TIME = 1000 * 60 * 3; // 3 MINUTES
 		const interval = setInterval(async () => {
-			// if longer than 2 minutes, stop
-			if (Date.now() - startTime >= 1000 * 60 * 2) {
+			if (Date.now() - startTime >= MAX_TIME) {
 				clearInterval(interval);
 				setIsSaving(false);
 				return showAlert({
@@ -234,6 +235,7 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 			const { content: cachedContent } = await res.json();
 			if (cachedContent !== null) {
 				clearInterval(interval);
+				setIsGeneratedContent(true);
 				handleEdit(cachedContent, 'content');
 				setIsSaving(false);
 			}
@@ -320,6 +322,8 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 				<ContentEditor
 					content={editedValues.content}
 					onUpdate={(contentHtml) => handleEdit(contentHtml, 'content')}
+					isGeneratedContent={isGeneratedContent}
+					setGeneratedContent={setIsGeneratedContent}
 				/>
 				<div className="flex gap-4">
 					<ButtonComponent
