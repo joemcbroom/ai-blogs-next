@@ -88,7 +88,7 @@ const PostHeaderImage = ({ path, alt = '' }: PostHeaderImageProps) => {
 				alt={alt}
 				className={`${className} opacity-0 transition-opacity`}
 				srcSet={`${smallSrc.publicUrl} 600w, ${fullSrc.publicUrl} 1200w`}
-				sizes="(max-width: 600px) 100vw, 600px"
+				sizes="(max-width: 500px) 50vw, 1200px"
 			/>
 		</>
 	);

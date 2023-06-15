@@ -37,6 +37,9 @@ export const getPosts = async (space_slug: string) => {
 		console.error(error);
 		throw error.message;
 	}
+
+	posts.sort(sortByUpdatedOrCreated());
+
 	return posts as PostWithSpace[];
 };
 
@@ -65,6 +68,8 @@ export const getSpaces = async () => {
 		console.error(error);
 		throw error.message;
 	}
+
+	spaces.sort(sortByUpdatedOrCreated());
 
 	return spaces as BlogSpaceWithPosts[];
 };
@@ -96,4 +101,15 @@ export const getPostSlugs = async (space_slug: string) => {
 	}
 
 	return posts as { slug: string }[];
+};
+
+type ItemSortProps = { [x: string]: any };
+const sortByUpdatedOrCreated = ():
+	| ((a: ItemSortProps, b: ItemSortProps) => number)
+	| undefined => {
+	return (a, b) => {
+		const aDate = new Date(a.updated_at ?? a.created_at);
+		const bDate = new Date(b.updated_at ?? b.created_at);
+		return bDate.getTime() - aDate.getTime();
+	};
 };
