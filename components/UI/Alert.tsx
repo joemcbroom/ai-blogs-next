@@ -30,7 +30,7 @@ const Alert: React.FC<AlertProps> = ({
 
 	return (
 		<div
-			className={`fixed right-4 top-4 rounded-md p-4 shadow-md transition-transform duration-300 ${
+			className={`fixed right-4 top-4 z-50 rounded-md p-4 shadow-md transition-transform duration-300 ${
 				backgroundClasses[type]
 			} ${show ? 'translate-x-0' : 'translate-x-full'}`}
 		>

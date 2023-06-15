@@ -99,7 +99,7 @@ export default function PostsViewer({ posts }: { posts: AbbreviatedPost[] }) {
 						setSelectedSpaceId(id);
 						removeQueryParams();
 					}}
-					widthClass="w-1/6 mr-auto"
+					widthClass="w-1/2 mr-auto"
 					defaultSelectedId={selectedSpaceId || undefined}
 				/>
 				<ButtonComponent

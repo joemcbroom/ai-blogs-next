@@ -1,5 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
-import { BlogSpace, BlogSpaceWithPosts, Post } from '../types/inferred.types';
+import {
+	BlogSpace,
+	BlogSpaceWithPosts,
+	Post,
+	PostWithSpace,
+} from '../types/inferred.types';
 
 export const supabase = createClient(
 	process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -9,7 +14,7 @@ export const supabase = createClient(
 export const getPost = async (post_slug: string) => {
 	const { data: post, error } = await supabase
 		.from('post')
-		.select('*, space:space_id (image_path)')
+		.select('*, space:space_id (image_path, slug)')
 		.eq('slug', post_slug)
 		.single();
 
@@ -18,13 +23,13 @@ export const getPost = async (post_slug: string) => {
 		throw error.message;
 	}
 
-	return post as Post & { space: BlogSpace };
+	return post as PostWithSpace;
 };
 
 export const getPosts = async (space_slug: string) => {
 	const { data: posts, error } = await supabase
 		.from('post')
-		.select(`*, space!inner(slug)`)
+		.select(`*, space!inner(slug, image_path)`)
 		.eq('is_published', true)
 		.eq('space.slug', space_slug);
 
@@ -33,7 +38,9 @@ export const getPosts = async (space_slug: string) => {
 		throw error.message;
 	}
 
-	return posts as Post[];
+	posts.sort(sortByUpdatedOrCreated());
+
+	return posts as PostWithSpace[];
 };
 
 export const getSpace = async (space_slug: string) => {
@@ -61,6 +68,8 @@ export const getSpaces = async () => {
 		console.error(error);
 		throw error.message;
 	}
+
+	spaces.sort(sortByUpdatedOrCreated());
 
 	return spaces as BlogSpaceWithPosts[];
 };
@@ -92,4 +101,15 @@ export const getPostSlugs = async (space_slug: string) => {
 	}
 
 	return posts as { slug: string }[];
+};
+
+type ItemSortProps = { [x: string]: any };
+const sortByUpdatedOrCreated = ():
+	| ((a: ItemSortProps, b: ItemSortProps) => number)
+	| undefined => {
+	return (a, b) => {
+		const aDate = new Date(a.updated_at ?? a.created_at);
+		const bDate = new Date(b.updated_at ?? b.created_at);
+		return bDate.getTime() - aDate.getTime();
+	};
 };

@@ -2,7 +2,13 @@
 import Image from 'next/image';
 
 interface BlogverseLogoProps {
-	type?: 'star' | 'horizontal' | 'vertical' | 'whiteVertical';
+	type?:
+		| 'star'
+		| 'horizontal'
+		| 'vertical'
+		| 'whiteVertical'
+		| 'whiteHorizontal'
+		| 'grayHorizontal';
 	width?: number;
 	height?: number;
 	className?: string;
@@ -13,6 +19,8 @@ const logos = {
 	horizontal: '/images/logos/logo-blogverse-horiz.svg',
 	vertical: '/images/logos/logo-blogverse-vert.svg',
 	whiteVertical: '/images/logos/logo-blogverse-vert-wht.svg',
+	whiteHorizontal: '/images/logos/logo-blogverse-horiz-white.svg',
+	grayHorizontal: '/images/logos/logo-blogverse-horiz-gray.svg',
 };
 
 export default function BlogverseLogo({
@@ -20,7 +28,6 @@ export default function BlogverseLogo({
 	className = '',
 	width = 150,
 	height = 45,
-	...rest
 }: BlogverseLogoProps) {
 	const logo = logos[type];
 	const loader = ({ src }: { src: string }) => {
@@ -34,6 +41,7 @@ export default function BlogverseLogo({
 			className={className}
 			width={width}
 			height={height}
+			priority
 		/>
 	);
 }

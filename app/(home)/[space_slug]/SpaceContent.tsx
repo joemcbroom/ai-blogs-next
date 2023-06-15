@@ -1,0 +1,32 @@
+import Header from '#/components/UI/Header/Header';
+import CardWrapper from '#/components/UI/cards/CardWrapper';
+import PostCard from '#/components/UI/cards/PostCard';
+import { BlogSpace, PostWithSpace } from '#/lib/types/inferred.types';
+
+interface SpaceContentProps {
+	space: BlogSpace;
+	posts: PostWithSpace[];
+}
+
+const SpaceContent: React.FC<SpaceContentProps> = ({ space, posts }) => {
+	const { created_at, title, description, image_path } = space;
+	return (
+		<article>
+			<Header
+				created_at={created_at}
+				title={title}
+				description={description}
+				image_path={image_path || ''}
+				postCount={posts.length}
+				showDescription
+			/>
+			<CardWrapper>
+				{posts.map((post) => (
+					<PostCard key={post.id} post={post} />
+				))}
+			</CardWrapper>
+		</article>
+	);
+};
+
+export default SpaceContent;

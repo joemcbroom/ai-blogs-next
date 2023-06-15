@@ -9,9 +9,16 @@ import { MenuBar } from './MenuBar';
 interface EditorProps {
 	content: string | null;
 	onUpdate?: (content: string) => void;
+	isGeneratedContent?: boolean;
+	setGeneratedContent?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Editor: React.FC<EditorProps> = ({ content, onUpdate }) => {
+const Editor: React.FC<EditorProps> = ({
+	content,
+	onUpdate,
+	isGeneratedContent,
+	setGeneratedContent,
+}) => {
 	const editor = useEditor({
 		extensions: [
 			Color.configure({ types: [TextStyle.name, ListItem.name] }),
@@ -36,9 +43,12 @@ const Editor: React.FC<EditorProps> = ({ content, onUpdate }) => {
 
 	useEffect(() => {
 		if (!editor || !content) return;
-		editor.commands.setContent(content);
+		if (isGeneratedContent) {
+			editor.commands.setContent(content);
+			setGeneratedContent && setGeneratedContent(false);
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [content]);
 
 	return (
 		<div className="ProseMirror mx-auto min-h-[32rem] rounded border border-slate-800">

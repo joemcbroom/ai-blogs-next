@@ -14,10 +14,16 @@ const MobileBar = () => {
 	};
 
 	return (
-		<div className="relative flex items-center justify-between px-4 py-2 md:hidden">
+		<div className="relative z-50 flex items-center justify-between px-4 py-2 md:hidden">
 			<BlogverseLogo
-				className="w-1/3 rounded-lg pt-1 dark:bg-neutral-50 "
+				className="z-50 w-1/3 rounded-lg pt-1 dark:hidden"
 				type="horizontal"
+				width={119}
+				height={27}
+			/>
+			<BlogverseLogo
+				className="z-50 hidden w-1/3 rounded-lg pt-1 dark:block"
+				type="whiteHorizontal"
 				width={119}
 				height={27}
 			/>
@@ -29,19 +35,19 @@ const MobileBar = () => {
 			/>
 			<label
 				htmlFor="menu-toggle"
-				className="z-50 block peer-checked/menu-toggle:hidden"
+				className="right-4 top-4 z-50 block text-violet-700 peer-checked/menu-toggle:hidden"
 			>
 				<Bars3Icon className="h-6 w-6 " />
 			</label>
 			<label
 				htmlFor="menu-toggle"
-				className="z-50 hidden peer-checked/menu-toggle:block"
+				className="right-4 top-4 z-50 hidden peer-checked/menu-toggle:fixed peer-checked/menu-toggle:block"
 			>
-				<XMarkIcon className="h-6 w-6 " />
+				<XMarkIcon className="h-6 w-6 text-violet-700" />
 			</label>
 			{/* full height menu when menu-toggle is checked */}
-			<div className="absolute left-0 top-0 z-40 grid h-screen w-screen -translate-y-full place-items-center bg-neutral-100 transition-transform peer-checked/menu-toggle:translate-y-0 dark:bg-neutral-900">
-				<ul className="flex flex-col items-center space-y-4">
+			<div className="fixed left-0 top-0 z-40 grid h-screen w-screen -translate-y-full place-items-center bg-neutral-100 transition-all ease-in-out peer-checked/menu-toggle:z-30 peer-checked/menu-toggle:translate-y-0 dark:bg-neutral-900">
+				<ul className="z-40 flex flex-col items-center space-y-4">
 					<li>
 						<Link href="/" onClick={closeMenu}>
 							Spaces
