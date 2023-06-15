@@ -49,9 +49,14 @@ const ShareLinks = ({ currentPage }: { currentPage?: boolean }) => {
 			<PinterestShareButton url={url} media={url}>
 				<PinterestIcon {...iconProps} />
 			</PinterestShareButton>
+			<span
+				role="presentation"
+				dangerouslySetInnerHTML={{ __html: '<!-- fuck reddit -->' }}
+			/>
+			{/* 
 			<RedditShareButton url={url}>
 				<RedditIcon {...iconProps} />
-			</RedditShareButton>
+			</RedditShareButton> */}
 		</div>
 	);
 };

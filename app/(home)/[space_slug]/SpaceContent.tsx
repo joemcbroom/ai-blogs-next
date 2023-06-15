@@ -1,4 +1,5 @@
 import Header from '#/components/UI/Header/Header';
+import CardWrapper from '#/components/UI/cards/CardWrapper';
 import PostCard from '#/components/UI/cards/PostCard';
 import { BlogSpace, PostWithSpace } from '#/lib/types/inferred.types';
 
@@ -19,11 +20,11 @@ const SpaceContent: React.FC<SpaceContentProps> = ({ space, posts }) => {
 				postCount={posts.length}
 				showDescription
 			/>
-			<div className="mx-auto mt-6 grid max-w-4xl gap-4 px-4 md:grid-cols-auto-fit md:px-0">
+			<CardWrapper>
 				{posts.map((post) => (
 					<PostCard key={post.id} post={post} />
 				))}
-			</div>
+			</CardWrapper>
 		</article>
 	);
 };

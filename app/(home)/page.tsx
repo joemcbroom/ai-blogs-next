@@ -1,3 +1,4 @@
+import CardWrapper from '#/components/UI/cards/CardWrapper';
 import SpaceCard from '#/components/UI/cards/SpaceCard';
 import { getSpaces } from '#/lib/supabase/static';
 
@@ -10,11 +11,11 @@ export default async function HomePage() {
 	return (
 		<>
 			<article>
-				<div className="mx-auto mt-6 grid max-w-4xl gap-4 px-4 md:grid-cols-auto-fit md:px-0">
+				<CardWrapper>
 					{spaces.map((space) => (
 						<SpaceCard key={space.id} space={space} />
 					))}
-				</div>
+				</CardWrapper>
 			</article>
 		</>
 	);

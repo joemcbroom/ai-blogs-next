@@ -5,11 +5,11 @@ import 'react-tooltip/dist/react-tooltip.css';
 import type { Metadata } from 'next';
 import Providers from './providers';
 import { ServerThemeProvider } from 'next-themes';
-import Script from 'next/script';
+import { SITE_INFO } from '#/lib/constants/siteInfo';
 
 export const metadata: Metadata = {
-	title: 'Blogverse!',
-	description: 'A whole new universe of blogs',
+	title: SITE_INFO.title,
+	description: SITE_INFO.description,
 	metadataBase: new URL(
 		`https://${process.env.VERCEL_URL}` ||
 			`https://${process.env.NEXT_PUBLIC_VERCEL_URL}` ||

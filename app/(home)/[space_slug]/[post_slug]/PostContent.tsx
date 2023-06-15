@@ -22,7 +22,9 @@ const PostContent: React.FC = ({ post }: { post: PostWithSpace }) => {
 				<ContentWithAds content={content || ''} />
 			</section>
 			<section className="mx-auto my-6 flex w-full max-w-4xl items-center justify-between border-y p-6 sm:justify-end sm:space-x-2">
-				<span className="text-neutral-600">Share this post:</span>
+				<span className="text-xs text-neutral-600 dark:text-neutral-200 md:text-base">
+					Share this post:
+				</span>
 				<ShareLinks />
 			</section>
 		</article>
