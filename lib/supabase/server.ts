@@ -12,6 +12,7 @@ import {
 	AbbreviatedPost,
 } from '#/lib/types/inferred.types';
 import { AuthenticatedUser } from '../types/authenticatedUser.types';
+import { findSimilarPostsByDescriptions } from '../openai/server';
 
 let supabaseClientInstance: SupabaseClient | null = null;
 
@@ -155,6 +156,34 @@ export const getPost = async (
 	return data as Post & {
 		space: { title: string; description: string; slug: string };
 	};
+};
+
+export const getSimilarPosts = async (slug: string) => {
+	if (!slug) throw new Error('No slug provided');
+
+	const supabase = await supabaseSingleton();
+
+	const { data: posts, error } = await supabase
+		.from('post')
+		.select(`*, space!inner(slug, image_path)`)
+		.eq('is_published', true)
+		.eq('space.is_published', true);
+
+	if (error) {
+		console.error(error);
+		throw error.message;
+	}
+
+	const index = posts.findIndex((post) => post.slug === slug);
+	const [postToCompare] = posts.splice(index, 1) as Post[];
+	const rest = posts as Post[];
+
+	const similarPosts = findSimilarPostsByDescriptions({
+		post: postToCompare,
+		posts: rest,
+	});
+
+	return similarPosts;
 };
 
 type ItemSortProps = { [x: string]: any };

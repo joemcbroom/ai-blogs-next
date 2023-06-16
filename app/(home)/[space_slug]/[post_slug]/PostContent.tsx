@@ -1,12 +1,15 @@
 import ShareLinks from '#/components/UI/ShareLinks';
 import type { PostWithSpace } from '#/lib/types/inferred.types';
-import React from 'react';
+import React, { Suspense } from 'react';
 import ContentWithAds from './ContentWithAds';
 import Header from '#/components/UI/Header/Header';
+import SimilarPosts from './SimilarPosts';
+import CardsLoader from '#/components/UI/loaders/CardsLoader';
 
 //@ts-expect-error https://github.com/microsoft/TypeScript/pull/51328
 const PostContent: React.FC = ({ post }: { post: PostWithSpace }) => {
-	const { created_at, title, description, image_path, content, space } = post;
+	const { created_at, slug, title, description, image_path, content, space } =
+		post;
 	return (
 		<article>
 			<Header
@@ -26,6 +29,12 @@ const PostContent: React.FC = ({ post }: { post: PostWithSpace }) => {
 					Share this post:
 				</span>
 				<ShareLinks />
+			</section>
+			<section>
+				<Suspense fallback={<CardsLoader />}>
+					{/* @ts-expect-error */}
+					<SimilarPosts post_slug={post.slug} />
+				</Suspense>
 			</section>
 		</article>
 	);

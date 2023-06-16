@@ -1,5 +1,8 @@
-import { getPost } from '#/lib/supabase/static';
+import { getPost, getSimilarPosts } from '#/lib/supabase/static';
+import { Suspense } from 'react';
 import PostContent from './PostContent';
+import SimilarPosts from './SimilarPosts';
+import { PostWithSpace } from '#/lib/types/inferred.types';
 
 export const revalidate = 60;
 
@@ -15,8 +18,12 @@ interface PostPageProps {
 const PostPage: React.FC<PostPageProps> = async ({ params: { post_slug } }) => {
 	const post = await getPost(post_slug);
 
-	// @ts-expect-error
-	return <PostContent post={post} />;
+	return (
+		<>
+			{/* @ts-expect-error */}
+			<PostContent post={post} />
+		</>
+	);
 };
 
 export default PostPage;

@@ -1,10 +1,12 @@
 import { Configuration, OpenAIApi } from 'openai';
+import { Post } from '../types/inferred.types';
 
 const config = new Configuration({
 	apiKey: process.env.OPENAI_API_KEY!,
 });
 
 const LANGUAGE_MODEL = process.env.OPENAI_LANGUAGE_MODEL || 'gpt-3.5-turbo';
+const LANGUAGE_MODEL_WITH_FUNCTIONS = 'gpt-3.5-turbo-0613';
 
 export const openai = new OpenAIApi(config);
 
@@ -65,6 +67,45 @@ export const generatePostContent = async ({
 	const content = data.choices[0]?.message?.content;
 	if (!content) throw new Error('No content generated');
 	return content;
+};
+
+interface SimilarPostsParams {
+	post: Partial<Post>;
+	posts: Partial<Post>[];
+}
+
+let isRunning = false;
+
+export const findSimilarPostsByDescriptions = async ({
+	post,
+	posts,
+}: SimilarPostsParams) => {
+	if (!isRunning) {
+		isRunning = true;
+		const { data } = await openai.createChatCompletion({
+			model: LANGUAGE_MODEL,
+			messages: [
+				{
+					role: 'system',
+					content:
+						'You are an expert at finding patterns in data. ONLY RETURN AN ARRAY OF OBJECTS.  No other explanations.  Return an array of (maximum 10) post objects that are similar to the post provided.  The similarity should be based on the post slug.  The posts should be sorted by similarity, with the most similar post first.',
+				},
+				{
+					role: 'user',
+					content: `Given post: ${JSON.stringify(
+						post
+					)} and posts: ${JSON.stringify(
+						posts
+					)}, return an array of similar posts, based on the slugs.`,
+				},
+			],
+		});
+		const similarPosts = data.choices[0]?.message?.content;
+		if (!similarPosts) throw new Error('No similar posts generated');
+		console.log(similarPosts);
+		isRunning = false;
+		return JSON.parse(similarPosts);
+	}
 };
 
 export const generatePostTitles = async ({
