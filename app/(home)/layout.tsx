@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-	title: 'Blogverse.ai | Spaces',
+	title: 'Spaces | Blogverse.ai',
 	description: 'Explore the Blogverse',
 };
 

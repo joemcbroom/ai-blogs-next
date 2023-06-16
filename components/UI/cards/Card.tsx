@@ -18,7 +18,6 @@ const Card = ({
 	description,
 	image_path = '',
 	url,
-	variant,
 	slug,
 	isSpace = false,
 }: CardProps) => {
@@ -26,7 +25,7 @@ const Card = ({
 		.from('blogverse-public')
 		.getPublicUrl(image_path, {
 			transform: {
-				width: 368,
+				width: 720,
 				height: 460,
 				resize: 'cover',
 			},
@@ -52,7 +51,7 @@ const Card = ({
 					</p>
 				)}
 			</div>
-			<CardLink href={url} slug={slug} isSpace={isSpace} />
+			<CardLink href={url} slug={slug} isSpace={isSpace} title={title} />
 		</div>
 	);
 };

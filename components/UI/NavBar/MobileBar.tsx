@@ -1,22 +1,12 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import BlogverseLogo from '../BlogverseLogo';
 import NavLinks from './NavLinks';
+import NavLogo from './NavLogo';
 
 const MobileBar = () => {
 	return (
 		<div className="relative z-50 flex items-center justify-between px-4 py-2 md:hidden">
-			<BlogverseLogo
-				className="z-50 w-1/3 rounded-lg pt-1 dark:hidden"
-				type="horizontal"
-				width={119}
-				height={27}
-			/>
-			<BlogverseLogo
-				className="z-50 hidden w-1/3 rounded-lg pt-1 dark:block"
-				type="whiteHorizontal"
-				width={119}
-				height={27}
-			/>
+			<NavLogo />
 			<input
 				type="checkbox"
 				id="menu-toggle"

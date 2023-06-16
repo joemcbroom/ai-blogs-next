@@ -1,10 +1,6 @@
 import Header from '#/components/UI/Header/Header';
-import HeaderWrapper from '#/components/UI/Header/HeaderWrapper';
-import PostHeaderImage from '#/components/UI/PostHeaderImage';
 import { SITE_INFO } from '#/lib/constants/siteInfo';
-import { supabase } from '#/lib/supabase/static';
 import { BlogSpace, PostWithSpace } from '#/lib/types/inferred.types';
-import Link from 'next/link';
 
 interface HomeContentProps {
 	spaces: BlogSpace[];

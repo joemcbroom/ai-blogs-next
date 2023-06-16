@@ -9,9 +9,10 @@ interface CardLinkProps {
 	href: string;
 	slug: string;
 	isSpace: boolean;
+	title: string;
 }
 
-const CardLink = ({ href, slug, isSpace }: CardLinkProps) => {
+const CardLink = ({ href, slug, isSpace, title }: CardLinkProps) => {
 	const [card, setCardElement] = useState<HTMLDivElement | null>(null);
 	const buttonRef = useRef<HTMLAnchorElement>(null);
 	const router = useRouter();
@@ -51,6 +52,7 @@ const CardLink = ({ href, slug, isSpace }: CardLinkProps) => {
 			) : (
 				<>
 					Read More <ArrowLongRightIcon className="inline-block h-4 w-4" />
+					<span className="sr-only">about {title}</span>
 				</>
 			)}
 		</Link>
