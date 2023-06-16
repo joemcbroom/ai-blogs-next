@@ -49,7 +49,7 @@ export const getFeaturedPosts = async () => {
 		.select(`*, space!inner(slug, image_path)`)
 		.eq('is_published', true)
 		.order('created_at', { ascending: false })
-		.limit(5);
+		.limit(6);
 
 	if (error) {
 		console.error(error);
