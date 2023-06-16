@@ -31,6 +31,8 @@ import IconWithText from '#/components/UI/IconWithText';
 import EditedText from '#/components/UI/admin/EditedText';
 import FrontPageTab from './FrontPageTab';
 import BlogPostsTab from './BlogPostsTab';
+import ButtonComponent from '#/components/UI/ButtonComponent';
+import IconLoader from '#/components/UI/loaders/IconLoader';
 
 const defaultValues = {
 	title: '',
@@ -115,6 +117,19 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 	const [isPending, startTransition] = useTransition();
 	const [isSaving, setIsSaving] = useState(false);
 	const isMutating = isSaving || isPending;
+
+	const handleGenerate = async () => {
+		setIsSaving(true);
+		debugger;
+		const res = await fetch('/api/generate/space_description', {
+			method: 'POST',
+			body: JSON.stringify({ title: editedValues.title }),
+		});
+		const { description } = await res.json();
+		// remove quotes and line breaks
+		descriptionRef.current!.value = description.replace(/['"]+/g, '');
+		setIsSaving(false);
+	};
 
 	const updateSpace = async (slug: string, data: BlogSpaceUpdate) => {
 		await fetch('/api/supabase/space', {
@@ -216,7 +231,7 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 		{
 			title: `Blog Posts (${space.posts?.length ?? 0})`,
 			slug: 'posts',
-			content: <BlogPostsTab posts={space.posts} />,
+			content: <BlogPostsTab posts={space.posts} spaceId={space.id} />,
 		},
 		{ title: 'Subscribers', slug: 'subscribers', content: <SubscribersTab /> },
 	];
@@ -276,14 +291,19 @@ const SpaceEdit: React.FC<{ space: BlogSpaceWithPosts }> = ({ space }) => {
 						onChange={(e) => handleEdit(e.target.value, 'description')}
 						ref={descriptionRef}
 					/>
-					{/* edit description with pencil icon */}
-					{/* TODO: add generate button to generate a description depends on: https://github.com/joemcbroom/ai-blogs-next/issues/43 */}
-					<IconWithText
-						icon={PencilIcon}
-						text="Edit description"
-						onClick={() => descriptionRef.current?.focus()}
-					/>
 				</div>
+
+				<ButtonComponent
+					disabled={isSaving}
+					onClick={handleGenerate}
+					hoverText={`Generate a description for this space`}
+				>
+					{isSaving ? (
+						<IconLoader className="h-5 w-40" />
+					) : (
+						'Generate Description'
+					)}
+				</ButtonComponent>
 
 				{/* space colors with color pickers */}
 				<div className="mt-3">

@@ -47,7 +47,7 @@ const Card = ({
 			<div className="card-text relative w-full opacity-100 transition-opacity duration-500">
 				<h3 className="text-base font-bold text-white">{title}</h3>
 				{description && (
-					<p className="mt-4 text-xs leading-6 text-neutral-200">
+					<p className="mt-4 line-clamp-3 text-xs leading-6 text-neutral-200">
 						{description}
 					</p>
 				)}

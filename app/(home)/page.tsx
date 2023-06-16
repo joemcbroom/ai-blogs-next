@@ -1,22 +1,12 @@
-import CardWrapper from '#/components/UI/cards/CardWrapper';
-import SpaceCard from '#/components/UI/cards/SpaceCard';
-import { getSpaces } from '#/lib/supabase/static';
+import Link from 'next/link';
 
-export const dynamic = 'force-static';
-
-export const revalidate = 60;
-
-export default async function HomePage() {
-	const spaces = await getSpaces();
+const HomePage = () => {
 	return (
-		<>
-			<article>
-				<CardWrapper>
-					{spaces.map((space) => (
-						<SpaceCard key={space.id} space={space} />
-					))}
-				</CardWrapper>
-			</article>
-		</>
+		<div>
+			Home Page
+			<Link href="/spaces">Spaces</Link>
+		</div>
 	);
-}
+};
+
+export default HomePage;
