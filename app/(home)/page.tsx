@@ -1,12 +1,14 @@
-import Link from 'next/link';
+import { getFeaturedPosts, getSpaces } from '#/lib/supabase/static';
+import HomeContent from './HomeContent';
 
-const HomePage = () => {
-	return (
-		<div>
-			Home Page
-			<Link href="/spaces">Spaces</Link>
-		</div>
-	);
+export const dynamic = 'force-static';
+
+const HomePage = async () => {
+	const spaces = await getSpaces();
+	const featuredPosts = await getFeaturedPosts();
+
+	// @ts-expect-error
+	return <HomeContent spaces={spaces} featuredPosts={featuredPosts} />;
 };
 
 export default HomePage;

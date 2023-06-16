@@ -43,6 +43,24 @@ export const getPosts = async (space_slug: string) => {
 	return posts as PostWithSpace[];
 };
 
+export const getFeaturedPosts = async () => {
+	const { data: posts, error } = await supabase
+		.from('post')
+		.select(`*, space!inner(slug, image_path)`)
+		.eq('is_published', true)
+		.order('created_at', { ascending: false })
+		.limit(5);
+
+	if (error) {
+		console.error(error);
+		throw error.message;
+	}
+
+	posts.sort(sortByUpdatedOrCreated());
+
+	return posts as PostWithSpace[];
+};
+
 export const getSpace = async (space_slug: string) => {
 	const { data: space, error } = await supabase
 		.from('space')

@@ -1,18 +1,8 @@
-'use client';
-
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import BlogverseLogo from '../BlogverseLogo';
-import { useRef } from 'react';
-import Link from 'next/link';
-import DarkToggle from './DarkToggle';
+import NavLinks from './NavLinks';
 
 const MobileBar = () => {
-	const menuToggle = useRef<HTMLInputElement>(null);
-
-	const closeMenu = () => {
-		menuToggle.current?.click();
-	};
-
 	return (
 		<div className="relative z-50 flex items-center justify-between px-4 py-2 md:hidden">
 			<BlogverseLogo
@@ -31,7 +21,6 @@ const MobileBar = () => {
 				type="checkbox"
 				id="menu-toggle"
 				className="peer/menu-toggle hidden"
-				ref={menuToggle}
 			/>
 			<label
 				htmlFor="menu-toggle"
@@ -47,19 +36,7 @@ const MobileBar = () => {
 			</label>
 			{/* full height menu when menu-toggle is checked */}
 			<div className="fixed left-0 top-0 z-40 grid h-screen w-screen -translate-y-full place-items-center bg-neutral-100 transition-all ease-in-out peer-checked/menu-toggle:z-30 peer-checked/menu-toggle:translate-y-0 dark:bg-neutral-900">
-				<ul className="z-40 flex flex-col items-center space-y-4">
-					<li>
-						<Link href="/" onClick={closeMenu}>
-							Spaces
-						</Link>
-					</li>
-					<li>
-						<Link href="/about" onClick={closeMenu}>
-							About Us
-						</Link>
-					</li>
-					<DarkToggle />
-				</ul>
+				<NavLinks />
 			</div>
 		</div>
 	);
