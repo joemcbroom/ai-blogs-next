@@ -23,7 +23,7 @@ const CardSmall = ({
 	return (
 		<div className="relative flex w-24 flex-col space-y-1 text-xs font-semibold md:w-36 md:text-sm">
 			<div className="relative aspect-square w-full overflow-hidden rounded-lg">
-				<span className="absolute inset-0 z-10 bg-gradient-to-t from-neutral-900 to-transparent to-35% dark:from-purple-700 "></span>
+				<span className="absolute inset-0 z-10 bg-gradient-to-t from-neutral-900 to-transparent to-40% dark:from-purple-700 "></span>
 				<img
 					src={bgImage?.publicUrl}
 					alt=""
@@ -45,7 +45,7 @@ const ScrollCards = ({ items }: { items: BlogSpace[] | PostWithSpace[] }) => {
 		}
 	};
 	return (
-		<div className="-mr-4 flex snap-x scroll-px-[50%] scroll-py-0 space-x-3 overflow-x-scroll py-4 md:mr-0">
+		<div className="scroll-cards -mr-4 flex snap-x scroll-px-[50%] scroll-py-0 space-x-3 overflow-x-scroll py-4 md:mr-0">
 			{items.map((item, index) => (
 				<Link
 					href={getHref(item)}

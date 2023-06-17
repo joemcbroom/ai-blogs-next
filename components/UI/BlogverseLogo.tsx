@@ -4,6 +4,7 @@ import Image from 'next/image';
 interface BlogverseLogoProps {
 	type?:
 		| 'star'
+		| 'whiteStar'
 		| 'horizontal'
 		| 'vertical'
 		| 'whiteVertical'
@@ -16,6 +17,7 @@ interface BlogverseLogoProps {
 
 const logos = {
 	star: '/images/logos/logo-blogverse-star.svg',
+	whiteStar: '/images/logos/logo-blogverse-star-wht.svg',
 	horizontal: '/images/logos/logo-blogverse-horiz.svg',
 	vertical: '/images/logos/logo-blogverse-vert.svg',
 	whiteVertical: '/images/logos/logo-blogverse-vert-wht.svg',
@@ -36,6 +38,7 @@ export default function BlogverseLogo({
 	return (
 		<Image
 			loader={loader}
+			unoptimized={true}
 			src={logo}
 			alt="Blogverse Logo"
 			className={className}

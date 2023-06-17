@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import starLogoDark from '#/public/images/logos/logo-blogverse-star-white.svg';
+import starLogoDark from '#/public/images/logos/logo-blogverse-star-wht.svg';
 import starLogo from '#/public/images/logos/logo-blogverse-star.svg';
 
 const LogoLoader = () => {

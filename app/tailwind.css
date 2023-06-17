@@ -35,6 +35,10 @@ button[role="switch"] {
   word-spacing: 100vw;
 }
 
+.scroll-cards::-webkit-scrollbar {
+  display: none;
+}
+
 #main-content-wrapper {
   grid-template-rows: auto 1fr;
   grid-template-areas:

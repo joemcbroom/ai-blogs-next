@@ -1,4 +1,5 @@
 import Header from '#/components/UI/Header/Header';
+import SubscribeBox from '#/components/UI/ads/Subscribe';
 import CardWrapper from '#/components/UI/cards/CardWrapper';
 import PostCard from '#/components/UI/cards/PostCard';
 import ScrollCards from '#/components/UI/cards/ScrollCards';
@@ -33,6 +34,9 @@ const HomeContent = async ({ spaces, featuredPosts }: HomeContentProps) => {
 						<PostCard key={post.id} post={post} />
 					))}
 				</CardWrapper>
+			</section>
+			<section className="mx-auto w-screen bg-slate-200 px-4 py-6 text-slate-500 dark:bg-slate-800 dark:text-slate-200 lg:max-w-4xl lg:px-0">
+				<SubscribeBox />
 			</section>
 		</article>
 	);
