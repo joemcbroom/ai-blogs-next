@@ -30,3 +30,25 @@ button[role="switch"] {
   user-select: none;
 
 }
+
+.word-spacing-single {
+  word-spacing: 100vw;
+}
+
+#main-content-wrapper {
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'header'
+    'main';
+}
+
+#main-content-wrapper>main {
+  grid-area: main;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-columns: 1fr;
+}
+
+#main-content-wrapper footer {
+  grid-area: 2 / 1 / 3 / 4;
+}

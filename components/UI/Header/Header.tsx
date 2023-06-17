@@ -45,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({
 
 	const headerHeight = isHomeVariant ? 'h-80' : 'h-64 md:h-80';
 	const h1Class = isHomeVariant
-		? 'text-white text-7xl font-black w-3/4 sm:w-1/2'
+		? '[word-spacing:100vw] md:[word-spacing:unset] text-white text-6xl font-extrabold w-3/4 md:w-1/4'
 		: 'text-xl font-bold text-white md:text-3xl';
 
 	// 10 min read

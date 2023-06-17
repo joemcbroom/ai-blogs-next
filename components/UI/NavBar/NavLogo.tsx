@@ -7,22 +7,25 @@ const NavLogo = ({
 }: {
 	width?: number;
 	height?: number;
-}) => (
-	<Link href="/" className="w-full md:w-1/2">
-		<BlogverseLogo
-			className="z-50 w-1/2 rounded-lg pt-1 dark:hidden md:w-1/3"
-			type="horizontal"
-			width={width}
-			height={height}
-		/>
-		<BlogverseLogo
-			className="z-50 hidden w-1/3 rounded-lg pt-1 dark:block"
-			type="whiteHorizontal"
-			width={width}
-			height={height}
-		/>
-		<span className="sr-only">Link to home page</span>
-	</Link>
-);
+}) => {
+	const sharedClasses = 'z-50 w-40 rounded-lg pt-1 md:w-1/3`';
+	return (
+		<Link href="/" className="z-50 w-full md:w-1/2">
+			<BlogverseLogo
+				className={`${sharedClasses} dark:hidden`}
+				type="horizontal"
+				width={width}
+				height={height}
+			/>
+			<BlogverseLogo
+				className={`${sharedClasses} hidden dark:block`}
+				type="whiteHorizontal"
+				width={width}
+				height={height}
+			/>
+			<span className="sr-only">Link to home page</span>
+		</Link>
+	);
+};
 
 export default NavLogo;

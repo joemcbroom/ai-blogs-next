@@ -1,5 +1,4 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
-import BlogverseLogo from '../BlogverseLogo';
 import NavLinks from './NavLinks';
 import NavLogo from './NavLogo';
 
