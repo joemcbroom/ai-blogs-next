@@ -45,7 +45,6 @@ const CardLink = ({ href, slug, isSpace, title }: CardLinkProps) => {
 			onClick={() => handleLinkClick()}
 			ref={buttonRef}
 			href={href}
-			prefetch={false}
 		>
 			{isSpace ? (
 				'View Space'
