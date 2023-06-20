@@ -62,7 +62,7 @@ export default function ButtonComponent({
 		<LinkOrButton href={href}>
 			<button
 				onClick={(e) => (isLink ? null : !disabled && onClick && onClick(e))}
-				className={`rounded-full px-4 py-2 text-xs font-bold ${disabledClass} ${buttonClass[buttonStyle]}`}
+				className={`w-fit rounded-full px-4 py-2 text-xs font-bold ${disabledClass} ${buttonClass[buttonStyle]}`}
 				id={id}
 				data-tooltip-content={hoverText}
 				data-tooltip-place="top"

@@ -58,7 +58,7 @@ const PostOrSpace = ({
 					objectFit: 'contain',
 					padding: '0.75rem 0rem 0rem 0.5rem',
 				}}
-				src="https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/space/logo-blogverse-horiz.png?width=300&height=120&resize=contain"
+				src="https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/general/img-bkg-futureisnow.jpg?width=300&height=120&resize=contain"
 				alt="Blogverse logo"
 			/>
 		</div>

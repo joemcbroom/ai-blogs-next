@@ -54,12 +54,8 @@ const EditCard: React.FC<Props> = ({ item }) => {
 	const handleDelete = async () => {
 		setIsFetching(true);
 
-		await fetch(`/api/supabase/${type}`, {
+		await fetch(`/api/supabase/${type}?slug=${slug}`, {
 			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ slug }),
 		});
 
 		setIsFetching(false);

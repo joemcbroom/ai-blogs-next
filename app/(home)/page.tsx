@@ -1,22 +1,14 @@
-import CardWrapper from '#/components/UI/cards/CardWrapper';
-import SpaceCard from '#/components/UI/cards/SpaceCard';
-import { getSpaces } from '#/lib/supabase/static';
+import { getFeaturedPosts, getSpaces } from '#/lib/supabase/static';
+import HomeContent from './HomeContent';
 
 export const dynamic = 'force-static';
 
-export const revalidate = 60;
-
-export default async function HomePage() {
+const HomePage = async () => {
 	const spaces = await getSpaces();
-	return (
-		<>
-			<article>
-				<CardWrapper>
-					{spaces.map((space) => (
-						<SpaceCard key={space.id} space={space} />
-					))}
-				</CardWrapper>
-			</article>
-		</>
-	);
-}
+	const featuredPosts = await getFeaturedPosts();
+
+	// @ts-expect-error
+	return <HomeContent spaces={spaces} featuredPosts={featuredPosts} />;
+};
+
+export default HomePage;

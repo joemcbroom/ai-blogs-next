@@ -14,7 +14,7 @@ export async function POST(req: Request) {
 }
 
 export async function PUT(req: Request) {
-	const { slug, data, spaceSlug } = await req.json();
+	const { slug, data } = await req.json();
 
 	const supabase = await supabaseSingleton();
 	const { error } = await supabase.from('post').update(data).eq('slug', slug);
@@ -24,7 +24,8 @@ export async function PUT(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-	const { slug } = await req.json();
+	const { searchParams } = new URL(req.url);
+	const slug = searchParams.get('slug');
 
 	const supabase = await supabaseSingleton();
 	const { error } = await supabase.from('post').delete().eq('slug', slug);
