@@ -174,6 +174,24 @@ export interface Database {
         }
         Relationships: []
       }
+      subscribers: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: number
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: number
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: number
+        }
+        Relationships: []
+      }
       tag: {
         Row: {
           blog_space_id: number

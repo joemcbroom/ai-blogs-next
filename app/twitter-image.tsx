@@ -18,7 +18,7 @@ export const contentType = 'image/png';
 // Image generation
 export default async function Image() {
 	return new ImageResponse(
-		<FallbackOgImage title={SITE_INFO.description} />,
+		<FallbackOgImage title={SITE_INFO.tagLine} />,
 
 		{
 			...size,

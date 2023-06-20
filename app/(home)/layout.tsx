@@ -1,18 +1,12 @@
 import NavBar from '#/components/UI/NavBar';
 import Footer from '#/components/UI/footer';
-import { SITE_INFO } from '#/lib/constants/siteInfo';
 import { Metadata } from 'next';
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-	title: SITE_INFO.title,
-	description: SITE_INFO.description,
-	metadataBase: new URL(
-		`https://${process.env.VERCEL_URL}` ||
-			`https://${process.env.NEXT_PUBLIC_VERCEL_URL}` ||
-			'http://localhost:3000'
-	),
+	title: 'Spaces | Blogverse.ai',
+	description: 'Explore the Blogverse',
 };
 
 type HomeLayoutProps = {

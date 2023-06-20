@@ -17,11 +17,7 @@ const BlogHome = async ({
 		return <div>no (published) posts</div>;
 	}
 
-	return (
-		<>
-			<SpaceContent posts={posts} space={space} />
-		</>
-	);
+	return <SpaceContent posts={posts} space={space} />;
 };
 
 export default BlogHome;

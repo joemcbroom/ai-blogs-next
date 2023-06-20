@@ -11,7 +11,7 @@ const SpaceCard = ({ space }: SpaceCardProps) => {
 		<Card
 			{...space}
 			url={`/${space.slug}`}
-			image_path={space.image_path || 'space/logo-blogverse-horiz.png'}
+			image_path={space.image_path || 'general/abstract-bg.jpg'}
 		/>
 	);
 };

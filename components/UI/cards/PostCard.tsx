@@ -12,6 +12,7 @@ const PostCard = ({ post }: PostCardProps) => {
 			{...post}
 			image_path={post.image_path || post.space.image_path || ''}
 			url={`/${post.space.slug}/${post.slug}`}
+			spaceTitle={post.space.title}
 		/>
 	);
 };
