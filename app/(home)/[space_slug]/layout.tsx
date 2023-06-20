@@ -12,14 +12,21 @@ type Props = {
 export async function generateMetadata({
 	params: { space_slug },
 }: Props): Promise<Metadata> {
-	const space = await getSpace(space_slug);
-	const { title, description } = space;
+	try {
+		const space = await getSpace(space_slug);
+		const { title, description } = space;
 
-	return {
-		title: `${title} | Blogverse.ai`,
-		description,
-		// keywords: tags.join(', '), TODO: get tags
-	};
+		return {
+			title: `${title} | Blogverse.ai`,
+			description,
+			// keywords: tags.join(', '), TODO: get tags
+		};
+	} catch (e) {
+		return {
+			title: `Blogverse.ai`,
+			description: 'Blogverse.ai',
+		};
+	}
 }
 
 export const generateStaticParams = async () => {

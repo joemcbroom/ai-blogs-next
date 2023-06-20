@@ -7,15 +7,22 @@ export async function generateMetadata(
 	{ params: { post_slug } }: { params: { post_slug: string } },
 	parent: ResolvingMetadata
 ): Promise<Metadata> {
-	const { title, description } = await getPost(post_slug);
+	try {
+		const { title, description } = await getPost(post_slug);
 
-	const parentDescription = (await parent)?.description;
+		const parentDescription = (await parent)?.description;
 
-	return {
-		title: `${title} | Blogverse.ai`,
-		description: description || parentDescription,
-		// keywords: tags.join(', '), TODO: get tags
-	};
+		return {
+			title: `${title} | Blogverse.ai`,
+			description: description || parentDescription,
+			// keywords: tags.join(', '), TODO: get tags
+		};
+	} catch (e) {
+		return {
+			title: `Blogverse.ai`,
+			description: 'Blogverse.ai',
+		};
+	}
 }
 
 export async function generateStaticParams({
