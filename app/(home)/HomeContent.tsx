@@ -1,3 +1,4 @@
+import Container from '#/components/UI/Container';
 import Header from '#/components/UI/Header/Header';
 import SubscribeBox from '#/components/UI/ads/Subscribe';
 import CardWrapper from '#/components/UI/cards/CardWrapper';
@@ -19,25 +20,29 @@ const HomeContent = async ({ spaces, featuredPosts }: HomeContentProps) => {
 				image_path="general/abstract-bg.jpg"
 				variant="home"
 			/>
-			<section className="mx-auto w-screen p-6 lg:max-w-4xl lg:px-0">
+			<Container>
 				<h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
 					Spaces
 				</h2>
 				<ScrollCards items={spaces} />
-			</section>
-			<section className="relative mx-auto flex w-full flex-col justify-center gap-2 overflow-hidden px-6 lg:max-w-4xl lg:px-0">
-				<h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
-					Featured Posts
-				</h2>
-				<CardWrapper>
-					{featuredPosts.map((post) => (
-						<PostCard key={post.id} post={post} />
-					))}
-				</CardWrapper>
-			</section>
-			<section className="mx-auto w-screen bg-slate-200 px-4 py-6 text-slate-500 dark:bg-slate-800 dark:text-slate-200 lg:max-w-4xl lg:px-0">
+			</Container>
+
+			<Container>
+				<div className="relative flex flex-col justify-center gap-2 overflow-hidden">
+					<h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+						Featured Posts
+					</h2>
+
+					<CardWrapper>
+						{featuredPosts.map((post) => (
+							<PostCard key={post.id} post={post} />
+						))}
+					</CardWrapper>
+				</div>
+			</Container>
+			<Container>
 				<SubscribeBox />
-			</section>
+			</Container>
 		</article>
 	);
 };

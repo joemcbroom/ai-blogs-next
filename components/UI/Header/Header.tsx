@@ -12,7 +12,7 @@ interface HeaderProps {
 	wordCount?: number;
 	postCount?: number;
 	showDescription?: boolean;
-	variant?: 'home' | 'post';
+	variant?: 'home' | 'post' | 'about';
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -26,6 +26,7 @@ const Header: React.FC<HeaderProps> = ({
 	variant = 'post',
 }) => {
 	const isHomeVariant = variant === 'home';
+	const isAboutVariant = variant === 'about';
 	let src = '';
 	if (image_path) {
 		const { data } = supabase.storage
@@ -56,7 +57,7 @@ const Header: React.FC<HeaderProps> = ({
 		>
 			<PostHeaderImage path={image_path || ''} alt={title} />
 			<HeaderWrapper>
-				{!isHomeVariant && (
+				{!isHomeVariant && !isAboutVariant && (
 					<div className="flex gap-2 text-sm font-semibold text-white">
 						<span>{formattedDate}</span>
 						<span>・</span>
