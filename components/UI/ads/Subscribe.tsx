@@ -13,12 +13,17 @@ const SubscribeBox = () => {
 	const [_, startTransition] = useTransition();
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	const emailRef = useRef<HTMLInputElement>(null);
+	const [error, setError] = useState<string | undefined>('');
 
 	const handleSubmit = () => {
 		startTransition(async () => {
 			if (!emailRef.current?.value) return;
 			if (!emailRef.current?.validity.valid) return;
-			await addEmail(emailRef.current?.value);
+			const { success, error } = await addEmail(emailRef.current?.value);
+			if (!success) {
+				setError(error);
+				return;
+			}
 			setIsSubmitted(true);
 		});
 	};
@@ -38,6 +43,7 @@ const SubscribeBox = () => {
 					<span>Thanks for subscribing!</span>
 				) : (
 					<>
+						{error && <span className="text-red-500">{error}</span>}
 						<div className="relative my-2 w-full">
 							<input
 								type="email"
@@ -45,14 +51,15 @@ const SubscribeBox = () => {
 								id="email"
 								placeholder="Email Address"
 								ref={emailRef}
-								className="peer h-10 w-full border-b-2 border-gray-300 bg-transparent text-gray-900 placeholder-transparent focus:border-purple-600 focus:outline-none invalid:focus:border-red-500"
-								pattern={
-									"/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$/;"
-								}
+								onChange={() => setError('')}
+								onKeyDown={(e) => {
+									if (e.key === 'Enter') handleSubmit();
+								}}
+								className="peer h-10 w-full border-b-2 border-gray-300 bg-transparent text-gray-900 placeholder-transparent focus:border-purple-600 focus:outline-none invalid:focus:border-red-500 dark:text-gray-300"
 							/>
 							<label
 								htmlFor="email"
-								className="absolute -top-3.5 left-0 cursor-text text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-gray-600"
+								className="absolute -top-3.5 left-0 cursor-text text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-gray-600 dark:text-gray-300 dark:peer-focus:text-gray-300"
 							>
 								Email address
 							</label>
