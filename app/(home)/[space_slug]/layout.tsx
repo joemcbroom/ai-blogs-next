@@ -2,6 +2,8 @@ import AdminEdit from './AdminEdit';
 import { getSpaceSlugs, supabase } from '#/lib/supabase/static';
 import { Metadata } from 'next';
 import { getSpace } from '#/lib/supabase/server';
+import { OGTwitterMetadata } from '#/lib/utils/OGTwitterMetadata';
+import { SITE_INFO } from '#/lib/constants/siteInfo';
 
 export const revalidate = 360;
 
@@ -15,10 +17,14 @@ export async function generateMetadata({
 	try {
 		const space = await getSpace(space_slug);
 		const { title, description } = space;
-
 		return {
-			title: `${title} | Blogverse.ai`,
+			title: SITE_INFO.space_slug.title.replace('%s', title),
 			description,
+			...OGTwitterMetadata({
+				title: SITE_INFO.space_slug.title.replace('%s', title),
+				description: description || '',
+				path: space_slug,
+			}),
 			// keywords: tags.join(', '), TODO: get tags
 		};
 	} catch (e) {

@@ -12,6 +12,7 @@ export const size = {
 	width: 1200,
 	height: 600,
 };
+export const title = SITE_INFO.title;
 
 export const contentType = 'image/png';
 

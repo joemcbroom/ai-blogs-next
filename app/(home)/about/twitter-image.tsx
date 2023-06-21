@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from 'next/server';
 import ContentOgImage from '#/components/OgImage/ContentOgImage';
+import { SITE_INFO } from '#/lib/constants/siteInfo';
 
 // Route segment config
 export const runtime = 'edge';
@@ -20,7 +21,8 @@ export default async function Image() {
 		(
 			<ContentOgImage
 				backgroundImagePath="general/abstract-bg.jpg"
-				title="About Blogverse.ai"
+				title={SITE_INFO.about.title}
+				description={SITE_INFO.about.description}
 			/>
 		),
 		{

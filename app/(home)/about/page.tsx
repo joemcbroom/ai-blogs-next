@@ -4,10 +4,18 @@ import SubscribeBox from '#/components/UI/ads/Subscribe';
 import Heading from '#/components/UI/headings/Heading';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { OGTwitterMetadata } from '#/lib/utils/OGTwitterMetadata';
+import { SITE_INFO } from '#/lib/constants/siteInfo';
 
+const { title, description } = SITE_INFO.about;
 export const metadata: Metadata = {
-	title: 'About | Blogverse.ai',
-	description: 'Learn about Blogverse.ai',
+	title,
+	description,
+	...OGTwitterMetadata({
+		title,
+		description,
+		path: 'about',
+	}),
 };
 
 const AboutPage = () => {

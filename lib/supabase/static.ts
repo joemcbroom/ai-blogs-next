@@ -46,8 +46,9 @@ export const getPosts = async (space_slug: string) => {
 export const getFeaturedPosts = async () => {
 	const { data: posts, error } = await supabase
 		.from('post')
-		.select(`*, space!inner(slug, image_path, title)`)
+		.select(`*, space!inner(slug, image_path, title, is_published)`)
 		.eq('is_published', true)
+		.eq('space.is_published', true)
 		.order('created_at', { ascending: false })
 		.limit(6);
 
