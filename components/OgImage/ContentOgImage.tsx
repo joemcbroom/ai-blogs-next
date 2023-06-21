@@ -26,7 +26,7 @@ const PostOrSpace = ({
 			}}
 		>
 			<div
-				tw="flex flex-col justify-center items-start w-full h-1/2 px-8 py-6 text-white"
+				tw="flex flex-col justify-center items-start w-full h-1/2 px-16 py-6 text-white"
 				style={{
 					backgroundImage:
 						'linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(0, 0, 0))',
@@ -35,7 +35,7 @@ const PostOrSpace = ({
 				<div tw="text-3xl font-bold">{title}</div>
 				{description && <div tw="text-lg w-2/3">{description}</div>}
 			</div>
-			<div tw="absolute top-0 flex justify-end items-center w-full p-4 bg-white bg-opacity-50">
+			<div tw="absolute top-0 flex justify-end items-center w-full py-4 px-16 bg-white bg-opacity-50">
 				<img
 					tw="w-1/3"
 					style={{
