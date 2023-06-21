@@ -35,6 +35,10 @@ button[role="switch"] {
   word-spacing: 100vw;
 }
 
+.text-balance {
+  text-wrap: balance;
+}
+
 .scroll-cards::-webkit-scrollbar {
   display: none;
 }

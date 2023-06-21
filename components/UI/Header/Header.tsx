@@ -7,7 +7,7 @@ interface HeaderProps {
 	created_at?: string;
 	updated_at?: string | null;
 	title: string;
-	description: string | null;
+	description: string | null | React.ReactNode;
 	image_path: string | null;
 	wordCount?: number;
 	postCount?: number;
@@ -68,7 +68,9 @@ const Header: React.FC<HeaderProps> = ({
 				<h1 className={h1Class}>{title}</h1>
 				{showDescription && (
 					<p className="text-sm font-semibold text-white">
-						{removeQuotes(description || '')}
+						{typeof description === 'string'
+							? removeQuotes(description || '')
+							: description}
 					</p>
 				)}
 				{isHomeVariant && (
