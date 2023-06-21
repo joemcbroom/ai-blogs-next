@@ -32,7 +32,7 @@ const CookiesNotification = () => {
 						.
 					</p>
 					<button
-						className="rounded bg-neutral-200 p-1 px-2 py-1 text-neutral-800"
+						className="rounded bg-neutral-200 p-1 px-2 py-1 text-neutral-800 whitespace-nowrap"
 						onClick={dismiss}
 					>
 						<span className="sr-only">Dismiss</span>
