@@ -21,7 +21,7 @@ const CookiesNotification = () => {
 
 	return (
 		show && (
-			<div className="text-balance fixed bottom-0 left-0 z-50 w-full border-t bg-slate-800 px-10 py-5 text-neutral-50 dark:bg-neutral-100 dark:text-slate-200 md:pr-10">
+			<div className="text-balance fixed bottom-0 left-0 z-50 w-full border-t bg-slate-800 px-10 py-5 text-slate-500 dark:bg-neutral-100 dark:text-slate-200 md:pr-10">
 				<div className="container flex items-center justify-between gap-2 py-2">
 					<p className="text-sm">
 						We use cookies to improve your experience on our site. By using our
