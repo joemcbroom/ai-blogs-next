@@ -3,7 +3,7 @@ import Footer from '#/components/UI/footer';
 import { SITE_INFO } from '#/lib/constants/siteInfo';
 import { Metadata } from 'next';
 
-export const revalidate = 60;
+export const revalidate = 360;
 
 export const metadata: Metadata = {
 	title: 'Blogverse.ai | Spaces',
