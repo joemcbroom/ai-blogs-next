@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 	title: SITE_INFO.title,
 	description: SITE_INFO.description,
 	metadataBase: new URL(
-		`https://${process.env.VERCEL_URL}` ||
-			`https://${process.env.NEXT_PUBLIC_VERCEL_URL}` ||
-			'http://localhost:3000'
+		`https://${process.env.METADATA_BASE}` ||
+			`https://${process.env.VERCEL_URL}` ||
+			'https://localhost:3000'
 	),
 };
 

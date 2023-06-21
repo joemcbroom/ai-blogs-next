@@ -14,7 +14,7 @@ export const supabase = createClient(
 export const getPost = async (post_slug: string) => {
 	const { data: post, error } = await supabase
 		.from('post')
-		.select('*, space:space_id (image_path, slug)')
+		.select('*, space:space_id (image_path, slug, description)')
 		.eq('slug', post_slug)
 		.single();
 
@@ -119,6 +119,33 @@ export const getPostSlugs = async (space_slug: string) => {
 	}
 
 	return posts as { slug: string }[];
+};
+
+export const getAllPostSlugs = async () => {
+	const { data: posts, error } = await supabase
+		.from('post')
+		.select(
+			`slug, created_at, updated_at, space!inner(slug, created_at, updated_at)`
+		)
+		.eq('is_published', true);
+
+	if (error) {
+		console.error(error);
+		throw error.message;
+	}
+
+	type PostWithSpace = {
+		slug: string;
+		created_at: string;
+		updated_at?: string;
+		space: {
+			slug: string;
+			created_at: string;
+			updated_at?: string;
+		};
+	};
+
+	return posts as PostWithSpace[];
 };
 
 type ItemSortProps = { [x: string]: any };
