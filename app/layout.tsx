@@ -10,6 +10,11 @@ import { SITE_INFO } from '#/lib/constants/siteInfo';
 export const metadata: Metadata = {
 	title: SITE_INFO.title,
 	description: SITE_INFO.description,
+	metadataBase: new URL(
+		`https://${process.env.METADATA_BASE}` ||
+			`https://${process.env.VERCEL_URL}` ||
+			'https://localhost:3000'
+	),
 };
 
 export default function RootLayout({
