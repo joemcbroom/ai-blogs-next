@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import Providers from './providers';
 import { ServerThemeProvider } from 'next-themes';
 import { SITE_INFO } from '#/lib/constants/siteInfo';
+import { OGTwitterMetadata } from '#/lib/utils/OGTwitterMetadata';
 
 export const metadata: Metadata = {
 	title: SITE_INFO.title,
@@ -15,6 +16,11 @@ export const metadata: Metadata = {
 			`https://${process.env.VERCEL_URL}` ||
 			'https://localhost:3000'
 	),
+	...OGTwitterMetadata({
+		title: SITE_INFO.title,
+		description: SITE_INFO.description,
+		path: '',
+	}),
 };
 
 export default function RootLayout({
