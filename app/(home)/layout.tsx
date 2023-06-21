@@ -6,12 +6,14 @@ import { Metadata } from 'next';
 
 export const revalidate = 360;
 
+const title = SITE_INFO.title;
+const description = SITE_INFO.description;
 export const metadata: Metadata = {
-	title: SITE_INFO.title,
-	description: SITE_INFO.description,
+	title,
+	description,
 	...OGTwitterMetadata({
-		title: SITE_INFO.title,
-		description: SITE_INFO.description,
+		title,
+		description,
 		path: '',
 	}),
 };

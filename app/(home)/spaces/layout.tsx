@@ -6,12 +6,13 @@ import { Metadata } from 'next';
 
 export const revalidate = 360;
 
+const { title, description } = SITE_INFO.spaces;
 export const metadata: Metadata = {
-	title: 'Blogverse.ai | Spaces',
-	description: 'Explore the Blogverse',
+	title,
+	description,
 	...OGTwitterMetadata({
-		title: 'Blogverse.ai | Spaces',
-		description: 'Explore the Blogverse',
+		title,
+		description,
 		path: 'spaces',
 	}),
 };

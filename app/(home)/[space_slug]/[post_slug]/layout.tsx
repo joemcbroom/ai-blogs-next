@@ -1,3 +1,4 @@
+import { SITE_INFO } from '#/lib/constants/siteInfo';
 import { getPost, getPostSlugs, supabase } from '#/lib/supabase/static';
 import { OGTwitterMetadata } from '#/lib/utils/OGTwitterMetadata';
 import { ResolvingMetadata, Metadata } from 'next';
@@ -14,10 +15,10 @@ export async function generateMetadata(
 		const parentDescription = (await parent)?.description;
 
 		return {
-			title: `${title} | Blogverse.ai`,
+			title: SITE_INFO.post_slug.title.replace('%s', title),
 			description: description || parentDescription,
 			...OGTwitterMetadata({
-				title,
+				title: SITE_INFO.post_slug.title.replace('%s', title),
 				description: description || '',
 				path: `${space.slug}/${post_slug}`,
 			}),
