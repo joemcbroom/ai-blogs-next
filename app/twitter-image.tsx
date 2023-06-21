@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import FallbackOgImage from '#/components/OgImage/FallbackOgImage';
-import { SITE_INFO } from '#/lib/constants/siteInfo';
 import { ImageResponse } from 'next/server';
+import ContentOgImage from '#/components/OgImage/ContentOgImage';
+import { SITE_INFO } from '#/lib/constants/siteInfo';
 
 // Route segment config
 export const runtime = 'edge';
 
 // Image metadata
-export const alt = 'Blogverse.ai';
+export const alt = '';
 export const size = {
 	width: 1200,
 	height: 600,
@@ -18,8 +18,13 @@ export const contentType = 'image/png';
 // Image generation
 export default async function Image() {
 	return new ImageResponse(
-		<FallbackOgImage title={SITE_INFO.tagLine} />,
-
+		(
+			<ContentOgImage
+				backgroundImagePath="general/abstract-bg.jpg"
+				title={SITE_INFO.title}
+				description={SITE_INFO.tagLine}
+			/>
+		),
 		{
 			...size,
 		}

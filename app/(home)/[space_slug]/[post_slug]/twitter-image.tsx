@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { getPost } from '#/lib/supabase/static';
 import { ImageResponse } from 'next/server';
-import PostOrSpace from '#/components/OgImage/PostOrSpace';
+import ContentOgImage from '#/components/OgImage/ContentOgImage';
 
 // Route segment config
 export const runtime = 'edge';
@@ -25,11 +25,12 @@ export default async function Image({
 
 	return new ImageResponse(
 		(
-			<PostOrSpace
+			<ContentOgImage
 				backgroundImagePath={
 					(post.image_path || post.space?.image_path) ?? null
 				}
 				title={post.title}
+				description={post.description || post.space.description || ''}
 			/>
 		),
 		{
