@@ -2,7 +2,7 @@ import { getPost } from '#/lib/supabase/static';
 import { notFound } from 'next/navigation';
 import PostContent from './PostContent';
 
-export const revalidate = 60;
+export const revalidate = 360;
 
 export const dynamic = 'force-static';
 

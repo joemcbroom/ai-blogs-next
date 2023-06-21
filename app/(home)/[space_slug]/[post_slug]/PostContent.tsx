@@ -3,7 +3,7 @@ import type { PostWithSpace } from '#/lib/types/inferred.types';
 import React from 'react';
 import ContentWithAds from './ContentWithAds';
 import Header from '#/components/UI/Header/Header';
-import Container from '#/components/UI/Container';
+import Container from '#/components/UI/containers/Container';
 
 //@ts-expect-error https://github.com/microsoft/TypeScript/pull/51328
 const PostContent: React.FC = ({ post }: { post: PostWithSpace }) => {

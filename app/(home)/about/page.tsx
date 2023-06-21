@@ -1,7 +1,7 @@
-import Container from '#/components/UI/Container';
+import Container from '#/components/UI/containers/Container';
 import Header from '#/components/UI/Header/Header';
-import PostHeaderImage from '#/components/UI/PostHeaderImage';
 import SubscribeBox from '#/components/UI/ads/Subscribe';
+import Heading from '#/components/UI/headings/Heading';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -14,9 +14,7 @@ const AboutPage = () => {
 	return (
 		<article>
 			<Container>
-				<h1 className="my-4 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
-					About Us
-				</h1>
+				<Heading>About Us</Heading>
 			</Container>
 			<Header
 				title=""
