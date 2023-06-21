@@ -2,6 +2,7 @@ import BlogverseLogo from '../BlogverseLogo';
 import { SITE_INFO } from '#/lib/constants/siteInfo';
 import ShareLinks from '../ShareLinks';
 import NavLinks from '../NavBar/NavLinks';
+import Link from 'next/link';
 
 const Footer = () => {
 	return (
@@ -12,6 +13,9 @@ const Footer = () => {
 				{SITE_INFO.description}
 			</section>
 			<ShareLinks />
+			<Link className="text-xs" href="/cookie-policy">
+				Cookie Policy
+			</Link>
 		</footer>
 	);
 };
