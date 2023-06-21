@@ -1,6 +1,7 @@
 import Header from '#/components/UI/Header/Header';
 import CardWrapper from '#/components/UI/cards/CardWrapper';
 import PostCard from '#/components/UI/cards/PostCard';
+import Container from '#/components/UI/containers/Container';
 import { BlogSpace, PostWithSpace } from '#/lib/types/inferred.types';
 
 interface SpaceContentProps {
@@ -20,11 +21,13 @@ const SpaceContent: React.FC<SpaceContentProps> = ({ space, posts }) => {
 				postCount={posts.length}
 				showDescription
 			/>
-			<CardWrapper>
-				{posts.map((post) => (
-					<PostCard key={post.id} post={post} />
-				))}
-			</CardWrapper>
+			<Container>
+				<CardWrapper>
+					{posts.map((post) => (
+						<PostCard key={post.id} post={post} />
+					))}
+				</CardWrapper>
+			</Container>
 		</article>
 	);
 };

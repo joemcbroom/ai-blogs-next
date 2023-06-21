@@ -2,7 +2,7 @@ import NavBar from '#/components/UI/NavBar';
 import Footer from '#/components/UI/footer';
 import { Metadata } from 'next';
 
-export const revalidate = 60;
+export const revalidate = 360;
 
 export const metadata: Metadata = {
 	title: 'Spaces | Blogverse.ai',

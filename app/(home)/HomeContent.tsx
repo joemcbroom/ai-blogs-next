@@ -1,9 +1,10 @@
-import Container from '#/components/UI/Container';
+import Container from '#/components/UI/containers/Container';
 import Header from '#/components/UI/Header/Header';
 import SubscribeBox from '#/components/UI/ads/Subscribe';
 import CardWrapper from '#/components/UI/cards/CardWrapper';
 import PostCard from '#/components/UI/cards/PostCard';
 import ScrollCards from '#/components/UI/cards/ScrollCards';
+import Heading from '#/components/UI/headings/Heading';
 import { SITE_INFO } from '#/lib/constants/siteInfo';
 import { BlogSpace, PostWithSpace } from '#/lib/types/inferred.types';
 
@@ -21,17 +22,13 @@ const HomeContent = async ({ spaces, featuredPosts }: HomeContentProps) => {
 				variant="home"
 			/>
 			<Container>
-				<h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
-					Spaces
-				</h2>
+				<Heading>Spaces</Heading>
 				<ScrollCards items={spaces} />
 			</Container>
 
 			<Container>
 				<div className="relative flex flex-col justify-center gap-2 overflow-hidden">
-					<h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
-						Featured Posts
-					</h2>
+					<Heading variant="h2">Featured Posts</Heading>
 
 					<CardWrapper>
 						{featuredPosts.map((post) => (

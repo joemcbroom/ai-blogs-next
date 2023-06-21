@@ -6,7 +6,7 @@ const Container = ({ children, type }: ContainerProps) => {
 	const isPostContent = type === 'postContent';
 	return (
 		<section
-			className={`mx-auto w-screen px-6 lg:max-w-4xl lg:px-0 ${
+			className={`mx-auto my-4 w-screen px-6 lg:max-w-4xl lg:px-0 ${
 				isPostContent ? 'ProseMirror' : ''
 			}`}
 		>
