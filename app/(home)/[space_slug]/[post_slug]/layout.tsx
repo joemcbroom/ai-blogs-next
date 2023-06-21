@@ -1,4 +1,5 @@
 import { getPost, getPostSlugs, supabase } from '#/lib/supabase/static';
+import { OGTwitterMetadata } from '#/lib/utils/OGTwitterMetadata';
 import { ResolvingMetadata, Metadata } from 'next';
 
 export const revalidate = 360;
@@ -8,13 +9,18 @@ export async function generateMetadata(
 	parent: ResolvingMetadata
 ): Promise<Metadata> {
 	try {
-		const { title, description } = await getPost(post_slug);
+		const { title, description, space } = await getPost(post_slug);
 
 		const parentDescription = (await parent)?.description;
 
 		return {
 			title: `${title} | Blogverse.ai`,
 			description: description || parentDescription,
+			...OGTwitterMetadata({
+				title,
+				description: description || '',
+				path: `${space.slug}/${post_slug}`,
+			}),
 			// keywords: tags.join(', '), TODO: get tags
 		};
 	} catch (e) {

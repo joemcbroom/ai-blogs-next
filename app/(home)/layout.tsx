@@ -1,6 +1,7 @@
 import NavBar from '#/components/UI/NavBar';
 import Footer from '#/components/UI/footer';
 import { SITE_INFO } from '#/lib/constants/siteInfo';
+import { OGTwitterMetadata } from '#/lib/utils/OGTwitterMetadata';
 import { Metadata } from 'next';
 
 export const revalidate = 360;
@@ -8,6 +9,11 @@ export const revalidate = 360;
 export const metadata: Metadata = {
 	title: SITE_INFO.title,
 	description: SITE_INFO.description,
+	...OGTwitterMetadata({
+		title: SITE_INFO.title,
+		description: SITE_INFO.description,
+		path: '',
+	}),
 };
 
 type HomeLayoutProps = {
