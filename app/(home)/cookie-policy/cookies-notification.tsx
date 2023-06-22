@@ -21,7 +21,7 @@ const CookiesNotification = () => {
 
 	return (
 		show && (
-			<div className="text-balance fixed bottom-0 left-0 z-50 w-full border-t bg-slate-800 px-10 py-5 text-neutral-50 dark:bg-neutral-100 dark:text-slate-200 md:pr-10">
+			<div className="text-balance fixed bottom-0 left-0 z-50 w-full bg-slate-800 px-10 py-5 text-slate-50 dark:bg-neutral-100 dark:text-slate-800 md:pr-10">
 				<div className="container flex items-center justify-between gap-2 py-2">
 					<p className="text-sm">
 						We use cookies to improve your experience on our site. By using our
@@ -32,7 +32,7 @@ const CookiesNotification = () => {
 						.
 					</p>
 					<button
-						className="rounded bg-neutral-200 p-1 px-2 py-1 text-neutral-800"
+						className="rounded bg-neutral-200 p-1 px-2 py-1 text-neutral-800 whitespace-nowrap"
 						onClick={dismiss}
 					>
 						<span className="sr-only">Dismiss</span>
