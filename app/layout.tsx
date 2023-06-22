@@ -1,19 +1,14 @@
-import './tailwind.css';
+import '#/app/tailwind.css';
 import '#/components/UI/admin/ContentEditor/styles.css';
 import 'react-tooltip/dist/react-tooltip.css';
 
 import type { Metadata } from 'next';
-import Providers from './providers';
+import Providers from '#/app/providers';
 import { ServerThemeProvider } from 'next-themes';
 import { SITE_INFO } from '#/lib/constants/siteInfo';
 import { OGTwitterMetadata } from '#/lib/utils/OGTwitterMetadata';
-import CookiesNotification from './(home)/cookie-policy/cookies-notification';
-import { Montserrat } from 'next/font/google';
-
-const MontserratFont = Montserrat({
-	subsets: ['latin'],
-	display: 'swap',
-});
+import CookiesNotification from '#/app/(home)/cookie-policy/cookies-notification';
+import { BarlowCondensedFont, MontserratFont } from '#/app/fonts';
 
 export const metadata: Metadata = {
 	title: SITE_INFO.title,
@@ -39,7 +34,7 @@ export default function RootLayout({
 		<ServerThemeProvider attribute="class">
 			<html
 				suppressHydrationWarning
-				className={`h-full w-full scroll-smooth ${MontserratFont}`}
+				className={`h-full w-full scroll-smooth ${MontserratFont.className} ${BarlowCondensedFont.variable}`}
 			>
 				<head></head>
 				<body className="relative h-full">
