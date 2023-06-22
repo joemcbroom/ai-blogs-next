@@ -8,6 +8,12 @@ import { ServerThemeProvider } from 'next-themes';
 import { SITE_INFO } from '#/lib/constants/siteInfo';
 import { OGTwitterMetadata } from '#/lib/utils/OGTwitterMetadata';
 import CookiesNotification from './(home)/cookie-policy/cookies-notification';
+import { Montserrat } from 'next/font/google';
+
+const MontserratFont = Montserrat({
+	subsets: ['latin'],
+	display: 'swap',
+});
 
 export const metadata: Metadata = {
 	title: SITE_INFO.title,
@@ -31,7 +37,10 @@ export default function RootLayout({
 }) {
 	return (
 		<ServerThemeProvider attribute="class">
-			<html suppressHydrationWarning className="h-full w-full scroll-smooth">
+			<html
+				suppressHydrationWarning
+				className={`h-full w-full scroll-smooth ${MontserratFont}`}
+			>
 				<head></head>
 				<body className="relative h-full">
 					{/* @ts-expect-error */}

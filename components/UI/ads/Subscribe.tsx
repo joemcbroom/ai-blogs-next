@@ -1,7 +1,6 @@
 'use client';
 import BlogverseLogo from '#/components/UI/BlogverseLogo';
 import { useRef, useState, useTransition } from 'react';
-import addEmail from './subscribeAction';
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => (
 	<div className="flex h-full w-full flex-col items-center justify-center gap-6 border-gray-400 md:gap-4 md:px-6 last-of-type:md:border-l">
@@ -17,10 +16,18 @@ const SubscribeBox = () => {
 
 	const handleSubmit = () => {
 		startTransition(async () => {
-			if (!emailRef.current?.value) return;
-			if (!emailRef.current?.validity.valid) return;
-			const { success, error } = await addEmail(emailRef.current?.value);
-			if (!success) {
+			const { value, validity } = emailRef.current || {};
+			if (!value || !validity?.valid) return;
+
+			const res = await fetch('/api/supabase/subscriber', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ email: value }),
+			});
+			const { error } = await res.json();
+			if (error) {
 				setError(error);
 				return;
 			}

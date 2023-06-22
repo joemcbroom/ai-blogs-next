@@ -19,7 +19,6 @@
   "dependencies": {
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.14",
-    "@next/font": "13.1.1",
     "@supabase/auth-helpers-nextjs": "^0.7.0",
     "@supabase/supabase-js": "^2.2.3",
     "@tiptap/extension-color": "^2.0.3",
@@ -30,7 +29,7 @@
     "eslint-config-next": "^13.4.3",
     "html-react-parser": "^4.0.0",
     "limax": "^3.0.0",
-    "next": "^13.4.6",
+    "next": "^13.4.7-canary.4",
     "next-share": "^0.20.0",
     "next-themes": "npm:@wits/next-themes@^0.2.16",
     "node-cache": "^5.1.2",
