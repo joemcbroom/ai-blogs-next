@@ -1,20 +1,18 @@
-// components
-import Login from '#/app/auth/Login';
-
 // lib
 import { userIsAdmin } from '#/lib/supabase/server';
 
 // framework
 import { redirect } from 'next/navigation';
+import SignInContent from './SignInContent';
 
-export const dynamic = 'force-dynamic';
-
-export default async function SignIn() {
+export default async function SignInPage() {
 	const isAdmin = await userIsAdmin();
+	console.log(isAdmin);
 
 	if (isAdmin) {
 		redirect('/admin');
 	}
 
-	return <Login />;
+	//
+	return <SignInContent />;
 }
