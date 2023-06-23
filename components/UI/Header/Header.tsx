@@ -55,6 +55,7 @@ const Header: React.FC<HeaderProps> = ({
 		<header
 			className={`relative flex flex-col items-center justify-end ${headerHeight}`}
 		>
+			{/* @ts-expect-error */}
 			<PostHeaderImage path={image_path || ''} alt={title} />
 			<HeaderWrapper>
 				{!isHomeVariant && !isAboutVariant && (

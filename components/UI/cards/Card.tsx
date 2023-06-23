@@ -1,8 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-import { supabase } from '#/lib/supabase/static';
-import { ArrowLongRightIcon } from '@heroicons/react/20/solid';
-import Link from 'next/link';
 import CardLink from './CardLink';
+import SUPABASE_CONSTANTS from '#/lib/constants/supabaseConstants';
+import Image from 'next/image';
 
 interface CardProps {
 	title: string;
@@ -23,26 +21,17 @@ const Card = ({
 	isSpace = false,
 	spaceTitle = '',
 }: CardProps) => {
-	const { data: src } = supabase.storage
-		.from('blogverse-public')
-		.getPublicUrl(image_path, {
-			transform: {
-				width: 720,
-				height: 460,
-				resize: 'cover',
-			},
-		});
-
 	return (
 		<div
 			className="relative flex min-h-[375px] flex-col items-start justify-end gap-2 overflow-hidden rounded-2xl bg-white p-4 shadow-xl"
 			id={slug}
 		>
-			<img
+			<Image
 				className="absolute inset-0 z-0 h-full w-full scale-100 object-cover transition-transform duration-1000 "
-				src={src.publicUrl || ''}
+				src={SUPABASE_CONSTANTS.PUBLIC_URL(image_path)}
 				alt={title}
-				loading="lazy"
+				fill={true}
+				sizes="(max-width: 640px) 100vw, 640px"
 			/>
 			{spaceTitle && (
 				<div className="absolute left-3 top-3 z-10 rounded-lg bg-black bg-opacity-50 px-2 py-1 text-sm text-white">
