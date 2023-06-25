@@ -10,7 +10,7 @@ const SignInContent = () => {
 	const { session } = useSupabase();
 
 	if (session) {
-		// debugger;
+		debugger;
 	}
 
 	return (

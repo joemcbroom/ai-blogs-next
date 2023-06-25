@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import {
 	Session,
+	createClientComponentClient,
 	createPagesBrowserClient,
 } from '@supabase/auth-helpers-nextjs';
 import { usePathname, useRouter } from 'next/navigation';
@@ -22,7 +23,7 @@ export const SupabaseProvider = ({
 }: {
 	children: React.ReactNode;
 }) => {
-	const [supabase] = useState(() => createPagesBrowserClient());
+	const [supabase] = useState(() => createClientComponentClient());
 	const [session, setSession] = useState<Session | null>(null);
 	const router = useRouter();
 

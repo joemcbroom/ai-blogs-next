@@ -1,8 +1,10 @@
 'use client';
 import Link from 'next/link';
 import DarkToggle from './DarkToggle';
+import { useSupabase } from '#/lib/hooks/useSupabase';
 
 const NavLinks = () => {
+	const { session } = useSupabase();
 	const onClick = () => {
 		document.getElementById('menu-toggle')?.click();
 	};
@@ -18,6 +20,19 @@ const NavLinks = () => {
 					About
 				</Link>
 			</li>
+			{session ? (
+				<li>
+					<Link href="/account" onClick={onClick}>
+						Account
+					</Link>
+				</li>
+			) : (
+				<li>
+					<Link href="/sign-in" onClick={onClick}>
+						Sign In
+					</Link>
+				</li>
+			)}
 			<DarkToggle />
 		</ul>
 	);

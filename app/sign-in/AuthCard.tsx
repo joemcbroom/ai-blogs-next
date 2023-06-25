@@ -1,12 +1,13 @@
 'use client';
 
 import BlogverseLogo from '#/components/UI/BlogverseLogo';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState } from 'react';
 import AuthProviders from './AuthProviders';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/solid';
 import { Tooltip } from 'react-tooltip';
 import { useSupabase } from '#/lib/hooks/useSupabase';
+import Link from 'next/link';
 
 const AuthCard = () => {
 	const emailRef = useRef<HTMLInputElement>(null);
@@ -25,7 +26,7 @@ const AuthCard = () => {
 		const { error } = await supabase.auth.signInWithOtp({
 			email: value,
 			options: {
-				emailRedirectTo: `${basePath}${redirect}`,
+				emailRedirectTo: `${basePath}/api/auth/callback?redirect=${redirect}`,
 			},
 		});
 		if (error) setError(error.message);
@@ -53,8 +54,8 @@ const AuthCard = () => {
 			>
 				<span className="text-slate-500">Register or Sign In</span>
 				<div className="relative inline-flex w-full items-center justify-center">
-					<hr className="my-6 h-px w-full border-0 bg-gray-200 dark:bg-gray-700" />
-					<span className="absolute left-1/2 flex -translate-x-1/2 items-center gap-1 bg-white px-1 text-xs font-medium text-gray-900 dark:bg-gray-900 dark:text-white">
+					<hr className="my-6 h-px w-full border-0 bg-gray-200" />
+					<span className="absolute left-1/2 flex -translate-x-1/2 items-center gap-1 bg-white px-1 text-xs font-medium text-gray-900">
 						Magic Link
 						<QuestionMarkCircleIcon
 							className="inline-block h-4 w-4"
@@ -79,33 +80,36 @@ const AuthCard = () => {
 						onKeyDown={(e) => {
 							if (e.key === 'Enter') handleSubmitMagicLink();
 						}}
-						className="peer h-10 w-full border-b-2 border-gray-300 bg-transparent text-gray-900 placeholder-transparent focus:border-purple-600 focus:outline-none invalid:focus:border-red-500 dark:text-gray-300"
+						className="peer h-10 w-full border-b-2 border-gray-300 bg-transparent text-gray-900 placeholder-transparent focus:border-purple-600 focus:outline-none invalid:focus:border-red-500"
 					/>
 					{error && <span className="text-xs text-red-500">{error}</span>}
 					<label
 						htmlFor="email"
-						className="absolute -top-3.5 left-0 cursor-text text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-gray-600 dark:text-gray-300 dark:peer-focus:text-gray-300"
+						className="absolute -top-3.5 left-0 cursor-text text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-gray-600"
 					>
 						Email address
 					</label>
-					<span className="invisible text-xs text-red-500 peer-invalid:visible dark:text-red-400">
+					<span className="invisible text-xs text-red-500 peer-invalid:visible">
 						Invalid email
 					</span>
 					<button
 						type="button"
 						onClick={handleSubmitMagicLink}
-						className="mx-auto mt-1 block w-full rounded-full border border-transparent bg-purple-900 px-4 py-2 text-sm text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 peer-placeholder-shown:pointer-events-none peer-placeholder-shown:opacity-75 peer-invalid:pointer-events-none peer-invalid:opacity-75 dark:bg-purple-600 dark:text-white dark:focus:border-transparent dark:focus:ring-purple-500"
+						className="mx-auto mt-1 block w-full rounded-full border border-transparent bg-purple-900 px-4 py-2 text-sm text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 peer-placeholder-shown:pointer-events-none peer-placeholder-shown:opacity-75 peer-invalid:pointer-events-none peer-invalid:opacity-75"
 					>
 						Log In / Sign Up
 					</button>
 				</div>
 				<div className="relative inline-flex w-full items-center justify-center">
-					<hr className="my-6 h-px w-full border-0 bg-gray-200 dark:bg-gray-700" />
-					<span className="absolute left-1/2 -translate-x-1/2 bg-white px-1 text-xs font-medium text-gray-900 dark:bg-gray-900 dark:text-white">
+					<hr className="my-6 h-px w-full border-0 bg-gray-200" />
+					<span className="absolute left-1/2 -translate-x-1/2 bg-white px-1 text-xs font-medium text-gray-900">
 						Or continue with
 					</span>
 				</div>
 				<AuthProviders />
+				<Link className="mt-2 text-purple-700" href="/">
+					Go Home
+				</Link>
 			</div>
 		</div>
 	);

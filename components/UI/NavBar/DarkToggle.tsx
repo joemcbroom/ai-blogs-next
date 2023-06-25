@@ -24,15 +24,13 @@ const DarkToggle = () => {
 		);
 	}, [theme]);
 
-	if (isDark === null) return <IconLoader className="h-3 w-3" />;
-
 	const loader = ({ src }: { src: string }) => {
 		return `${src}`;
 	};
 
 	return (
 		<Switch
-			checked={isDark}
+			checked={isDark ?? false}
 			onChange={toggleTheme}
 			className={`${
 				isDark ? 'bg-sky-600' : 'bg-gray-200'
@@ -41,9 +39,17 @@ const DarkToggle = () => {
 			<span
 				className={`${
 					isDark ? 'translate-x-0' : 'translate-x-full'
-				} inline-block h-6 w-6 transform overflow-hidden rounded-full bg-white transition`}
+				} grid h-6 w-6 transform place-items-center overflow-hidden rounded-full bg-white transition`}
 			>
-				<Image loader={loader} src={isDark ? sunUrl : moonUrl} alt="sun/moon" />
+				{isDark === null ? (
+					<IconLoader className="h-3 w-3" />
+				) : (
+					<Image
+						loader={loader}
+						src={isDark ? sunUrl : moonUrl}
+						alt="sun/moon"
+					/>
+				)}
 			</span>
 		</Switch>
 	);
