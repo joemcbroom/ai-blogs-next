@@ -28,8 +28,8 @@ const AuthCard = () => {
 				emailRedirectTo: `${basePath}/api/auth/callback?redirect=${redirect}`,
 			},
 		});
-		if (error) setError(error.message);
-		if (!error) setIsSubmitted(true);
+		if (error) return setError(error.message);
+		setIsSubmitted(true);
 	};
 
 	return (
