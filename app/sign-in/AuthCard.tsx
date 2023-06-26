@@ -21,8 +21,7 @@ const AuthCard = () => {
 	const handleSubmitMagicLink = async () => {
 		const basePath = location.origin;
 		const { value, validity } = emailRef.current || {};
-		if (!value) return;
-		if (!validity?.valid) return;
+		if (!value || !validity?.valid) return;
 		const { error } = await supabase.auth.signInWithOtp({
 			email: value,
 			options: {
