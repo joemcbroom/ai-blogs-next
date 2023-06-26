@@ -14,18 +14,14 @@ const nextConfig = {
     ]
   },
   images: {
-    // remotePatterns: [
-    //   //https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/post/jfk-2.jpg?width=700&height=300
-    //   {
-    //     protocol: 'https',
-    //     hostname: 'dyhumgxwuzsrinvjiefx.supabase.co',
-    //     pathname: '/storage/v1/render/image/public/blogverse-public/**',
-    //   }
-    // ],
-
-    loader: 'custom',
-    loaderFile: './supabase-image-loader.js',
-
+    remotePatterns: [
+      // `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${path}`
+      {
+        hostname: 'dyhumgxwuzsrinvjiefx.supabase.co',
+        protocol: 'https',
+        pathname: '/storage/v1/render/image/public/blogverse-public/**',
+      }
+    ]
   }
 }
 

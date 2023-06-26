@@ -1,14 +1,15 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function NotFound() {
 	return (
 		<>
 			<div className="relative flex h-screen w-screen flex-col items-center justify-center bg-black text-white">
-				<img
+				<Image
 					src="/images/404-bg-astronaut.png"
 					alt="404"
 					className="absolute inset-0 z-0 h-full w-full object-contain"
+					fill={true}
 				/>
 
 				<h2 className="z-10 text-center text-2xl capitalize text-neutral-100">
