@@ -20,19 +20,17 @@ const NavLinks = () => {
 					About
 				</Link>
 			</li>
-			{session ? (
-				<li>
+			<li className="min-w-[60px]">
+				{session ? (
 					<Link href="/account" onClick={onClick}>
 						Account
 					</Link>
-				</li>
-			) : (
-				<li>
+				) : (
 					<Link href="/sign-in" onClick={onClick}>
 						Sign In
 					</Link>
-				</li>
-			)}
+				)}
+			</li>
 			<DarkToggle />
 		</ul>
 	);

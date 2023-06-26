@@ -5,12 +5,13 @@ import { useSupabase } from '#/lib/hooks/useSupabase';
 // framework
 import AuthCard from './AuthCard';
 import Container from '#/components/UI/containers/Container';
+import { redirect } from 'next/navigation';
 
 const SignInContent = () => {
 	const { session } = useSupabase();
 
 	if (session) {
-		debugger;
+		redirect('/account');
 	}
 
 	return (

@@ -37,7 +37,7 @@ const AuthCard = () => {
 			<BlogverseLogo type="horizontal" width={400} />
 
 			<div
-				className={`absolute inset-6 flex h-full flex-col items-center justify-center gap-2 p-8 text-center transition-opacity duration-500 ${
+				className={`absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-2 p-10 text-center transition-opacity duration-500 ${
 					!isSubmitted ? 'opacity-0' : 'opacity-100'
 				} `}
 			>
@@ -47,11 +47,11 @@ const AuthCard = () => {
 			</div>
 
 			<div
-				className={`absolute inset-6 flex h-full flex-col items-center justify-center p-8 duration-500 ${
+				className={`absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-2 p-10 duration-500 ${
 					isSubmitted ? 'opacity-0' : 'opacity-100'
 				} duration-500`}
 			>
-				<span className="text-slate-500">Register or Sign In</span>
+				<span className="mt-20 text-slate-500">Register or Sign In</span>
 				<div className="relative inline-flex w-full items-center justify-center">
 					<hr className="my-6 h-px w-full border-0 bg-gray-200" />
 					<span className="absolute left-1/2 flex -translate-x-1/2 items-center gap-1 bg-white px-1 text-xs font-medium text-gray-900">
@@ -106,7 +106,7 @@ const AuthCard = () => {
 					</span>
 				</div>
 				<AuthProviders />
-				<Link className="mt-2 text-purple-700" href="/">
+				<Link className="mt-2 text-purple-700 underline" href="/">
 					Go Home
 				</Link>
 			</div>

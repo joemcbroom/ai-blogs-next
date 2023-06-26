@@ -35,6 +35,7 @@ const AuthProviders = () => {
 				className="w-12 rounded-full bg-white p-2 drop-shadow"
 			>
 				<Image src={googleLogo} alt="Google Logo" loader={({ src }) => src} />
+				<span className="sr-only">Sign in with Google</span>
 			</button>
 		</div>
 	);
