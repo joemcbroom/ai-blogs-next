@@ -42,6 +42,14 @@ export async function middleware(request: NextRequest) {
 		user_id: session?.user.id ?? '',
 	});
 
+	if (session && pathname === '/sign-in') {
+		return redirect({ request, path: '/account' });
+	}
+
+	if (!session && pathname === '/account') {
+		return redirect({ request, path: '/' });
+	}
+
 	// For protected paths, redirect to sign-in if not logged in or to home if not admin
 	if (isProtectedPath) {
 		if (!session) {

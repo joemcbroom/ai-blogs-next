@@ -28,12 +28,12 @@ const HomeLayout = async ({ children, dialog }: HomeLayoutProps) => {
 			id="main-content-wrapper"
 			className="grid min-h-full w-full bg-white text-black dark:bg-black dark:text-white"
 		>
+			{dialog}
 			<NavBar />
 			<main className="h-full w-full">
 				{children}
 				<Footer />
 			</main>
-			{dialog}
 		</div>
 	);
 };
