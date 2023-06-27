@@ -2,7 +2,7 @@
 
 // components
 import ImgComponent from '#/components/UI/ImgComponent';
-import Logout from '#/app/auth/Logout';
+import Logout from '#/components/UI/Logout';
 
 // types
 import type { User } from '#/lib/types/inferred.types';

@@ -7,7 +7,9 @@ import Providers from './providers';
 import { ServerThemeProvider } from 'next-themes';
 import { SITE_INFO } from '#/lib/constants/siteInfo';
 import { OGTwitterMetadata } from '#/lib/utils/OGTwitterMetadata';
-import CookiesNotification from './(home)/cookie-policy/cookies-notification';
+import CookiesNotification from '#/app/(home)/cookie-policy/cookies-notification';
+import NavBar from '#/components/UI/NavBar';
+import Footer from '#/components/UI/footer';
 
 export const metadata: Metadata = {
 	title: SITE_INFO.title,

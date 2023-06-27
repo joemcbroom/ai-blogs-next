@@ -1,6 +1,6 @@
 // components
 import AdminHeading from '#/components/UI/admin/AdminHeading';
-import UserInfo from '#/app/admin/settings/UserInfo';
+import UserInfo from '#/app/(admin)/admin/settings/UserInfo';
 
 // lib
 import { getProfile } from '#/lib/supabase/server';
