@@ -15,7 +15,7 @@ const SignInContent = () => {
 	}
 
 	return (
-		<div className="grid h-screen w-screen bg-black bg-[url('/images/abstract-bg.jpg')] bg-cover bg-center bg-no-repeat">
+		<div className="fixed left-0 top-0 z-50 grid h-screen w-screen bg-black bg-[url('/images/abstract-bg.jpg')] bg-cover bg-center bg-no-repeat">
 			<Container>
 				<div className="flex h-full w-full flex-col-reverse items-center justify-center md:flex-row md:justify-between">
 					<div className="w-full md:w-7/12">

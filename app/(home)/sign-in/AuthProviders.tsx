@@ -2,21 +2,18 @@
 import { useSupabase } from '#/lib/hooks/useSupabase';
 import googleLogo from '#/public/images/google-logo.png';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 
 const AuthProviders = () => {
 	const { supabase } = useSupabase();
-	const currentPath = usePathname();
-	const authCallbackUrl = `${window.location.origin}/api/auth/callback`;
-	const redirect = `${currentPath}`;
-
-	const redirectTo = `${authCallbackUrl}?redirect=${redirect}`;
 
 	async function signInWithGoogle() {
 		const { data, error } = await supabase.auth.signInWithOAuth({
 			provider: 'google',
 			options: {
-				redirectTo,
+				redirectTo:
+					`https://${process.env.METADATA_BASE}` ||
+					`https://${process.env.VERCEL_URL}` ||
+					'https://localhost:3000',
 			},
 		});
 

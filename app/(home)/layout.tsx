@@ -20,9 +20,9 @@ export const metadata: Metadata = {
 
 type HomeLayoutProps = {
 	children: React.ReactNode;
-	modal?: React.ReactNode;
+	dialog?: React.ReactNode;
 };
-const HomeLayout = async ({ children, modal }: HomeLayoutProps) => {
+const HomeLayout = async ({ children, dialog }: HomeLayoutProps) => {
 	return (
 		<div
 			id="main-content-wrapper"
@@ -33,7 +33,7 @@ const HomeLayout = async ({ children, modal }: HomeLayoutProps) => {
 				{children}
 				<Footer />
 			</main>
-			{modal}
+			{dialog}
 		</div>
 	);
 };

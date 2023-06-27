@@ -1,7 +1,7 @@
 'use client';
 
 import BlogverseLogo from '#/components/UI/BlogverseLogo';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useRef, useState } from 'react';
 import AuthProviders from './AuthProviders';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/solid';
@@ -9,7 +9,7 @@ import { Tooltip } from 'react-tooltip';
 import { useSupabase } from '#/lib/hooks/useSupabase';
 import Link from 'next/link';
 
-const AuthCard = () => {
+const AuthCard = ({ closeDialog = () => {} }: { closeDialog?: () => void }) => {
 	const emailRef = useRef<HTMLInputElement>(null);
 	const [error, setError] = useState<string>('');
 	const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
@@ -106,7 +106,11 @@ const AuthCard = () => {
 					</span>
 				</div>
 				<AuthProviders />
-				<Link className="mt-2 text-purple-700 underline" href="/">
+				<Link
+					className="mt-2 text-purple-700 underline"
+					href="/"
+					onClick={closeDialog}
+				>
 					Go Home
 				</Link>
 			</div>
