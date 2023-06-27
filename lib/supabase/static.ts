@@ -19,7 +19,7 @@ export const getPost = async (post_slug: string) => {
 		.single();
 
 	if (error) {
-		console.error(`${post_slug}: ${error}`);
+		console.error(`${post_slug}: ${error.message}`);
 		throw error.message;
 	}
 
@@ -36,6 +36,10 @@ export const getPosts = async (space_slug: string) => {
 	if (error) {
 		console.error(error);
 		throw error.message;
+	}
+
+	if (!posts) {
+		throw new Error(`No posts found for space ${space_slug}`);
 	}
 
 	posts.sort(sortByUpdatedOrCreated());
@@ -75,6 +79,25 @@ export const getSpace = async (space_slug: string) => {
 	}
 
 	return space as BlogSpace;
+};
+
+export const getSpaceWithPosts = async (space_slug: string) => {
+	const { data: space, error } = await supabase
+		.from('space')
+		.select('*, posts: post(*)')
+		.eq('slug', space_slug)
+		.single();
+
+	if (error) {
+		console.error(`${space_slug}: ${error}`);
+		throw error.message;
+	}
+
+	if (!space?.posts.length) {
+		throw new Error(`No posts found for space ${space_slug}`);
+	}
+
+	return space as BlogSpaceWithPosts;
 };
 
 export const getSpaces = async () => {

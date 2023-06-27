@@ -12,10 +12,7 @@ const PostOrSpace = ({
 }) => {
 	if (!backgroundImagePath) return <FallbackOgImage title={title} />;
 
-	const imageSrc =
-		'https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/' +
-		backgroundImagePath +
-		'?width=1200&height=600&resize=cover';
+	const imageSrc = `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${backgroundImagePath}`;
 
 	return (
 		<div

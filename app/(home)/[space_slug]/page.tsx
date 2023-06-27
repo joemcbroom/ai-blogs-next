@@ -1,4 +1,9 @@
-import { getPosts, getSpace, supabase } from '#/lib/supabase/static';
+import {
+	getPosts,
+	getSpace,
+	getSpaceWithPosts,
+	supabase,
+} from '#/lib/supabase/static';
 import Link from 'next/link';
 import SpaceContent from './SpaceContent';
 import { notFound } from 'next/navigation';
@@ -13,13 +18,9 @@ const BlogHome = async ({
 	params: { space_slug: string };
 }) => {
 	try {
-		const posts = await getPosts(space_slug);
-		const space = await getSpace(space_slug);
-		if (!posts?.length) {
-			return <div>no (published) posts</div>;
-		}
+		const space = await getSpaceWithPosts(space_slug);
 
-		return <SpaceContent posts={posts} space={space} />;
+		return <SpaceContent posts={space.posts || []} space={space} />;
 	} catch (e) {
 		return notFound();
 	}
