@@ -9,6 +9,7 @@ interface ImageUploaderProps {
 	onClear: () => void;
 	image?: File;
 	fileUrl?: string;
+	variant?: 'avatar' | 'postOrSpace';
 }
 
 function ImageUploader({
@@ -16,6 +17,7 @@ function ImageUploader({
 	onClear,
 	image,
 	fileUrl,
+	variant = 'postOrSpace',
 }: ImageUploaderProps) {
 	const [previewImage, setPreviewImage] = useState<string | null>(null);
 	// component ref
@@ -54,7 +56,9 @@ function ImageUploader({
 	return (
 		<>
 			<div
-				className="relative z-10 flex max-w-fit cursor-pointer items-center justify-center bg-gray-200"
+				className={`relative z-10 flex max-w-fit cursor-pointer items-center justify-center bg-gray-200 ${
+					variant === 'avatar' ? 'overflow-hidden rounded-full' : ''
+				}`}
 				ref={fileInputRef}
 				onClick={() => {
 					fileInputRef.current?.querySelector('input')?.click();
@@ -74,21 +78,25 @@ function ImageUploader({
 					className="hidden"
 				/>
 			</div>
-			{fileUrl && (
-				<span className="my-1 block text-xs text-slate-500">
-					<FolderIcon className="mr-1 inline-block h-4 w-4" />
-					{fileUrl.split('/').pop()}
-				</span>
-			)}
-			<span>Click Image To Upload/Change</span>
-			{previewImage && (
-				<IconWithText
-					icon={XCircleIcon}
-					text="Clear Image"
-					onClick={() => {
-						onClear();
-					}}
-				/>
+			{variant !== 'avatar' && (
+				<>
+					{fileUrl && (
+						<span className="my-1 block text-xs text-slate-500">
+							<FolderIcon className="mr-1 inline-block h-4 w-4" />
+							{fileUrl.split('/').pop()}
+						</span>
+					)}
+					<span>Click Image To Upload/Change</span>
+					{previewImage && (
+						<IconWithText
+							icon={XCircleIcon}
+							text="Clear Image"
+							onClick={() => {
+								onClear();
+							}}
+						/>
+					)}
+				</>
 			)}
 		</>
 	);

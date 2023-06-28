@@ -106,13 +106,6 @@ const AuthCard = ({ closeDialog = () => {} }: { closeDialog?: () => void }) => {
 					</span>
 				</div>
 				<AuthProviders />
-				<Link
-					className="mt-2 text-purple-700 underline"
-					href="/"
-					onClick={closeDialog}
-				>
-					Go Home
-				</Link>
 			</div>
 		</div>
 	);

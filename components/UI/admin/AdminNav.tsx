@@ -53,8 +53,8 @@ const adminPages: AdminPage[] = [
 		children: ['/edit'],
 	},
 	{
-		name: 'Settings',
-		href: '/admin/settings',
+		name: 'Account',
+		href: '/account',
 		bgClass: 'bg-emerald-500',
 		icon: <Cog6ToothIcon className="w-6" />,
 	},

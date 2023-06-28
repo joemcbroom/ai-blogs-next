@@ -24,7 +24,12 @@ const SignInDialog = () => {
 			<div className="fixed inset-0 flex items-center justify-center p-4">
 				{/* The actual dialog panel  */}
 				<Dialog.Panel className="mx-auto max-w-sm rounded bg-white">
-					<AuthCard closeDialog={() => setIsOpen(false)} />
+					<AuthCard
+						closeDialog={() => {
+							router.refresh();
+							setIsOpen(false);
+						}}
+					/>
 				</Dialog.Panel>
 			</div>
 		</Dialog>

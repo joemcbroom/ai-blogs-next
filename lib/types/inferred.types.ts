@@ -9,6 +9,7 @@ export type BlogSpaceInsert = Database['public']['Tables']['space']['Insert'];
 export type BlogSpaceUpdate = Database['public']['Tables']['space']['Update'];
 export type PostPreviousVersion =
 	Database['public']['Tables']['post_previous_version']['Row'];
+export type User = Database['public']['Tables']['profiles']['Row'];
 
 export type AbbreviatedPost = {
 	title: string;
@@ -40,5 +41,3 @@ export type BlogSpaceWithAbbreviatedPosts = BlogSpace & {
 export type BlogSpaceWithPosts = BlogSpace & {
 	posts: Post[] | null;
 };
-
-export type User = Database['public']['Tables']['profiles']['Row'];

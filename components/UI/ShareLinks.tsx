@@ -36,28 +36,29 @@ const ShareLinks = ({ currentPage }: { currentPage?: boolean }) => {
 	};
 
 	return (
-		<div className="flex items-center justify-center">
-			<FacebookShareButton url={url}>
-				<FacebookIcon {...iconProps} />
-			</FacebookShareButton>
-			<LinkedinShareButton url={url}>
-				<LinkedinIcon {...iconProps} />
-			</LinkedinShareButton>
-			<TwitterShareButton url={url}>
-				<TwitterIcon {...iconProps} />
-			</TwitterShareButton>
-			<PinterestShareButton url={url} media={url}>
-				<PinterestIcon {...iconProps} />
-			</PinterestShareButton>
-			<span
-				role="presentation"
-				dangerouslySetInnerHTML={{ __html: '<!-- fuck reddit -->' }}
-			/>
-			{/* 
-			<RedditShareButton url={url}>
-				<RedditIcon {...iconProps} />
-			</RedditShareButton> */}
-		</div>
+		<div>share links here</div>
+		// <div className="flex items-center justify-center">
+		// 	<FacebookShareButton url={url}>
+		// 		<FacebookIcon {...iconProps} />
+		// 	</FacebookShareButton>
+		// 	<LinkedinShareButton url={url}>
+		// 		<LinkedinIcon {...iconProps} />
+		// 	</LinkedinShareButton>
+		// 	<TwitterShareButton url={url}>
+		// 		<TwitterIcon {...iconProps} />
+		// 	</TwitterShareButton>
+		// 	<PinterestShareButton url={url} media={url}>
+		// 		<PinterestIcon {...iconProps} />
+		// 	</PinterestShareButton>
+		// 	<span
+		// 		role="presentation"
+		// 		dangerouslySetInnerHTML={{ __html: '<!-- fuck reddit -->' }}
+		// 	/>
+		// 	{/*
+		// 	<RedditShareButton url={url}>
+		// 		<RedditIcon {...iconProps} />
+		// 	</RedditShareButton> */}
+		// </div>
 	);
 };
 

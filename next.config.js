@@ -20,6 +20,11 @@ const nextConfig = {
         hostname: 'dyhumgxwuzsrinvjiefx.supabase.co',
         protocol: 'https',
         pathname: '/storage/v1/render/image/public/blogverse-public/**',
+      },
+      {
+        hostname: "*.gravatar.com",
+        protocol: "https",
+        pathname: "/avatar/**",
       }
     ]
   }

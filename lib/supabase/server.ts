@@ -30,7 +30,6 @@ export const getAuthenticatedUser =
 	async (): Promise<AuthenticatedUser | null> => {
 		const supabase = await supabaseSingleton();
 		const { data, error } = await supabase.auth.getSession();
-		console.log(data);
 		if (error) {
 			console.error(error);
 			throw new Error(error.message);

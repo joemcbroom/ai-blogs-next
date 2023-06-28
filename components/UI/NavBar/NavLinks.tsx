@@ -3,10 +3,12 @@ import Link from 'next/link';
 import DarkToggle from './DarkToggle';
 import { useSupabase } from '#/lib/hooks/useSupabase';
 
-const NavLinks = () => {
+const NavLinks = ({ variant = 'nav' }: { variant?: 'footer' | 'nav' }) => {
 	const { session } = useSupabase();
 	const onClick = () => {
-		document.getElementById('menu-toggle')?.click();
+		if (variant !== 'footer') {
+			document.getElementById('menu-toggle')?.click();
+		}
 	};
 	return (
 		<ul className="flex flex-col items-center space-y-4 md:flex-row md:space-x-4 md:space-y-0">
