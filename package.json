@@ -28,6 +28,7 @@
     "@tiptap/react": "^2.0.3",
     "@tiptap/starter-kit": "^2.0.3",
     "eslint-config-next": "^13.4.3",
+    "hammerjs": "^2.0.8",
     "html-react-parser": "^4.0.0",
     "limax": "^3.0.0",
     "next": "^13.4.6",
