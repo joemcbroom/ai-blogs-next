@@ -1,6 +1,6 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
-import NavLinks from './NavLinks';
 import NavLogo from './NavLogo';
+import MobileNavLinks from './MobileNavLinks';
 
 const MobileBar = () => {
 	return (
@@ -23,10 +23,8 @@ const MobileBar = () => {
 			>
 				<XMarkIcon className="h-6 w-6 text-violet-700" />
 			</label>
-			{/* full height menu when menu-toggle is checked */}
-			<div className="fixed left-0 top-0 z-40 grid h-screen w-screen -translate-y-full place-items-center bg-neutral-100 transition-all ease-in-out peer-checked/menu-toggle:z-30 peer-checked/menu-toggle:translate-y-0 dark:bg-neutral-900">
-				<NavLinks />
-			</div>
+
+			<MobileNavLinks />
 		</div>
 	);
 };
