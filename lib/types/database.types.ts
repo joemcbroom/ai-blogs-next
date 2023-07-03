@@ -3,7 +3,7 @@ export type Json =
   | number
   | boolean
   | null
-  | { [key: string]: Json }
+  | { [key: string]: Json | undefined }
   | Json[]
 
 export interface Database {
@@ -90,34 +90,34 @@ export interface Database {
         Row: {
           avatar_url: string | null
           created_at: string
+          display_name: string | null
           email: string | null
           full_name: string | null
           id: string
           is_admin: boolean
           updated_at: string | null
-          username: string | null
           website: string | null
         }
         Insert: {
           avatar_url?: string | null
           created_at?: string
+          display_name?: string | null
           email?: string | null
           full_name?: string | null
           id: string
           is_admin?: boolean
           updated_at?: string | null
-          username?: string | null
           website?: string | null
         }
         Update: {
           avatar_url?: string | null
           created_at?: string
+          display_name?: string | null
           email?: string | null
           full_name?: string | null
           id?: string
           is_admin?: boolean
           updated_at?: string | null
-          username?: string | null
           website?: string | null
         }
         Relationships: [
