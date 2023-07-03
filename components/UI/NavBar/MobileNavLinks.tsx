@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import NavLinks from './NavLinks';
+import { Bars2Icon } from '@heroicons/react/24/solid';
 
 const MobileNavLinks = () => {
 	useEffect(() => {
@@ -39,6 +40,10 @@ const MobileNavLinks = () => {
 			id="nav-wrapper"
 		>
 			<NavLinks />
+			<Bars2Icon
+				className="h-12 absolute bottom-0 left-1/2 -ml-6 w-12 text-violet-700"
+				onClick={() => document.getElementById('menu-toggle')?.click()}
+			/>
 		</div>
 	);
 };

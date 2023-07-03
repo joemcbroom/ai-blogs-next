@@ -7,6 +7,9 @@ module.exports = {
     "./lib/hooks/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    height: {
+      "screen": "100svh",
+    },
     extend: {
       colors: {
         primary: "var(--color-primary)",
