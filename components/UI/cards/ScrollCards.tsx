@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
+import SUPABASE_CONSTANTS from '#/lib/constants/supabaseConstants';
 import { supabase } from '#/lib/supabase/client';
 import { BlogSpace, Post, PostWithSpace } from '#/lib/types/inferred.types';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const CardSmall = ({
@@ -10,24 +12,21 @@ const CardSmall = ({
 	image_path: string | null;
 	title: string;
 }) => {
-	const imagePath = image_path || 'general/abstract-bg.jpg';
-	const { data: bgImage } = supabase.storage
-		.from('blogverse-public')
-		.getPublicUrl(imagePath, {
-			transform: {
-				width: 100,
-				height: 100,
-				resize: 'cover',
-			},
-		});
 	return (
 		<div className="relative flex w-24 flex-col space-y-1 text-xs font-semibold md:w-36 md:text-sm">
 			<div className="relative aspect-square w-full overflow-hidden rounded-lg">
 				<span className="absolute inset-0 z-10 bg-gradient-to-t from-neutral-900 to-transparent to-40% dark:from-purple-700 "></span>
-				<img
-					src={bgImage?.publicUrl}
+				<Image
+					src={
+						image_path
+							? SUPABASE_CONSTANTS.PUBLIC_URL(image_path)
+							: '/images/abstract-bg.jpg'
+					}
 					alt=""
 					className="absolute inset-0 z-0 aspect-square w-full rounded-lg object-cover"
+					fill={true}
+					// only 96px wide max
+					sizes="(max-width: 96px) 100vw, 96px"
 				/>
 			</div>
 			<span className="line-clamp-1 md:line-clamp-none">{title}</span>

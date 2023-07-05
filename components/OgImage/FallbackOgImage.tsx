@@ -4,7 +4,7 @@ const FallbackOgImage = ({ title }: { title: string }) => {
 		width: 1200,
 		height: 600,
 	};
-	const bgUrl = `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/general/img-bkg-futureisnow.jpg?width=${size.width}&height=${size.height}&resize=cover`;
+	const bgUrl = `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/general/img-bkg-futureisnow.jpg`;
 
 	return (
 		<div

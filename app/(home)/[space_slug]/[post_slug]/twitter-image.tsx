@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { getPost } from '#/lib/supabase/static';
 import { ImageResponse } from 'next/server';
 import ContentOgImage from '#/components/OgImage/ContentOgImage';

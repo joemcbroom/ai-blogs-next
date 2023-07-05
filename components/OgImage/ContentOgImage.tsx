@@ -41,7 +41,7 @@ const PostOrSpace = ({
 					style={{
 						objectFit: 'contain',
 					}}
-					src="https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/general/logo-blogverse-drk.png?width=300&height=120&resize=contain"
+					src="https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/general/logo-blogverse-drk.png"
 					alt="Blogverse logo"
 				/>
 			</div>

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from 'next/server';
 import ContentOgImage from '#/components/OgImage/ContentOgImage';
 import { SITE_INFO } from '#/lib/constants/siteInfo';
