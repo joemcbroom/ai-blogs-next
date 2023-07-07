@@ -61,14 +61,6 @@ const ContentWithAds = ({ content }: { content: string }) => {
 			return false;
 		}
 
-		// if (element.type === 'li') {
-		// 	return (
-		// 		// @ts-expect-error
-		// 		JSON.stringify(element?.props?.children).length >=
-		// 		CHARACTER_COUNT_MODIFIER
-		// 	);
-		// }
-
 		const validElements = ['p', 'blockquote', 'pre', 'div', 'li'];
 		// @ts-expect-error
 		return validElements.includes(element.type);
