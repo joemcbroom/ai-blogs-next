@@ -22,7 +22,7 @@ const PostContent: React.FC = ({ post }: { post: PostWithSpace }) => {
 			<Container type="postContent">
 				<ContentWithAds content={content || ''} />
 			</Container>
-			<section className="mx-auto my-6 flex w-full max-w-4xl items-center justify-between border-y p-6 sm:justify-end sm:space-x-2">
+			<section className="mx-auto my-6 flex w-full max-w-8xl items-center justify-between border-y p-6 sm:justify-end sm:space-x-2">
 				<span className="text-xs text-neutral-600 dark:text-neutral-200 md:text-base">
 					Share this post:
 				</span>

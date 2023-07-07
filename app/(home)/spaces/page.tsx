@@ -13,7 +13,7 @@ const SpacesPage = async () => {
 	return (
 		<>
 			<article>
-				<Container>
+				<Container fade={true}>
 					<Heading>Spaces</Heading>
 					<CardWrapper>
 						{spaces.map((space) => (

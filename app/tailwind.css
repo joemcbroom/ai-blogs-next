@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.mask-image {
+  mask-image: linear-gradient(to right, black 80%, transparent 98%)
+}
+
 .bubble::after {
   content: '';
   position: absolute;

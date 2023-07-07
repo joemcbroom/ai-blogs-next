@@ -44,7 +44,7 @@ const ScrollCards = ({ items }: { items: BlogSpace[] | PostWithSpace[] }) => {
 		}
 	};
 	return (
-		<div className="scroll-cards -mr-4 flex snap-x scroll-px-[50%] scroll-py-0 space-x-3 overflow-x-scroll py-4 md:mr-0">
+		<div className="scroll-cards relative -mr-4 flex snap-x scroll-px-[50%] scroll-py-0 space-x-3 overflow-x-scroll py-4 pr-16 md:mr-0">
 			{items.map((item, index) => (
 				<Link
 					href={getHref(item)}

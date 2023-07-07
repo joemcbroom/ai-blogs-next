@@ -1,6 +1,6 @@
 const CardsLoader = () => {
 	return (
-		<div className="mx-auto mt-6 grid max-w-4xl animate-pulse gap-4 px-4 md:grid-cols-auto-fit md:px-0">
+		<div className="mx-auto mt-6 grid max-w-8xl animate-pulse gap-4 px-4 md:grid-cols-auto-fit md:px-0">
 			{[...Array(10)].map((_, i) => (
 				<div
 					className="relative flex min-h-[375px] flex-col items-start justify-end gap-2 overflow-hidden rounded-2xl bg-white p-4 shadow-xl"

@@ -21,7 +21,7 @@ const HomeContent = async ({ spaces, featuredPosts }: HomeContentProps) => {
 				image_path="general/abstract-bg.jpg"
 				variant="home"
 			/>
-			<Container>
+			<Container fade={true}>
 				<Heading>Spaces</Heading>
 				<ScrollCards items={spaces} />
 			</Container>
