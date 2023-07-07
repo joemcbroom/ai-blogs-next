@@ -7,9 +7,7 @@ module.exports = {
     "./lib/hooks/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    height: {
-      "screen": "100svh",
-    },
+
     extend: {
       colors: {
         primary: "var(--color-primary)",
@@ -18,7 +16,10 @@ module.exports = {
       },
       gridTemplateColumns: {
         "auto-fit": "repeat(auto-fit, minmax(250px, 1fr))",
-      }
+      },
+      height: {
+        "screen": "100svh",
+      },
     },
     plugins: [],
   }
