@@ -26,7 +26,7 @@ const Card = ({
 }: CardProps) => {
 	return (
 		<div
-			className="relative flex min-h-[375px] flex-col items-start justify-end gap-2 overflow-hidden rounded-2xl bg-white p-4 shadow-xl"
+			className="relative flex min-h-[375px] flex-col items-start justify-end gap-2 overflow-hidden rounded-2xl bg-white shadow-xl"
 			id={slug}
 		>
 			<Image
@@ -37,7 +37,7 @@ const Card = ({
 				sizes="(max-width: 640px) 100vw, 640px"
 			/>
 			{spaceTitle && (
-				<div className="absolute left-3 top-3 z-50 rounded-lg bg-black bg-opacity-50 px-2 py-1 text-sm text-white">
+				<div className="absolute left-3 top-3 z-30 rounded-lg bg-black bg-opacity-50 px-2 py-1 text-sm text-white">
 					{spaceSlug ? (
 						<Link href={`/${spaceSlug}`}>{spaceTitle}</Link>
 					) : (

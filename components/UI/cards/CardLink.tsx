@@ -42,7 +42,7 @@ const CardLink = ({ href, slug, isSpace, title, children }: CardLinkProps) => {
 	return (
 		<Link
 			role="link"
-			className="group absolute -inset-y-6 inset-x-6 z-10 flex h-full w-full items-end justify-start text-xs font-medium text-neutral-100 opacity-100 transition-opacity duration-500"
+			className="group z-10 flex h-full w-full items-end justify-start p-6 text-xs font-medium text-neutral-100 opacity-100 transition-opacity duration-500"
 			onClick={() => handleLinkClick()}
 			ref={buttonRef}
 			href={href}
