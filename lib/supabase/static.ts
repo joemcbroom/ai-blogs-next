@@ -14,7 +14,7 @@ export const supabase = createClient(
 export const getPost = async (post_slug: string) => {
 	const { data: post, error } = await supabase
 		.from('post')
-		.select('*, space:space_id (image_path, slug, description)')
+		.select('*, space:space_id (image_path, slug, description, title)')
 		.eq('slug', post_slug)
 		.single();
 

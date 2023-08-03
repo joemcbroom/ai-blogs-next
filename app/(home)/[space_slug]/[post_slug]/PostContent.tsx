@@ -16,6 +16,8 @@ const PostContent: React.FC = ({ post }: { post: PostWithSpace }) => {
 				description={description}
 				image_path={image_path || space?.image_path || ''}
 				wordCount={content?.split(' ').length || 0}
+				spaceSlug={space?.slug || ''}
+				spaceTitle={space?.title || ''}
 			/>
 			{/* <LikesAndComments */}
 

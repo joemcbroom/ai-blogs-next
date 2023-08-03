@@ -10,9 +10,10 @@ interface CardLinkProps {
 	slug: string;
 	isSpace: boolean;
 	title: string;
+	children?: React.ReactNode;
 }
 
-const CardLink = ({ href, slug, isSpace, title }: CardLinkProps) => {
+const CardLink = ({ href, slug, isSpace, title, children }: CardLinkProps) => {
 	const [card, setCardElement] = useState<HTMLDivElement | null>(null);
 	const buttonRef = useRef<HTMLAnchorElement>(null);
 	const router = useRouter();
@@ -41,7 +42,7 @@ const CardLink = ({ href, slug, isSpace, title }: CardLinkProps) => {
 	return (
 		<Link
 			role="link"
-			className="z-10 text-xs font-medium text-neutral-100 opacity-100 transition-opacity duration-500 hover:bg-neutral-50 hover:text-neutral-800"
+			className="group z-10 flex h-full w-full items-end justify-start p-6 text-xs font-medium text-neutral-100 opacity-100 transition-opacity duration-500"
 			onClick={() => handleLinkClick()}
 			ref={buttonRef}
 			href={href}
@@ -49,10 +50,13 @@ const CardLink = ({ href, slug, isSpace, title }: CardLinkProps) => {
 			{isSpace ? (
 				'View Space'
 			) : (
-				<>
-					Read More <ArrowLongRightIcon className="inline-block h-4 w-4" />
+				<span>
+					{children}
+					<span className="hover:bg-neutral-50 hover:text-neutral-800 group-hover:bg-neutral-50 group-hover:text-neutral-800">
+						Read More <ArrowLongRightIcon className="inline-block h-4 w-4" />
+					</span>
 					<span className="sr-only">about {title}</span>
-				</>
+				</span>
 			)}
 		</Link>
 	);
