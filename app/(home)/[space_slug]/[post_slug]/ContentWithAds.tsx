@@ -57,7 +57,7 @@ const ContentWithAds = ({ content }: { content: string }) => {
 		// element must be an html element
 		// and not a list wrapper (ol, ul)
 		// so valid elements are p, blockquote, pre, div, li
-		if (typeof element === 'string') {
+		if (typeof element === 'string' || process.env.DISABLE_ADS === 'true') {
 			return false;
 		}
 

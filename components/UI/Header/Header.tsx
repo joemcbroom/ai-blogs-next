@@ -1,18 +1,21 @@
 import { SITE_INFO } from '#/lib/constants/siteInfo';
 import { supabase } from '#/lib/supabase/static';
+import Link from 'next/link';
 import PostHeaderImage from '../PostHeaderImage';
 import HeaderWrapper from './HeaderWrapper';
 
 interface HeaderProps {
 	created_at?: string;
-	updated_at?: string | null;
+	updated_at?: string;
 	title: string;
-	description: string | null | React.ReactNode;
-	image_path: string | null;
+	description?: string | React.ReactNode;
+	image_path?: string;
 	wordCount?: number;
 	postCount?: number;
 	showDescription?: boolean;
 	variant?: 'home' | 'post' | 'about';
+	spaceSlug?: string;
+	spaceTitle?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -24,6 +27,8 @@ const Header: React.FC<HeaderProps> = ({
 	postCount,
 	showDescription = false,
 	variant = 'post',
+	spaceSlug,
+	spaceTitle,
 }) => {
 	const isHomeVariant = variant === 'home';
 	const isAboutVariant = variant === 'about';
@@ -61,9 +66,26 @@ const Header: React.FC<HeaderProps> = ({
 				{!isHomeVariant && !isAboutVariant && (
 					<div className="flex gap-2 text-sm font-semibold text-white">
 						<span>{formattedDate}</span>
-						<span>・</span>
-						{readTime && <span>{readTime} min read</span>}
-						{postCount && <span>{postCount} posts</span>}
+						{readTime && (
+							<>
+								<span>・</span>
+								<span>{readTime} min read</span>
+							</>
+						)}
+						{postCount && (
+							<>
+								<span>・</span>
+								<span>{postCount} posts</span>
+							</>
+						)}
+						{spaceSlug && (
+							<>
+								<span>・</span>
+								<Link className="hover:underline" href={`/${spaceSlug}`}>
+									{spaceTitle}
+								</Link>
+							</>
+						)}
 					</div>
 				)}
 				<h1 className={h1Class}>{title}</h1>
