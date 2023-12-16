@@ -15,11 +15,11 @@ const nextConfig = {
   },
   images: {
     remotePatterns: [
-      // `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/${path}`
+      // `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/object/public/blogverse-public/${path}`
       {
         hostname: 'dyhumgxwuzsrinvjiefx.supabase.co',
         protocol: 'https',
-        pathname: '/storage/v1/render/image/public/blogverse-public/**',
+        pathname: '/storage/v1/object/public/blogverse-public/**',
       }
     ]
   }
