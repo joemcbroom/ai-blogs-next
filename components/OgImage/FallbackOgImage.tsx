@@ -4,7 +4,7 @@ const FallbackOgImage = ({ title }: { title: string }) => {
 		width: 1200,
 		height: 600,
 	};
-	const bgUrl = `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/general/img-bkg-futureisnow.jpg`;
+	const bgUrl = `https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/object/public/blogverse-public/general/img-bkg-futureisnow.jpg`;
 
 	return (
 		<div
@@ -31,7 +31,7 @@ const FallbackOgImage = ({ title }: { title: string }) => {
 					right: '4rem',
 					objectFit: 'contain',
 				}}
-				src="https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/general/logo-blogverse-drk.png"
+				src="https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/object/public/blogverse-public/general/logo-blogverse-drk.png"
 				alt="Blogverse logo"
 			/>
 			<div

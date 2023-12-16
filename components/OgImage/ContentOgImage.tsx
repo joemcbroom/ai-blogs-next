@@ -13,7 +13,7 @@ const PostOrSpace = ({
 	if (!backgroundImagePath) return <FallbackOgImage title={title} />;
 
 	const imageSrc =
-		'https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/' +
+		'https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/object/public/blogverse-public/' +
 		backgroundImagePath +
 		'?width=1200&height=600&resize=cover';
 
@@ -41,7 +41,7 @@ const PostOrSpace = ({
 					style={{
 						objectFit: 'contain',
 					}}
-					src="https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/render/image/public/blogverse-public/general/logo-blogverse-drk.png"
+					src="https://dyhumgxwuzsrinvjiefx.supabase.co/storage/v1/object/public/blogverse-public/general/logo-blogverse-drk.png"
 					alt="Blogverse logo"
 				/>
 			</div>
