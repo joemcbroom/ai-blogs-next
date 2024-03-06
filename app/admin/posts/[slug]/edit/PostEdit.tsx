@@ -325,7 +325,7 @@ const PostEdit: React.FC<Props> = ({ post }) => {
 					isGeneratedContent={isGeneratedContent}
 					setGeneratedContent={setIsGeneratedContent}
 				/>
-				<div className="flex gap-4 mb-24">
+				<div className="flex gap-4">
 					<ButtonComponent
 						type="button"
 						buttonStyle="primary"
