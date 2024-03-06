@@ -1,4 +1,4 @@
-import { ImageResponse } from 'next/server';
+import { ImageResponse } from 'next/og';
 import ContentOgImage from '#/components/OgImage/ContentOgImage';
 import { SITE_INFO } from '#/lib/constants/siteInfo';
 

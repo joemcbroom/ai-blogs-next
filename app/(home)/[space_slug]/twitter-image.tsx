@@ -1,5 +1,5 @@
 import { getSpace } from '#/lib/supabase/static';
-import { ImageResponse } from 'next/server';
+import { ImageResponse } from 'next/og';
 import ContentOgImage from '#/components/OgImage/ContentOgImage';
 
 // Route segment config
