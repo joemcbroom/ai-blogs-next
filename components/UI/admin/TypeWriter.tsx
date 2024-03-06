@@ -15,7 +15,7 @@ export default function TypeWriter({
 }) {
 	return (
 		<div className="bubble relative min-h-fit min-w-[3.55rem] rounded-xl bg-white px-4 py-2 drop-shadow ">
-			{/* <TypeIt
+			<TypeIt
 				options={{
 					speed: 100,
 					loop: true,
@@ -26,8 +26,7 @@ export default function TypeWriter({
 					});
 					return instance;
 				}}
-			/> */}
-			<span> typewriter here </span>
+			/>
 		</div>
 	);
 }

@@ -46,25 +46,29 @@ export const generatePostContent = async ({
 		contentString += `. The blog description is: "${space_description}"`;
 	if (description)
 		contentString += `. The post description is: "${description}"`;
-	contentString += `.  Format the blog post as html.  The article be approximately \`${content_length}\` words long.`;
+	contentString += `.  Format the blog post as html. (do not include wrapping HTML tag).  The article should be approximately \`${content_length}\` words long.`;
 
-	const { data } = await openai.createChatCompletion({
-		model: LANGUAGE_MODEL,
-		messages: [
-			{
-				role: 'system',
-				content:
-					'You are an expert content writer for a blog. Omit extra details or superfulous explanations. Format blog posts as HTML. Do NOT include HTML, head, body, or style tags',
-			},
-			{
-				role: 'user',
-				content: contentString,
-			},
-		],
-	});
-	const content = data.choices[0]?.message?.content;
-	if (!content) throw new Error('No content generated');
-	return content;
+	try {
+		const { data } = await openai.createChatCompletion({
+			model: LANGUAGE_MODEL,
+			messages: [
+				{
+					role: 'system',
+					content:
+						'You are an expert content writer for a blog. Omit extra details or superfulous explanations. Format blog posts as HTML. Do NOT include HTML, head, body, or style tags',
+				},
+				{
+					role: 'user',
+					content: contentString,
+				},
+			],
+		});
+		const content = data.choices[0]?.message?.content;
+		if (!content) throw new Error('No content generated');
+		return content;
+	} catch (error) {
+		console.error(error);
+	}
 };
 
 export const generatePostTitles = async ({

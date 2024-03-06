@@ -34,6 +34,7 @@ const Header: React.FC<HeaderProps> = ({
 	const isAboutVariant = variant === 'about';
 	let src = '';
 	if (image_path) {
+
 		const { data } = supabase.storage
 			.from('blogverse-public')
 			.getPublicUrl(image_path || '');

@@ -10,9 +10,10 @@ const PostHeaderImage = async ({ path }: { path: string }) => {
 				src={
 					path ? SUPABASE_CONSTANTS.PUBLIC_URL(path) : '/images/abstract-bg.jpg'
 				}
+				width={600}
+				height={400}
 				alt=""
 				className={className}
-				fill={true}
 			/>
 		</>
 	);
