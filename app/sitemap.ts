@@ -1,7 +1,7 @@
 import { getAllPostSlugs } from '#/lib/supabase/static';
 import { MetadataRoute } from 'next';
 
-export const revalidate = 360;
+export const revalidate = 60;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const posts = await getAllPostSlugs();

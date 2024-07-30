@@ -4,7 +4,7 @@ import { SITE_INFO } from '#/lib/constants/siteInfo';
 import { OGTwitterMetadata } from '#/lib/utils/OGTwitterMetadata';
 import { Metadata } from 'next';
 
-export const revalidate = 360;
+export const revalidate = 60;
 
 const title = SITE_INFO.title;
 const description = SITE_INFO.description;

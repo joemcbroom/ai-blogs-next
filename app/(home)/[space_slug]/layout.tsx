@@ -5,7 +5,7 @@ import { getSpace } from '#/lib/supabase/server';
 import { OGTwitterMetadata } from '#/lib/utils/OGTwitterMetadata';
 import { SITE_INFO } from '#/lib/constants/siteInfo';
 
-export const revalidate = 360;
+export const revalidate = 60;
 
 type Props = {
 	params: { space_slug: string };

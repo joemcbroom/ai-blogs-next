@@ -6,7 +6,7 @@ import { getSpaces } from '#/lib/supabase/static';
 
 export const dynamic = 'force-static';
 
-export const revalidate = 360;
+export const revalidate = 60;
 
 const SpacesPage = async () => {
 	const spaces = await getSpaces();

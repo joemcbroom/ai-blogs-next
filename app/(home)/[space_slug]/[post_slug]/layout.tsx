@@ -3,7 +3,7 @@ import { getPost, getPostSlugs, supabase } from '#/lib/supabase/static';
 import { OGTwitterMetadata } from '#/lib/utils/OGTwitterMetadata';
 import { ResolvingMetadata, Metadata } from 'next';
 
-export const revalidate = 360;
+export const revalidate = 60;
 
 export async function generateMetadata(
 	{ params: { post_slug } }: { params: { post_slug: string } },
