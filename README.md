@@ -2,6 +2,8 @@
 
 Welcome to Blogverse.ai, a simple blog application built using Next.js 13 with the new App Router, server components, and other exciting features!
 
+![demo](./demo.gif)
+
 ## Getting Started
 
 To get started with Blogverse.ai, clone this repository and follow the steps below:
